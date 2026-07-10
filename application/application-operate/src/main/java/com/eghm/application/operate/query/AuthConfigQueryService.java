@@ -5,7 +5,7 @@ import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.vo.operate.auth.AuthConfigResponse;
 
 /**
- * 第三方授权配置查询端口
+ * 第三方授权配置查询服务
  *
  * @author 二哥很猛
  * @since 2023/10/20

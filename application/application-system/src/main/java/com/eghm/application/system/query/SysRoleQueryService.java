@@ -5,7 +5,7 @@ import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.vo.sys.ext.SysRoleResponse;
 
 /**
- * 角色查询网关
+ * 角色查询服务
  *
  * @author 二哥很猛
  */

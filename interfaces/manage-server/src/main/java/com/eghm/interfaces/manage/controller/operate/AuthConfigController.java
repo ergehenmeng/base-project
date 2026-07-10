@@ -7,6 +7,7 @@ import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.operate.auth.AuthConfigAddRequest;
 import com.eghm.application.shared.dto.operate.auth.AuthConfigEditRequest;
+import com.eghm.application.operate.query.AuthConfigQueryService;
 import com.eghm.application.operate.service.AuthConfigApplicationService;
 import com.eghm.application.shared.vo.operate.auth.AuthConfigResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -37,10 +38,12 @@ public class AuthConfigController {
 
     private final AuthConfigApplicationService authConfigService;
 
+    private final AuthConfigQueryService authConfigQueryService;
+
     @GetMapping("/listPage")
     @Operation(summary = "列表")
     public RespBody<PageData<AuthConfigResponse>> listPage(@ParameterObject PagingQuery request) {
-        Page<AuthConfigResponse> byPage = authConfigService.getByPage(request);
+        Page<AuthConfigResponse> byPage = authConfigQueryService.getByPage(request);
         return RespBody.success(PageData.convert(byPage));
     }
 

@@ -7,21 +7,16 @@ import com.eghm.domain.shared.service.JsonService;
 import com.eghm.application.shared.configuration.authentication.SecurityHolder;
 import com.eghm.application.shared.configuration.template.TemplateEngine;
 import com.eghm.application.shared.dto.business.member.SendNotifyRequest;
-import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.dto.ext.SendNotice;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.enums.MessageType;
 import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.domain.operate.model.NoticeTemplate;
-import com.eghm.application.member.query.MemberNoticeQueryService;
 import com.eghm.application.member.service.MemberNoticeApplicationService;
 import com.eghm.application.operate.service.NoticeTemplateApplicationService;
-import com.eghm.application.shared.vo.business.member.MemberNoticeVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @author 殿小二
@@ -39,13 +34,6 @@ public class MemberNoticeApplicationServiceImpl implements MemberNoticeApplicati
     private final NoticeTemplateApplicationService noticeTemplateService;
 
     private final MemberNoticeRepository memberNoticeRepository;
-
-    private final MemberNoticeQueryService memberNoticeQueryService;
-
-    @Override
-    public List<MemberNoticeVO> getByPage(PagingQuery query, Long memberId) {
-        return memberNoticeQueryService.getByPage(query.createPage(false), memberId);
-    }
 
     @Override
     public void sendNotice(Long memberId, SendNotice sendNotice) {
@@ -81,10 +69,5 @@ public class MemberNoticeApplicationServiceImpl implements MemberNoticeApplicati
     @Override
     public void setNoticeRead(Long id, Long memberId) {
         memberNoticeRepository.markRead(id, memberId);
-    }
-
-    @Override
-    public Long countUnRead(Long memberId) {
-        return memberNoticeQueryService.countUnRead(memberId);
     }
 }

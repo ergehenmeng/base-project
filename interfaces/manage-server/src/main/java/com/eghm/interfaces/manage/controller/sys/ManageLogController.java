@@ -4,7 +4,7 @@ import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.dto.ext.PageData;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.sys.log.ManageQueryRequest;
-import com.eghm.application.system.service.ManageLogApplicationService;
+import com.eghm.application.system.query.ManageLogQueryService;
 import com.eghm.application.shared.vo.operate.log.ManageLogResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,12 +25,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/manage/log", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ManageLogController {
 
-    private final ManageLogApplicationService manageLogService;
+    private final ManageLogQueryService manageLogQueryService;
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
     public RespBody<PageData<ManageLogResponse>> listPage(@ParameterObject ManageQueryRequest request) {
-        Page<ManageLogResponse> byPage = manageLogService.getByPage(request);
+        Page<ManageLogResponse> byPage = manageLogQueryService.getByPage(request.createPage(), request);
         return RespBody.success(PageData.convert(byPage));
     }
 

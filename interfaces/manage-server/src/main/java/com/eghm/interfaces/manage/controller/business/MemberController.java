@@ -6,9 +6,10 @@ import com.eghm.dto.business.member.*;
 import com.eghm.application.shared.dto.ext.PageData;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.domain.shared.enums.MemberState;
-import com.eghm.application.member.service.LoginApplicationService;
+import com.eghm.application.member.query.LoginQueryService;
+import com.eghm.application.member.query.MemberQueryService;
+import com.eghm.application.member.query.MemberScoreLogQueryService;
 import com.eghm.application.member.service.MemberNoticeApplicationService;
-import com.eghm.application.member.service.MemberScoreLogApplicationService;
 import com.eghm.application.member.service.MemberApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.interfaces.core.utils.EasyExcelUtil;
@@ -37,18 +38,20 @@ import java.util.List;
 @RequestMapping(value = "/manage/member", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MemberController {
 
-    private final LoginApplicationService loginService;
+    private final LoginQueryService loginQueryService;
 
     private final MemberApplicationService memberService;
 
+    private final MemberQueryService memberQueryService;
+
     private final MemberNoticeApplicationService memberNoticeService;
 
-    private final MemberScoreLogApplicationService memberScoreLogService;
+    private final MemberScoreLogQueryService memberScoreLogQueryService;
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
     public RespBody<PageData<MemberResponse>> listPage(@ParameterObject MemberQueryRequest request) {
-        Page<MemberResponse> byPage = memberService.getByPage(request);
+        Page<MemberResponse> byPage = memberQueryService.listPage(request.createPage(), request);
         return RespBody.success(PageData.convert(byPage));
     }
 
@@ -76,7 +79,7 @@ public class MemberController {
     @GetMapping("/export")
     @Operation(summary = "导出")
     public void export(HttpServletResponse response, @ParameterObject MemberQueryRequest request) {
-        List<MemberResponse> byPage = memberService.getList(request);
+        List<MemberResponse> byPage = memberQueryService.listPage(request.createNullPage(), request).getRecords();
         List<MemberExportResponse> exportList = DataUtil.copy(byPage, MemberExportResponse.class);
         EasyExcelUtil.export(response, "会员信息", exportList, MemberExportResponse.class);
     }
@@ -84,7 +87,7 @@ public class MemberController {
     @GetMapping("/loginPage")
     @Operation(summary = "登录日志列表")
     public RespBody<PageData<LoginLogResponse>> loginPage(@ParameterObject @Validated LoginLogQueryRequest request) {
-        Page<LoginLogResponse> byPage = loginService.getByPage(request);
+        Page<LoginLogResponse> byPage = loginQueryService.listLoginLog(request);
         return RespBody.success(PageData.convert(byPage));
     }
 
@@ -112,7 +115,7 @@ public class MemberController {
     @GetMapping("/score/listPage")
     @Operation(summary = "积分列表")
     public RespBody<PageData<MemberScoreVO>> listPage(@Validated @ParameterObject MemberScoreQueryRequest request) {
-        Page<MemberScoreVO> page = memberScoreLogService.getByPage(request);
+        Page<MemberScoreVO> page = memberScoreLogQueryService.listPage(request.createPage(), request);
         return RespBody.success(PageData.convert(page));
     }
 }

@@ -1,15 +1,10 @@
 package com.eghm.application.operate.service;
 
-import com.eghm.application.shared.dto.ext.Page;
-import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.dto.operate.notice.NoticeAddRequest;
 import com.eghm.application.shared.dto.operate.notice.NoticeEditRequest;
-import com.eghm.application.shared.dto.operate.notice.NoticeQueryRequest;
 import com.eghm.domain.operate.model.SysNotice;
 import com.eghm.application.shared.vo.operate.notice.NoticeDetailVO;
-import com.eghm.application.shared.vo.operate.notice.NoticeResponse;
 import com.eghm.application.shared.vo.operate.notice.NoticeTopVO;
-import com.eghm.application.shared.vo.operate.notice.NoticeVO;
 
 import java.util.List;
 
@@ -20,27 +15,11 @@ import java.util.List;
 public interface SysNoticeApplicationService {
 
     /**
-     * 分页查询公告信息
-     *
-     * @param request 查询条件
-     * @return 结果集
-     */
-    Page<NoticeResponse> getByPage(NoticeQueryRequest request);
-
-    /**
      * 获取公告前几条标题信息,具体多少条由系统参数notice_limit控制
      *
      * @return 公告列表
      */
     List<NoticeTopVO> getTop();
-
-    /**
-     * 分页查询列表
-     *
-     * @param query 分页信息
-     * @return 公告列表
-     */
-    List<NoticeVO> getList(PagingQuery query);
 
     /**
      * 添加公告

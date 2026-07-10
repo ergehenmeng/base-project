@@ -5,7 +5,7 @@ import com.eghm.application.shared.dto.sys.log.ManageQueryRequest;
 import com.eghm.application.shared.vo.operate.log.ManageLogResponse;
 
 /**
- * 管理端操作日志查询端口
+ * 管理端操作日志查询服务
  *
  * @author 二哥很猛
  * @since 2019/1/15 17:55

@@ -6,7 +6,8 @@ import com.eghm.application.shared.dto.ext.PageData;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.operate.comment.CommentQueryRequest;
 import com.eghm.application.shared.dto.operate.comment.CommentReportQueryRequest;
-import com.eghm.application.operate.service.CommentReportApplicationService;
+import com.eghm.application.operate.query.CommentQueryService;
+import com.eghm.application.operate.query.CommentReportQueryService;
 import com.eghm.application.operate.service.CommentApplicationService;
 import com.eghm.application.shared.vo.operate.comment.CommentReportResponse;
 import com.eghm.application.shared.vo.operate.comment.CommentResponse;
@@ -31,19 +32,21 @@ public class CommentController {
 
     private final CommentApplicationService commentService;
 
-    private final CommentReportApplicationService commentReportService;
+    private final CommentQueryService commentQueryService;
+
+    private final CommentReportQueryService commentReportQueryService;
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
     public RespBody<PageData<CommentResponse>> listPage(@ParameterObject CommentQueryRequest request) {
-        Page<CommentResponse> byPage = commentService.listPage(request);
+        Page<CommentResponse> byPage = commentQueryService.listManagePage(request);
         return RespBody.success(PageData.convert(byPage));
     }
 
     @GetMapping("/report/listPage")
     @Operation(summary = "举报列表")
     public RespBody<PageData<CommentReportResponse>> reportListPage(@ParameterObject CommentReportQueryRequest request) {
-        Page<CommentReportResponse> byPage = commentReportService.getByPage(request);
+        Page<CommentReportResponse> byPage = commentReportQueryService.getByPage(request.createPage(), request);
         return RespBody.success(PageData.convert(byPage));
     }
 

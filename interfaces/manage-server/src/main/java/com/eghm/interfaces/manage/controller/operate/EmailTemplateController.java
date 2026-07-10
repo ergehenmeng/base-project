@@ -6,6 +6,7 @@ import com.eghm.application.shared.dto.ext.PageData;
 import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.domain.operate.model.EmailTemplate;
+import com.eghm.application.operate.query.EmailTemplateQueryService;
 import com.eghm.application.operate.service.EmailTemplateApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.application.shared.vo.operate.template.EmailTemplateResponse;
@@ -29,10 +30,12 @@ public class EmailTemplateController {
 
     private final EmailTemplateApplicationService emailTemplateService;
 
+    private final EmailTemplateQueryService emailTemplateQueryService;
+
     @GetMapping("/listPage")
     @Operation(summary = "列表")
     public RespBody<PageData<EmailTemplateResponse>> listPage(@ParameterObject PagingQuery request) {
-        Page<EmailTemplate> byPage = emailTemplateService.getByPage(request);
+        Page<EmailTemplate> byPage = emailTemplateQueryService.getByPage(request);
         return RespBody.success(DataUtil.copy(byPage, EmailTemplateResponse.class));
     }
 

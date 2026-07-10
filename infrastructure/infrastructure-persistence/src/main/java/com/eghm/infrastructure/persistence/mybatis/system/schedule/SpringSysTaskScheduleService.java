@@ -24,6 +24,15 @@ public class SpringSysTaskScheduleService implements SysTaskScheduleService {
     }
 
     @Override
+    public boolean reloadTask() {
+        if (taskRegistrar == null) {
+            return false;
+        }
+        taskRegistrar.reloadTask();
+        return true;
+    }
+
+    @Override
     public boolean scheduleOnce(String beanName, String methodName, String args, LocalDateTime executeTime) {
         if (taskRegistrar == null) {
             return false;

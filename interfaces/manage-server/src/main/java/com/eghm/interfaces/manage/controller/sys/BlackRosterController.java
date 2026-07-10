@@ -6,9 +6,8 @@ import com.eghm.application.shared.dto.ext.PageData;
 import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.operate.roster.BlackRosterAddRequest;
-import com.eghm.domain.system.model.BlackRoster;
+import com.eghm.application.system.query.BlackRosterQueryService;
 import com.eghm.application.system.service.BlackRosterApplicationService;
-import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.application.shared.vo.sys.roster.BlackRosterResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,11 +29,13 @@ public class BlackRosterController {
 
     private final BlackRosterApplicationService blackRosterService;
 
+    private final BlackRosterQueryService blackRosterQueryService;
+
     @GetMapping("/listPage")
     @Operation(summary = "列表")
     public RespBody<PageData<BlackRosterResponse>> listPage(@ParameterObject PagingQuery request) {
-        Page<BlackRoster> listByPage = blackRosterService.getByPage(request);
-        return RespBody.success(DataUtil.copy(listByPage, BlackRosterResponse.class));
+        Page<BlackRosterResponse> listByPage = blackRosterQueryService.getByPage(request);
+        return RespBody.success(PageData.convert(listByPage));
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)

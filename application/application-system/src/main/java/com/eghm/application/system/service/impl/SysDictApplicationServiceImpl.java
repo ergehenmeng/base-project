@@ -15,6 +15,8 @@ import com.eghm.domain.system.model.SysDictItem;
 import com.eghm.domain.system.repository.SysDictItemRepository;
 import com.eghm.domain.system.repository.SysDictRepository;
 import com.eghm.application.shared.utils.DataUtil;
+import com.eghm.application.shared.vo.sys.dict.BaseDictResponse;
+import com.eghm.application.shared.vo.sys.dict.BaseItemVO;
 import com.eghm.application.shared.vo.sys.dict.DictResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,6 +52,18 @@ public class SysDictApplicationServiceImpl implements SysDictApplicationService 
     @Override
     public List<SysDictItem> getDictByNid(String nid) {
         return cacheProxyService.getDictByNid(nid);
+    }
+
+    @Override
+    public List<BaseDictResponse> getBaseDictList(List<String> nidList) {
+        return nidList.stream().map(nid -> {
+            List<SysDictItem> dictList = this.getDictByNid(nid);
+            List<BaseItemVO> itemList = DataUtil.copy(dictList, BaseItemVO.class);
+            BaseDictResponse response = new BaseDictResponse();
+            response.setItemList(itemList);
+            response.setNid(nid);
+            return response;
+        }).toList();
     }
 
     @Override

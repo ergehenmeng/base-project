@@ -5,7 +5,7 @@ import com.eghm.application.shared.dto.operate.version.VersionQueryRequest;
 import com.eghm.application.shared.vo.operate.version.AppVersionResponse;
 
 /**
- * 手机版本查询端口
+ * 手机版本查询服务
  *
  * @author 二哥很猛
  */

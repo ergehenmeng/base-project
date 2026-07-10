@@ -1,9 +1,6 @@
 package com.eghm.application.system.service;
 
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.dto.sys.config.ConfigEditRequest;
-import com.eghm.application.shared.dto.sys.config.ConfigQueryRequest;
-import com.eghm.application.shared.vo.sys.ext.SysConfigResponse;
 
 
 /**
@@ -11,14 +8,6 @@ import com.eghm.application.shared.vo.sys.ext.SysConfigResponse;
  * @since 2018/1/12 09:45
  */
 public interface SysConfigApplicationService {
-
-    /**
-     * 分页查询系统配置信息
-     *
-     * @param request 查询条件
-     * @return 分页结果集
-     */
-    Page<SysConfigResponse> getByPage(ConfigQueryRequest request);
 
     /**
      * 更新系统参数

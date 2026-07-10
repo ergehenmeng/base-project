@@ -8,6 +8,7 @@ import com.eghm.application.shared.dto.operate.notice.NoticeAddRequest;
 import com.eghm.application.shared.dto.operate.notice.NoticeEditRequest;
 import com.eghm.application.shared.dto.operate.notice.NoticeQueryRequest;
 import com.eghm.domain.operate.model.SysNotice;
+import com.eghm.application.operate.query.SysNoticeQueryService;
 import com.eghm.application.operate.service.SysNoticeApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.application.shared.vo.operate.notice.NoticeDetailResponse;
@@ -32,10 +33,12 @@ public class SysNoticeController {
 
     private final SysNoticeApplicationService sysNoticeService;
 
+    private final SysNoticeQueryService sysNoticeQueryService;
+
     @Operation(summary = "列表")
     @GetMapping("/listPage")
     public RespBody<PageData<NoticeResponse>> listPage(@ParameterObject NoticeQueryRequest request) {
-        Page<NoticeResponse> byPage = sysNoticeService.getByPage(request);
+        Page<NoticeResponse> byPage = sysNoticeQueryService.getByPage(request.createPage(), request);
         return RespBody.success(PageData.convert(byPage));
     }
 

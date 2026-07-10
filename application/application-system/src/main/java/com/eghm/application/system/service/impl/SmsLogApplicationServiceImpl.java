@@ -1,12 +1,8 @@
 package com.eghm.application.system.service.impl;
 
-import com.eghm.application.shared.dto.ext.Page;
-import com.eghm.application.shared.dto.sys.log.SmsLogQueryRequest;
-import com.eghm.application.system.query.SmsLogQueryService;
 import com.eghm.application.system.service.SmsLogApplicationService;
 import com.eghm.domain.system.model.SmsLog;
 import com.eghm.domain.system.repository.SmsLogRepository;
-import com.eghm.application.shared.vo.operate.log.SmsLogResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -22,13 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class SmsLogApplicationServiceImpl implements SmsLogApplicationService {
 
     private final SmsLogRepository smsLogRepository;
-
-    private final SmsLogQueryService smsLogQueryService;
-
-    @Override
-    public Page<SmsLogResponse> getByPage(SmsLogQueryRequest request) {
-        return smsLogQueryService.getByPage(request.createPage(), request);
-    }
 
     @Async
     @Override

@@ -7,6 +7,7 @@ import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.ext.UserToken;
 import com.eghm.application.shared.dto.operate.feedback.FeedbackDisposeRequest;
 import com.eghm.application.shared.dto.operate.feedback.FeedbackQueryRequest;
+import com.eghm.application.operate.query.FeedbackQueryService;
 import com.eghm.application.operate.service.FeedbackApplicationService;
 import com.eghm.application.shared.vo.operate.feedback.FeedbackResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -29,10 +30,12 @@ public class FeedbackController {
 
     private final FeedbackApplicationService feedbackService;
 
+    private final FeedbackQueryService feedbackQueryService;
+
     @GetMapping("/listPage")
     @Operation(summary = "列表")
     public RespBody<PageData<FeedbackResponse>> listPage(@ParameterObject FeedbackQueryRequest request) {
-        Page<FeedbackResponse> byPage = feedbackService.getByPage(request);
+        Page<FeedbackResponse> byPage = feedbackQueryService.getByPage(request.createPage(), request);
         return RespBody.success(PageData.convert(byPage));
     }
 

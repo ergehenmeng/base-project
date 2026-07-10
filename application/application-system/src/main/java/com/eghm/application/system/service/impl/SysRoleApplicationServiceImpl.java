@@ -1,23 +1,21 @@
 package com.eghm.application.system.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.configuration.authentication.SecurityHolder;
 import com.eghm.application.shared.dto.ext.CheckBox;
-import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.dto.sys.role.RoleAddRequest;
 import com.eghm.application.shared.dto.sys.role.RoleEditRequest;
+import com.eghm.domain.shared.enums.DisplayState;
 import com.eghm.domain.shared.enums.ErrorCode;
+import com.eghm.domain.shared.enums.RoleType;
 import com.eghm.domain.shared.enums.UserType;
 import com.eghm.domain.shared.exception.BusinessException;
-import com.eghm.application.system.query.SysRoleQueryService;
 import com.eghm.application.system.service.SysRoleApplicationService;
 import com.eghm.domain.system.model.SysRole;
 import com.eghm.domain.system.repository.SysRoleMenuRepository;
 import com.eghm.domain.system.repository.SysRoleRepository;
 import com.eghm.domain.system.repository.SysUserRoleRepository;
 import com.eghm.application.shared.utils.DataUtil;
-import com.eghm.application.shared.vo.sys.ext.SysRoleResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -38,13 +36,6 @@ public class SysRoleApplicationServiceImpl implements SysRoleApplicationService 
     private final SysUserRoleRepository sysUserRoleRepository;
 
     private final SysRoleMenuRepository sysRoleMenuRepository;
-
-    private final SysRoleQueryService sysRoleQueryService;
-
-    @Override
-    public Page<SysRoleResponse> getByPage(PagingQuery request) {
-        return sysRoleQueryService.getByPage(request);
-    }
 
     @Override
     public void update(RoleEditRequest request) {
@@ -108,5 +99,14 @@ public class SysRoleApplicationServiceImpl implements SysRoleApplicationService 
     @Override
     public SysRole getById(Long id) {
         return sysRoleRepository.findById(id);
+    }
+
+    @Override
+    public Integer getMenuDisplayState(Long id) {
+        SysRole role = sysRoleRepository.findById(id);
+        if (role == null || role.getRoleType() == RoleType.COMMON) {
+            return DisplayState.SYSTEM.getValue();
+        }
+        return DisplayState.MERCHANT.getValue();
     }
 }

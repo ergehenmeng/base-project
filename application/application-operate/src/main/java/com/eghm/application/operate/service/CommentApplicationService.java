@@ -1,14 +1,6 @@
 package com.eghm.application.operate.service;
 
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.dto.operate.comment.CommentDTO;
-import com.eghm.application.shared.dto.operate.comment.CommentQueryDTO;
-import com.eghm.application.shared.dto.operate.comment.CommentQueryRequest;
-import com.eghm.application.shared.vo.operate.comment.CommentResponse;
-import com.eghm.application.shared.vo.operate.comment.CommentSecondVO;
-import com.eghm.application.shared.vo.operate.comment.CommentVO;
-
-import java.util.List;
 
 /**
  * <p>
@@ -19,30 +11,6 @@ import java.util.List;
  * @since 2024-01-12
  */
 public interface CommentApplicationService {
-
-    /**
-     * 分页获取评论列表
-     *
-     * @param request 查询条件
-     * @return 列表
-     */
-    Page<CommentResponse> listPage(CommentQueryRequest request);
-
-    /**
-     * 分页获取留言 移动端 (一级评论)
-     *
-     * @param dto 查询条件
-     * @return 列表
-     */
-    List<CommentVO> getByPage(CommentQueryDTO dto);
-
-    /**
-     * 分页获取留言 移动端(二级评论)
-     *
-     * @param dto 查询条件
-     * @return 列表
-     */
-    List<CommentSecondVO> secondPage(CommentQueryDTO dto);
 
     /**
      * 添加新留言

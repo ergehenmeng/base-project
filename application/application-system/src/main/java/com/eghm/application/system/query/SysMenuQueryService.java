@@ -9,7 +9,7 @@ import com.eghm.application.shared.vo.sys.menu.MenuTreeResponse;
 import java.util.List;
 
 /**
- * 菜单查询网关
+ * 菜单查询服务
  *
  * @author 二哥很猛
  */

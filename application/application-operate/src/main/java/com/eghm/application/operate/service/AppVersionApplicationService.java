@@ -1,10 +1,7 @@
 package com.eghm.application.operate.service;
 
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.dto.operate.version.VersionAddRequest;
 import com.eghm.application.shared.dto.operate.version.VersionEditRequest;
-import com.eghm.application.shared.dto.operate.version.VersionQueryRequest;
-import com.eghm.application.shared.vo.operate.version.AppVersionResponse;
 import com.eghm.application.shared.vo.operate.version.AppVersionVO;
 
 /**
@@ -12,14 +9,6 @@ import com.eghm.application.shared.vo.operate.version.AppVersionVO;
  * @since 2019/8/22 14:38
  */
 public interface AppVersionApplicationService {
-
-    /**
-     * 分页查询app管理列表
-     *
-     * @param request 查询条件
-     * @return 管理列表
-     */
-    Page<AppVersionResponse> getByPage(VersionQueryRequest request);
 
     /**
      * 添加app版本管理信息

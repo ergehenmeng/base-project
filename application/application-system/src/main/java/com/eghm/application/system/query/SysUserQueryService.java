@@ -5,7 +5,7 @@ import com.eghm.application.shared.dto.sys.user.UserQueryRequest;
 import com.eghm.application.shared.vo.sys.user.UserResponse;
 
 /**
- * 系统用户查询网关
+ * 系统用户查询服务
  *
  * @author 二哥很猛
  */

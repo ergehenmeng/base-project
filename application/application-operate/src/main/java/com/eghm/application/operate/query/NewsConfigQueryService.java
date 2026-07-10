@@ -8,7 +8,7 @@ import com.eghm.application.shared.vo.business.news.NewsConfigResponse;
 import java.util.List;
 
 /**
- * 资讯配置查询端口
+ * 资讯配置查询服务
  *
  * @author 二哥很猛
  * @since 2023-12-29

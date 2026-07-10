@@ -3,6 +3,7 @@ package com.eghm.interfaces.webapp.controller.business;
 import com.eghm.application.shared.dto.IdDTO;
 import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.dto.ext.RespBody;
+import com.eghm.application.operate.query.NewsQueryService;
 import com.eghm.application.operate.service.NewsApplicationService;
 import com.eghm.application.shared.vo.business.news.NewsDetailVO;
 import com.eghm.application.shared.vo.business.news.NewsVO;
@@ -30,10 +31,12 @@ public class NewsController {
 
     private final NewsApplicationService newsService;
 
+    private final NewsQueryService newsQueryService;
+
     @Operation(summary = "列表")
     @GetMapping("/listPage")
     public RespBody<List<NewsVO>> getByPage(@ParameterObject PagingQuery request) {
-        List<NewsVO> scenicPage = newsService.getByPage(request);
+        List<NewsVO> scenicPage = newsQueryService.listClientPage(request);
         return RespBody.success(scenicPage);
     }
 

@@ -8,7 +8,7 @@ import com.eghm.application.shared.vo.business.member.LoginLogResponse;
 import java.util.List;
 
 /**
- * Query port for login logs and devices.
+ * Login log and device query service.
  */
 public interface LoginQueryService {
 

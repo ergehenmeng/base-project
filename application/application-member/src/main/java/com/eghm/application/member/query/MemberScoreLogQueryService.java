@@ -8,7 +8,7 @@ import com.eghm.application.shared.vo.business.member.MemberScoreVO;
 import java.util.List;
 
 /**
- * Query port for member score logs.
+ * Member score log query service.
  */
 public interface MemberScoreLogQueryService {
 

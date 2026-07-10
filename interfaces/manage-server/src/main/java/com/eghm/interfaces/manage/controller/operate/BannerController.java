@@ -9,6 +9,7 @@ import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.operate.banner.BannerAddRequest;
 import com.eghm.application.shared.dto.operate.banner.BannerEditRequest;
 import com.eghm.application.shared.dto.operate.banner.BannerQueryRequest;
+import com.eghm.application.operate.query.BannerQueryService;
 import com.eghm.application.operate.service.BannerApplicationService;
 import com.eghm.application.shared.vo.operate.banner.BannerResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -31,10 +32,12 @@ public class BannerController {
 
     private final BannerApplicationService bannerService;
 
+    private final BannerQueryService bannerQueryService;
+
     @GetMapping("/listPage")
     @Operation(summary = "列表")
     public RespBody<PageData<BannerResponse>> listPage(@ParameterObject BannerQueryRequest request) {
-        Page<BannerResponse> byPage = bannerService.getByPage(request);
+        Page<BannerResponse> byPage = bannerQueryService.getByPage(request.createPage(), request);
         return RespBody.success(PageData.convert(byPage));
     }
 

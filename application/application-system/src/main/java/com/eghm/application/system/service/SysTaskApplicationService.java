@@ -1,9 +1,6 @@
 package com.eghm.application.system.service;
 
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.dto.sys.task.TaskEditRequest;
-import com.eghm.application.shared.dto.sys.task.TaskQueryRequest;
-import com.eghm.application.shared.vo.operate.task.SysTaskResponse;
 
 /**
  * @author 二哥很猛
@@ -12,19 +9,16 @@ import com.eghm.application.shared.vo.operate.task.SysTaskResponse;
 public interface SysTaskApplicationService {
 
     /**
-     * 分页查询定时任务列表
-     *
-     * @param request 查询条件
-     * @return 列表
-     */
-    Page<SysTaskResponse> getByPage(TaskQueryRequest request);
-
-    /**
      * 编辑保存任务配置信息
      *
      * @param request 配置信息
      */
     void update(TaskEditRequest request);
+
+    /**
+     * 重新加载定时任务.
+     */
+    void refresh();
 
     /**
      * 运行一次定时任务

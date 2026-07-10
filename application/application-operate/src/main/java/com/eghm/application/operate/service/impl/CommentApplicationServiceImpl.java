@@ -1,16 +1,9 @@
 package com.eghm.application.operate.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import com.eghm.application.shared.dto.ext.Page;
-import com.eghm.application.shared.cache.CacheService;
 import com.eghm.application.shared.common.CommonService;
-import com.eghm.application.shared.common.SysConfigService;
 import com.eghm.application.shared.configuration.authentication.ApiHolder;
 import com.eghm.constants.CacheConstant;
-import com.eghm.constants.ConfigConstant;
 import com.eghm.application.shared.dto.operate.comment.CommentDTO;
-import com.eghm.application.shared.dto.operate.comment.CommentQueryDTO;
-import com.eghm.application.shared.dto.operate.comment.CommentQueryRequest;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.enums.ObjectType;
 import com.eghm.domain.shared.exception.BusinessException;
@@ -19,20 +12,11 @@ import com.eghm.domain.operate.model.News;
 import com.eghm.domain.operate.repository.CommentRepository;
 import com.eghm.application.operate.query.CommentQueryService;
 import com.eghm.application.operate.service.CommentApplicationService;
-import com.eghm.application.shared.vo.operate.comment.CommentResponse;
-import com.eghm.application.shared.vo.operate.comment.CommentSecondVO;
-import com.eghm.application.shared.vo.operate.comment.CommentVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
-
-import static com.eghm.application.shared.utils.StringUtil.isNotBlank;
 
 /**
  * <p>
@@ -47,61 +31,11 @@ import static com.eghm.application.shared.utils.StringUtil.isNotBlank;
 @Service("commentService")
 public class CommentApplicationServiceImpl implements CommentApplicationService {
 
-    private final SysConfigService sysConfigService;
-
-    private final CacheService cacheService;
-
     private final CommonService commonService;
 
     private final CommentRepository commentRepository;
 
     private final CommentQueryService commentQueryService;
-
-    @Override
-    public Page<CommentResponse> listPage(CommentQueryRequest request) {
-        if (isNotBlank(request.getQueryName())) {
-            List<Long> objectIds = commentQueryService.listNewsIdsByTitle(request.getQueryName());
-            if (CollUtil.isEmpty(objectIds)) {
-                return new Page<>();
-            }
-            request.setObjectIds(objectIds);
-        }
-        Page<CommentResponse> page = commentQueryService.listPage(request.createPage(), request);
-        if (CollUtil.isNotEmpty(page.getRecords())) {
-            Map<ObjectType, List<Long>> collectMap = page.getRecords().stream().collect(Collectors.groupingBy(CommentResponse::getObjectType, Collectors.mapping(CommentResponse::getObjectId, Collectors.toList())));
-            Map<Long, String> newsMap = commentQueryService.getNewsTitleMap(collectMap.get(ObjectType.NEWS));
-            for (CommentResponse response : page.getRecords()) {
-                if (Objects.requireNonNull(response.getObjectType()) == ObjectType.NEWS) {
-                    response.setObjectName(newsMap.get(response.getObjectId()));
-                }
-            }
-        }
-        return page;
-    }
-
-    @Override
-    public List<CommentVO> getByPage(CommentQueryDTO dto) {
-        int reportNum = sysConfigService.getInt(ConfigConstant.COMMENT_REPORT_SHIELD, 20);
-        Page<CommentVO> voPage = commentQueryService.getByPage(dto, reportNum);
-        List<CommentVO> records = voPage.getRecords();
-        if (CollUtil.isNotEmpty(records)) {
-            Map<Long, Boolean> praiseMap = this.batchHasPraise(records.stream().map(CommentVO::getId).toList());
-            records.forEach(vo -> vo.setHasPraise(praiseMap.getOrDefault(vo.getId(), false)));
-        }
-        return records;
-    }
-
-    @Override
-    public List<CommentSecondVO> secondPage(CommentQueryDTO dto) {
-        int reportNum = sysConfigService.getInt(ConfigConstant.COMMENT_REPORT_SHIELD, 20);
-        Page<CommentSecondVO> voPage = commentQueryService.getSecondPage(dto, reportNum);
-        List<CommentSecondVO> records = voPage.getRecords();
-        if (CollUtil.isNotEmpty(records)) {
-            Map<Long, Boolean> praiseMap = this.batchHasPraise(records.stream().map(CommentSecondVO::getId).toList());
-            records.forEach(vo -> vo.setHasPraise(praiseMap.getOrDefault(vo.getId(), false)));
-        }
-        return records;
-    }
 
     @Override
     public void add(CommentDTO dto) {
@@ -172,26 +106,4 @@ public class CommentApplicationServiceImpl implements CommentApplicationService 
         }
     }
 
-    /**
-     * 批量判断用户是否已对评论点赞
-     *
-     * @param commentIds 评论id列表
-     * @return map key: 评论id, value: 是否已点赞
-     */
-    private Map<Long, Boolean> batchHasPraise(List<Long> commentIds) {
-        Long memberId = ApiHolder.tryGetMemberId();
-        if (memberId == null) {
-            Map<Long, Boolean> emptyMap = new HashMap<>(commentIds.size());
-            commentIds.forEach(id -> emptyMap.put(id, false));
-            return emptyMap;
-        }
-        List<String> keys = commentIds.stream().map(id -> CacheConstant.COMMENT_PRAISE + id).toList();
-        Map<String, Boolean> keyResultMap = cacheService.batchHasHashKey(keys, memberId.toString());
-        Map<Long, Boolean> resultMap = new HashMap<>(commentIds.size());
-        for (Long commentId : commentIds) {
-            String key = CacheConstant.COMMENT_PRAISE + commentId;
-            resultMap.put(commentId, keyResultMap.getOrDefault(key, false));
-        }
-        return resultMap;
-    }
 }

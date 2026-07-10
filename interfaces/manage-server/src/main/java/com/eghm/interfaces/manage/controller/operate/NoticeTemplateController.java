@@ -6,6 +6,7 @@ import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.operate.template.NoticeTemplateRequest;
 import com.eghm.domain.operate.model.NoticeTemplate;
+import com.eghm.application.operate.query.NoticeTemplateQueryService;
 import com.eghm.application.operate.service.NoticeTemplateApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.application.shared.vo.operate.template.NoticeTemplateResponse;
@@ -29,10 +30,12 @@ public class NoticeTemplateController {
 
     private final NoticeTemplateApplicationService noticeTemplateService;
 
+    private final NoticeTemplateQueryService noticeTemplateQueryService;
+
     @GetMapping("/listPage")
     @Operation(summary = "列表")
     public RespBody<PageData<NoticeTemplateResponse>> listPage(@ParameterObject PagingQuery request) {
-        Page<NoticeTemplate> byPage = noticeTemplateService.getByPage(request);
+        Page<NoticeTemplate> byPage = noticeTemplateQueryService.getByPage(request);
         return RespBody.success(DataUtil.copy(byPage, NoticeTemplateResponse.class));
     }
 

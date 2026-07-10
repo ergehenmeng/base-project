@@ -1,7 +1,7 @@
 package com.eghm.application.shared.cache;
 
 import com.eghm.constants.CacheConstant;
-import com.eghm.domain.system.model.SysCache;
+import com.eghm.application.shared.vo.sys.cache.SysCacheResponse;
 
 import java.util.List;
 
@@ -26,6 +26,6 @@ public interface SysCacheService {
      *
      * @return 列表
      */
-    List<SysCache> getList();
+    List<SysCacheResponse> getList();
 }
 

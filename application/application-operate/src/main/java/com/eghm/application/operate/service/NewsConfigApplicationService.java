@@ -1,13 +1,8 @@
 package com.eghm.application.operate.service;
 
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.dto.business.news.config.NewsConfigAddRequest;
 import com.eghm.application.shared.dto.business.news.config.NewsConfigEditRequest;
-import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.domain.operate.model.NewsConfig;
-import com.eghm.application.shared.vo.business.news.NewsConfigResponse;
-
-import java.util.List;
 
 /**
  * <p>
@@ -18,21 +13,6 @@ import java.util.List;
  * @since 2023-12-29
  */
 public interface NewsConfigApplicationService {
-
-    /**
-     * 分页查询资讯配置
-     *
-     * @param query 分页查询参数
-     * @return 列表
-     */
-    Page<NewsConfig> getByPage(PagingQuery query);
-
-    /**
-     * 查询资讯配置 (所有)
-     *
-     * @return 列表
-     */
-    List<NewsConfigResponse> getList();
 
     /**
      * 新增资讯配置

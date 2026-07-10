@@ -7,6 +7,7 @@ import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.operate.image.ImageAddRequest;
 import com.eghm.application.shared.dto.operate.image.ImageEditRequest;
 import com.eghm.application.shared.dto.operate.image.ImageQueryRequest;
+import com.eghm.application.operate.query.ImageLogQueryService;
 import com.eghm.application.operate.service.ImageLogApplicationService;
 import com.eghm.application.shared.vo.operate.log.ImageLogResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -29,10 +30,12 @@ public class ImageLogController {
 
     private final ImageLogApplicationService imageLogService;
 
+    private final ImageLogQueryService imageLogQueryService;
+
     @GetMapping("/listPage")
     @Operation(summary = "图片列表(分页)")
     public RespBody<PageData<ImageLogResponse>> listPage(@ParameterObject ImageQueryRequest request) {
-        Page<ImageLogResponse> page = imageLogService.getByPage(request);
+        Page<ImageLogResponse> page = imageLogQueryService.getByPage(request.createPage(), request);
         return RespBody.success(PageData.convert(page));
     }
 

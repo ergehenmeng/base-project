@@ -11,6 +11,7 @@ import com.eghm.application.shared.dto.sys.role.RoleAddRequest;
 import com.eghm.application.shared.dto.sys.role.RoleAuthRequest;
 import com.eghm.application.shared.dto.sys.role.RoleEditRequest;
 import com.eghm.domain.shared.enums.RoleType;
+import com.eghm.application.system.query.SysRoleQueryService;
 import com.eghm.application.system.service.SysRoleApplicationService;
 import com.eghm.application.shared.vo.sys.ext.SysRoleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -35,10 +36,12 @@ public class SysRoleController {
 
     private final SysRoleApplicationService sysRoleService;
 
+    private final SysRoleQueryService sysRoleQueryService;
+
     @GetMapping("/listPage")
     @Operation(summary = "角色列表(分页)")
     public RespBody<PageData<SysRoleResponse>> listPage(@ParameterObject PagingQuery request) {
-        Page<SysRoleResponse> page = sysRoleService.getByPage(request);
+        Page<SysRoleResponse> page = sysRoleQueryService.getByPage(request);
         return RespBody.success(PageData.convert(page));
     }
 

@@ -4,11 +4,8 @@ import com.eghm.application.shared.annotation.SkipPerm;
 import com.eghm.application.shared.dto.IdDTO;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.dto.sys.dict.*;
-import com.eghm.domain.system.model.SysDictItem;
 import com.eghm.application.system.service.SysDictApplicationService;
-import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.application.shared.vo.sys.dict.BaseDictResponse;
-import com.eghm.application.shared.vo.sys.dict.BaseItemVO;
 import com.eghm.application.shared.vo.sys.dict.DictResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -21,7 +18,6 @@ import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -90,15 +86,6 @@ public class DictController {
     @SkipPerm
     @Parameter(name = "nidList", description = "字典编码(数组)", example = "a,b,c", required = true, array = @ArraySchema(schema = @Schema(type = "string")))
     public RespBody<List<BaseDictResponse>> itemList(@RequestParam("nidList") List<String> nidList) {
-        List<BaseDictResponse> responseList = new ArrayList<>(8);
-        for (String nid : nidList) {
-            List<SysDictItem> dictList = sysDictService.getDictByNid(nid);
-            List<BaseItemVO> itemList = DataUtil.copy(dictList, BaseItemVO.class);
-            BaseDictResponse response = new BaseDictResponse();
-            response.setItemList(itemList);
-            response.setNid(nid);
-            responseList.add(response);
-        }
-        return RespBody.success(responseList);
+        return RespBody.success(sysDictService.getBaseDictList(nidList));
     }
 }

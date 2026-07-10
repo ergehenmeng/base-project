@@ -5,9 +5,9 @@ import com.eghm.application.shared.cache.SysCacheService;
 import com.eghm.constants.CacheConstant;
 import com.eghm.infrastructure.persistence.mybatis.mapper.SysCacheMapper;
 import com.eghm.infrastructure.persistence.mybatis.po.SysCachePO;
-import com.eghm.domain.system.model.SysCache;
 import com.eghm.application.system.service.BlackRosterApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
+import com.eghm.application.shared.vo.sys.cache.SysCacheResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -41,8 +41,8 @@ public class SysCacheServiceImpl implements SysCacheService {
     }
 
     @Override
-    public List<SysCache> getList() {
-        return DataUtil.copy(sysCacheMapper.selectList(null), SysCache.class);
+    public List<SysCacheResponse> getList() {
+        return DataUtil.copy(sysCacheMapper.selectList(null), SysCacheResponse.class);
     }
 
     /**

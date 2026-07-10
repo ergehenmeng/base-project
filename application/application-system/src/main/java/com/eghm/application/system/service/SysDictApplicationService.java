@@ -2,6 +2,7 @@ package com.eghm.application.system.service;
 
 import com.eghm.dto.sys.dict.*;
 import com.eghm.domain.system.model.SysDictItem;
+import com.eghm.application.shared.vo.sys.dict.BaseDictResponse;
 import com.eghm.application.shared.vo.sys.dict.DictResponse;
 
 import java.util.List;
@@ -29,6 +30,14 @@ public interface SysDictApplicationService {
      * @return 属于该nid的列表
      */
     List<SysDictItem> getDictByNid(String nid);
+
+    /**
+     * 根据nid列表查询基础字典响应.
+     *
+     * @param nidList 字典编码列表
+     * @return 字典响应列表
+     */
+    List<BaseDictResponse> getBaseDictList(List<String> nidList);
 
     /**
      * 添加数据字典

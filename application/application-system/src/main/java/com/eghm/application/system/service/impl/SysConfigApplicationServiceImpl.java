@@ -1,15 +1,11 @@
 package com.eghm.application.system.service.impl;
 
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.configuration.config.ConfigRegistry;
 import com.eghm.application.shared.dto.sys.config.ConfigEditRequest;
-import com.eghm.application.shared.dto.sys.config.ConfigQueryRequest;
-import com.eghm.application.system.query.SysConfigQueryService;
 import com.eghm.application.system.service.SysConfigApplicationService;
 import com.eghm.domain.system.model.SysConfig;
 import com.eghm.domain.system.repository.SysConfigRepository;
 import com.eghm.application.shared.utils.DataUtil;
-import com.eghm.application.shared.vo.sys.ext.SysConfigResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,13 +20,6 @@ import org.springframework.stereotype.Service;
 public class SysConfigApplicationServiceImpl implements SysConfigApplicationService {
 
     private final SysConfigRepository sysConfigRepository;
-
-    private final SysConfigQueryService sysConfigQueryService;
-
-    @Override
-    public Page<SysConfigResponse> getByPage(ConfigQueryRequest request) {
-        return sysConfigQueryService.getByPage(request);
-    }
 
     @Override
     public void update(ConfigEditRequest request) {

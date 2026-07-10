@@ -2,12 +2,9 @@ package com.eghm.application.system.service.impl;
 
 import cn.hutool.core.lang.PatternPool;
 import cn.hutool.core.net.Ipv4Util;
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.cache.CacheService;
 import com.eghm.constants.CacheConstant;
-import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.dto.operate.roster.BlackRosterAddRequest;
-import com.eghm.application.system.query.BlackRosterQueryService;
 import com.eghm.application.system.service.BlackRosterApplicationService;
 import com.eghm.domain.system.model.BlackRoster;
 import com.eghm.domain.system.repository.BlackRosterRepository;
@@ -30,13 +27,6 @@ public class BlackRosterApplicationServiceImpl implements BlackRosterApplication
     private final CacheService cacheService;
 
     private final BlackRosterRepository blackRosterRepository;
-
-    private final BlackRosterQueryService blackRosterQueryService;
-
-    @Override
-    public Page<BlackRoster> getByPage(PagingQuery request) {
-        return blackRosterQueryService.getByPage(request);
-    }
 
     @Override
     public void addBlackRoster(BlackRosterAddRequest request) {

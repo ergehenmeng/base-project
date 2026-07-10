@@ -1,12 +1,6 @@
 package com.eghm.application.member.service;
 
-import com.eghm.application.shared.dto.business.collect.CollectQueryDTO;
-import com.eghm.application.shared.dto.business.statistics.CollectRequest;
 import com.eghm.domain.shared.enums.CollectType;
-import com.eghm.application.shared.vo.business.collect.MemberCollectVO;
-import com.eghm.application.shared.vo.business.statistics.CollectStatisticsVO;
-
-import java.util.List;
 
 /**
  * <p>
@@ -17,14 +11,6 @@ import java.util.List;
  * @since 2024-01-11
  */
 public interface MemberCollectApplicationService {
-
-    /**
-     * 分页查询用户收藏记录
-     *
-     * @param query 查询条件
-     * @return 收藏记录
-     */
-    List<MemberCollectVO> getByPage(CollectQueryDTO query);
 
     /**
      * 收藏或取消收藏
@@ -42,13 +28,5 @@ public interface MemberCollectApplicationService {
      * @return false : 未收藏 true : 已收藏
      */
     boolean checkCollect(Long collectId, CollectType collectType);
-
-    /**
-     * 获取收藏统计 按日
-     *
-     * @param request 查询条件
-     * @return 收藏统计
-     */
-    List<CollectStatisticsVO> dayCollect(CollectRequest request);
 
 }

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 评论查询端口
+ * 评论查询服务
  *
  * @author 二哥很猛
  * @since 2024-01-12
@@ -22,9 +22,15 @@ public interface CommentQueryService {
 
     Page<CommentResponse> listPage(Page<CommentResponse> page, CommentQueryRequest request);
 
+    Page<CommentResponse> listManagePage(CommentQueryRequest request);
+
     Page<CommentVO> getByPage(CommentQueryDTO dto, Integer reportNum);
 
+    List<CommentVO> listClientPage(CommentQueryDTO dto);
+
     Page<CommentSecondVO> getSecondPage(CommentQueryDTO dto, Integer reportNum);
+
+    List<CommentSecondVO> listSecondClientPage(CommentQueryDTO dto);
 
     List<Long> listNewsIdsByTitle(String queryName);
 

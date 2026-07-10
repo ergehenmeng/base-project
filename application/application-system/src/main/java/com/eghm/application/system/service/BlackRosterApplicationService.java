@@ -1,23 +1,12 @@
 package com.eghm.application.system.service;
 
-import com.eghm.application.shared.dto.ext.Page;
-import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.dto.operate.roster.BlackRosterAddRequest;
-import com.eghm.domain.system.model.BlackRoster;
 
 /**
  * @author 二哥很猛
  * @since 2019/9/9 13:45
  */
 public interface BlackRosterApplicationService {
-
-    /**
-     * 分页查询黑名单列表
-     *
-     * @param request 查询条件
-     * @return 列表
-     */
-    Page<BlackRoster> getByPage(PagingQuery request);
 
     /**
      * 添加黑名单信息

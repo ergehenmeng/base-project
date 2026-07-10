@@ -1,12 +1,9 @@
 package com.eghm.application.operate.service.impl;
 
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.cache.CacheProxyService;
-import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.dto.operate.template.NoticeTemplateRequest;
 import com.eghm.domain.operate.model.NoticeTemplate;
 import com.eghm.domain.operate.repository.NoticeTemplateRepository;
-import com.eghm.application.operate.query.NoticeTemplateQueryService;
 import com.eghm.application.operate.service.NoticeTemplateApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
 import lombok.AllArgsConstructor;
@@ -23,13 +20,6 @@ public class NoticeTemplateApplicationServiceImpl implements NoticeTemplateAppli
     private final CacheProxyService cacheProxyService;
 
     private final NoticeTemplateRepository noticeTemplateRepository;
-
-    private final NoticeTemplateQueryService noticeTemplateQueryService;
-
-    @Override
-    public Page<NoticeTemplate> getByPage(PagingQuery query) {
-        return noticeTemplateQueryService.getByPage(query);
-    }
 
     @Override
     public void update(NoticeTemplateRequest request) {

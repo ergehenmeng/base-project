@@ -10,11 +10,9 @@ import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.sys.menu.MenuAddRequest;
 import com.eghm.application.shared.dto.sys.menu.MenuEditRequest;
 import com.eghm.application.shared.dto.sys.menu.MenuQueryRequest;
-import com.eghm.domain.shared.enums.DisplayState;
-import com.eghm.domain.shared.enums.RoleType;
 import com.eghm.application.shared.event.PermissionRefreshEvent;
 import com.eghm.application.shared.lock.RedisLock;
-import com.eghm.domain.system.model.SysRole;
+import com.eghm.application.system.query.SysMenuQueryService;
 import com.eghm.application.system.service.SysMenuApplicationService;
 import com.eghm.application.system.service.SysRoleApplicationService;
 import com.eghm.application.shared.vo.sys.menu.MenuFullResponse;
@@ -51,6 +49,8 @@ public class MenuController {
 
     private final SysMenuApplicationService sysMenuService;
 
+    private final SysMenuQueryService sysMenuQueryService;
+
     private final ApplicationEventPublisher eventPublisher;
 
     @GetMapping("/tree")
@@ -63,7 +63,7 @@ public class MenuController {
     @GetMapping("/listPage")
     @Operation(summary = "分页菜单-v2-②")
     public RespBody<PageData<MenuResponse>> listPage(@ParameterObject @Validated MenuQueryRequest request) {
-        Page<MenuResponse> byPage = sysMenuService.getByPage(request);
+        Page<MenuResponse> byPage = sysMenuQueryService.getByPage(request);
         return RespBody.success(PageData.convert(byPage));
     }
 
@@ -77,8 +77,7 @@ public class MenuController {
     @GetMapping("/systemList")
     @Operation(summary = "系统菜单(角色授权使用)")
     public RespBody<List<MenuTreeResponse>> systemList(IdDTO dto) {
-        SysRole sysRole = sysRoleService.getById(dto.getId());
-        int displayState = sysRole.getRoleType() == RoleType.COMMON ? DisplayState.SYSTEM.getValue() : DisplayState.MERCHANT.getValue();
+        Integer displayState = sysRoleService.getMenuDisplayState(dto.getId());
         List<MenuTreeResponse> responseList = sysMenuService.getAll(displayState);
         return RespBody.success(responseList);
     }

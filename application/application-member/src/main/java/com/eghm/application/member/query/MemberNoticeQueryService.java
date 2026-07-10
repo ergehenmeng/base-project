@@ -6,7 +6,7 @@ import com.eghm.application.shared.vo.business.member.MemberNoticeVO;
 import java.util.List;
 
 /**
- * 会员站内信查询端口
+ * 会员站内信查询服务
  *
  * @author 殿小二
  * @since 2020/9/11

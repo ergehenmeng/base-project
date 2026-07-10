@@ -6,6 +6,7 @@ import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.operate.comment.CommentDTO;
 import com.eghm.application.shared.dto.operate.comment.CommentQueryDTO;
 import com.eghm.application.shared.dto.operate.comment.CommentReportDTO;
+import com.eghm.application.operate.query.CommentQueryService;
 import com.eghm.application.operate.service.CommentReportApplicationService;
 import com.eghm.application.operate.service.CommentApplicationService;
 import com.eghm.application.shared.vo.operate.comment.CommentSecondVO;
@@ -34,18 +35,20 @@ public class CommentController {
 
     private final CommentApplicationService commentService;
 
+    private final CommentQueryService commentQueryService;
+
     private final CommentReportApplicationService commentReportService;
 
     @GetMapping("/listPage")
     @Operation(summary = "评论列表")
     public RespBody<List<CommentVO>> getByPage(@ParameterObject @Validated CommentQueryDTO dto) {
-        return RespBody.success(commentService.getByPage(dto));
+        return RespBody.success(commentQueryService.listClientPage(dto));
     }
 
     @GetMapping("/secondPage")
     @Operation(summary = "二级评论")
     public RespBody<List<CommentSecondVO>> secondPage(@ParameterObject @Validated CommentQueryDTO dto) {
-        return RespBody.success(commentService.secondPage(dto));
+        return RespBody.success(commentQueryService.listSecondClientPage(dto));
     }
 
     @PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_VALUE)

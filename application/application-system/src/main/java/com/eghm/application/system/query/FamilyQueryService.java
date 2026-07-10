@@ -5,7 +5,7 @@ import com.eghm.application.shared.vo.sys.family.FamilyResponse;
 import java.util.List;
 
 /**
- * 家谱查询网关
+ * 家谱查询服务
  *
  * @author 二哥很猛
  */

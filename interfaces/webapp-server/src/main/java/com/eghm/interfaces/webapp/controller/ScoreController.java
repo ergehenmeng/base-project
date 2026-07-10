@@ -3,7 +3,7 @@ package com.eghm.interfaces.webapp.controller;
 import com.eghm.application.shared.configuration.authentication.ApiHolder;
 import com.eghm.application.shared.dto.business.member.MemberScoreQueryDTO;
 import com.eghm.application.shared.dto.ext.RespBody;
-import com.eghm.application.member.service.MemberScoreLogApplicationService;
+import com.eghm.application.member.query.MemberScoreLogQueryService;
 import com.eghm.application.shared.vo.business.member.MemberScoreVO;
 import com.eghm.interfaces.webapp.annotation.AccessToken;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,13 +28,13 @@ import java.util.List;
 @RequestMapping(value = "/webapp/member/score", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ScoreController {
 
-    private final MemberScoreLogApplicationService memberScoreLogService;
+    private final MemberScoreLogQueryService memberScoreLogQueryService;
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
     public RespBody<List<MemberScoreVO>> listPage(@ParameterObject MemberScoreQueryDTO request) {
         request.setMemberId(ApiHolder.getMemberId());
-        List<MemberScoreVO> page = memberScoreLogService.clientByPage(request);
+        List<MemberScoreVO> page = memberScoreLogQueryService.listClientPage(request);
         return RespBody.success(page);
     }
 }

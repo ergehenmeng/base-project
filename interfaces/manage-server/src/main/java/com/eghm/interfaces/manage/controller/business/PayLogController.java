@@ -7,8 +7,9 @@ import com.eghm.application.shared.dto.ext.PageData;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.payment.model.PayNotifyLog;
+import com.eghm.application.payment.query.PayNotifyLogQueryService;
+import com.eghm.application.payment.query.PayRequestLogQueryService;
 import com.eghm.application.payment.service.PayNotifyLogApplicationService;
-import com.eghm.application.payment.service.PayRequestLogApplicationService;
 import com.eghm.application.shared.vo.operate.log.PayNotifyLogResponse;
 import com.eghm.application.shared.vo.operate.log.PayRequestLogResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -33,19 +34,21 @@ public class PayLogController {
 
     private final PayNotifyLogApplicationService payNotifyLogService;
 
-    private final PayRequestLogApplicationService payRequestLogService;
+    private final PayNotifyLogQueryService payNotifyLogQueryService;
+
+    private final PayRequestLogQueryService payRequestLogQueryService;
 
     @GetMapping("/sync/listPage")
     @Operation(summary = "支付同步请求日志列表")
     public RespBody<PageData<PayRequestLogResponse>> syncListPage(@ParameterObject PayLogQueryRequest request) {
-        Page<PayRequestLogResponse> logPage = payRequestLogService.getByPage(request);
+        Page<PayRequestLogResponse> logPage = payRequestLogQueryService.getByPage(request.createPage(), request);
         return RespBody.success(PageData.convert(logPage));
     }
 
     @GetMapping("/async/listPage")
     @Operation(summary = "支付异步响应日志列表")
     public RespBody<PageData<PayNotifyLogResponse>> asyncListPage(@ParameterObject PayLogQueryRequest request) {
-        Page<PayNotifyLogResponse> logPage = payNotifyLogService.getByPage(request);
+        Page<PayNotifyLogResponse> logPage = payNotifyLogQueryService.getByPage(request.createPage(), request);
         return RespBody.success(PageData.convert(logPage));
     }
 

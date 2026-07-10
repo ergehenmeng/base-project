@@ -1,7 +1,6 @@
 package com.eghm.application.operate.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.cache.CacheService;
 import com.eghm.application.shared.common.CommonService;
 import com.eghm.application.shared.configuration.authentication.ApiHolder;
@@ -9,20 +8,15 @@ import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.application.shared.dto.business.news.NewsAddRequest;
 import com.eghm.application.shared.dto.business.news.NewsEditRequest;
-import com.eghm.application.shared.dto.business.news.NewsQueryRequest;
-import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.domain.shared.enums.CollectType;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.domain.operate.model.News;
 import com.eghm.domain.operate.repository.NewsRepository;
 import com.eghm.application.member.service.MemberCollectApplicationService;
-import com.eghm.application.operate.query.NewsQueryService;
 import com.eghm.application.operate.service.NewsApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.application.shared.vo.business.news.NewsDetailVO;
-import com.eghm.application.shared.vo.business.news.NewsResponse;
-import com.eghm.application.shared.vo.business.news.NewsVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -44,18 +38,11 @@ public class NewsApplicationServiceImpl implements NewsApplicationService {
 
     private final NewsRepository newsRepository;
 
-    private final NewsQueryService newsQueryService;
-
     private final CacheService cacheService;
 
     private final CommonService commonService;
 
     private final MemberCollectApplicationService memberCollectService;
-
-    @Override
-    public Page<NewsResponse> getByPage(NewsQueryRequest request) {
-        return newsQueryService.listPage(request.createPage(), request);
-    }
 
     @Override
     public void create(NewsAddRequest request) {
@@ -76,14 +63,6 @@ public class NewsApplicationServiceImpl implements NewsApplicationService {
     @Override
     public void deleteById(Long id) {
         newsRepository.deleteById(id);
-    }
-
-    @Override
-    public List<NewsVO> getByPage(PagingQuery query) {
-        Page<NewsVO> byPage = newsQueryService.getByPage(query.createPage(false), query.getQueryName());
-        List<NewsVO> records = byPage.getRecords();
-        records.forEach(newsVO -> newsVO.setHasPraise(this.hasPraise(newsVO.getId())));
-        return records;
     }
 
     @Override

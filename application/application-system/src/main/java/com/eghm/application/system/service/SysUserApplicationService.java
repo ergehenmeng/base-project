@@ -1,6 +1,5 @@
 package com.eghm.application.system.service;
 
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.dto.sys.login.SmsLoginRequest;
 import com.eghm.application.shared.dto.sys.login.TotpBindRequest;
 import com.eghm.application.shared.dto.sys.login.TotpCheckRequest;
@@ -10,21 +9,13 @@ import com.eghm.domain.system.model.SysUser;
 import com.eghm.application.shared.vo.login.LoginMenuResponse;
 import com.eghm.application.shared.vo.login.LoginResponse;
 import com.eghm.application.shared.vo.login.TotpLoginResponse;
-import com.eghm.application.shared.vo.sys.user.UserResponse;
+import com.eghm.application.shared.vo.sys.user.UserDetailResponse;
 
 /**
  * @author 二哥很猛
  * @since 2018/11/26 10:24
  */
 public interface SysUserApplicationService {
-
-    /**
-     * 分页查询系统人员信息
-     *
-     * @param request 请求参数
-     * @return 系统人员信息
-     */
-    Page<UserResponse> getByPage(UserQueryRequest request);
 
     /**
      * 更新登陆密码
@@ -55,6 +46,14 @@ public interface SysUserApplicationService {
      * @return 用户信息
      */
     SysUser getByIdRequired(Long id);
+
+    /**
+     * 根据主键查询管理人员详情.
+     *
+     * @param id 主键
+     * @return 用户详情
+     */
+    UserDetailResponse getDetailById(Long id);
 
     /**
      * 更新用户信息

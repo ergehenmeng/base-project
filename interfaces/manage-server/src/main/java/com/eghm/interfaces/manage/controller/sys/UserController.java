@@ -15,10 +15,8 @@ import com.eghm.application.shared.dto.sys.user.UserEditRequest;
 import com.eghm.application.shared.dto.sys.user.UserProfileRequest;
 import com.eghm.application.shared.dto.sys.user.UserQueryRequest;
 import com.eghm.domain.shared.enums.UserState;
-import com.eghm.domain.system.model.SysUser;
-import com.eghm.application.system.service.SysRoleApplicationService;
+import com.eghm.application.system.query.SysUserQueryService;
 import com.eghm.application.system.service.SysUserApplicationService;
-import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.interfaces.core.utils.FileUtil;
 import com.eghm.application.shared.vo.sys.user.UserDetailResponse;
 import com.eghm.application.shared.vo.sys.user.UserResponse;
@@ -39,8 +37,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-
 /**
  * @author 二哥很猛
  * @since 2018/11/26 17:10
@@ -55,12 +51,12 @@ public class UserController {
 
     private final SysUserApplicationService sysUserService;
 
-    private final SysRoleApplicationService sysRoleService;
+    private final SysUserQueryService sysUserQueryService;
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
     public RespBody<PageData<UserResponse>> listPage(@ParameterObject UserQueryRequest request) {
-        Page<UserResponse> page = sysUserService.getByPage(request);
+        Page<UserResponse> page = sysUserQueryService.getByPage(request);
         return RespBody.success(PageData.convert(page));
     }
 
@@ -74,11 +70,7 @@ public class UserController {
     @GetMapping("/select")
     @Operation(summary = "详情")
     public RespBody<UserDetailResponse> select(@ParameterObject @Validated IdDTO dto) {
-        SysUser user = sysUserService.getByIdRequired(dto.getId());
-        UserDetailResponse response = DataUtil.copy(user, UserDetailResponse.class);
-        List<Long> roleList = sysRoleService.getByUserId(dto.getId());
-        response.setRoleIds(roleList);
-        return RespBody.success(response);
+        return RespBody.success(sysUserService.getDetailById(dto.getId()));
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)

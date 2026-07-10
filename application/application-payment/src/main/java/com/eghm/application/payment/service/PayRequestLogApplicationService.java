@@ -1,12 +1,9 @@
 package com.eghm.application.payment.service;
 
-import com.eghm.application.shared.dto.ext.Page;
-import com.eghm.application.shared.dto.business.pay.PayLogQueryRequest;
 import com.eghm.application.payment.dto.PrepayDTO;
 import com.eghm.application.payment.dto.RefundDTO;
 import com.eghm.application.payment.vo.PrepayVO;
 import com.eghm.application.payment.vo.RefundVO;
-import com.eghm.application.shared.vo.operate.log.PayRequestLogResponse;
 
 /**
  * <p>
@@ -17,14 +14,6 @@ import com.eghm.application.shared.vo.operate.log.PayRequestLogResponse;
  * @since 2023-06-13
  */
 public interface PayRequestLogApplicationService {
-
-    /**
-     * 分页查询支付退款同步请求的日志
-     *
-     * @param request 查询条件
-     * @return 列表
-     */
-    Page<PayRequestLogResponse> getByPage(PayLogQueryRequest request);
 
     /**
      * 添加请求支付的日志

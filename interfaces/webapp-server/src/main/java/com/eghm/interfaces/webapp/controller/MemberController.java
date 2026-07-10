@@ -7,8 +7,8 @@ import com.eghm.application.shared.dto.business.member.BindEmailDTO;
 import com.eghm.application.shared.dto.business.member.ChangeEmailDTO;
 import com.eghm.application.shared.dto.business.member.MemberDTO;
 import com.eghm.application.shared.dto.business.member.SendEmailAuthCodeDTO;
-import com.eghm.application.member.service.MemberInviteLogApplicationService;
-import com.eghm.application.member.service.MemberNoticeApplicationService;
+import com.eghm.application.member.query.MemberInviteLogQueryService;
+import com.eghm.application.member.query.MemberNoticeQueryService;
 import com.eghm.application.member.service.MemberApplicationService;
 import com.eghm.interfaces.core.utils.IpUtil;
 import com.eghm.application.shared.vo.business.member.MemberInviteVO;
@@ -41,9 +41,9 @@ public class MemberController {
 
     private final MemberApplicationService memberService;
 
-    private final MemberNoticeApplicationService memberNoticeService;
+    private final MemberNoticeQueryService memberNoticeQueryService;
 
-    private final MemberInviteLogApplicationService memberInviteLogService;
+    private final MemberInviteLogQueryService memberInviteLogQueryService;
 
     @PostMapping(value = "/sendBindEmailCode", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "绑定邮箱发送验证码请求①")
@@ -87,7 +87,7 @@ public class MemberController {
     @Operation(summary = "我的")
     public RespBody<MemberVO> my() {
         MemberVO vo = memberService.memberHome(ApiHolder.getMemberId());
-        Long unRead = memberNoticeService.countUnRead(ApiHolder.getMemberId());
+        Long unRead = memberNoticeQueryService.countUnRead(ApiHolder.getMemberId());
         vo.setUnRead(unRead);
         return RespBody.success(vo);
     }
@@ -116,7 +116,7 @@ public class MemberController {
     @GetMapping("/invitePage")
     @Operation(summary = "邀请记录")
     public RespBody<List<MemberInviteVO>> invitePage(@ParameterObject PagingQuery query) {
-        List<MemberInviteVO> byPage = memberInviteLogService.getByPage(query, ApiHolder.getMemberId());
+        List<MemberInviteVO> byPage = memberInviteLogQueryService.getByPage(query.createPage(false), ApiHolder.getMemberId());
         return RespBody.success(byPage);
     }
 }

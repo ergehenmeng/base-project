@@ -1,12 +1,10 @@
 package com.eghm.application.system.service;
 
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.dto.sys.menu.MenuAddRequest;
 import com.eghm.application.shared.dto.sys.menu.MenuEditRequest;
 import com.eghm.application.shared.dto.sys.menu.MenuQueryRequest;
 import com.eghm.domain.system.model.SysMenu;
 import com.eghm.application.shared.vo.sys.menu.MenuFullResponse;
-import com.eghm.application.shared.vo.sys.menu.MenuResponse;
 import com.eghm.application.shared.vo.sys.menu.MenuTreeResponse;
 
 import java.util.List;
@@ -23,14 +21,6 @@ public interface SysMenuApplicationService {
      * @return list
      */
     MenuTreeResponse tree();
-
-    /**
-     * 获取所有可用的菜单+按钮菜单
-     *
-     * @param request 查询条件
-     * @return 菜单列表
-     */
-    Page<MenuResponse> getByPage(MenuQueryRequest request);
 
     /**
      * 获取用户导航菜单列表,不包含按钮菜单

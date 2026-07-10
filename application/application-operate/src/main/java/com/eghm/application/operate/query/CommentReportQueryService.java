@@ -5,7 +5,7 @@ import com.eghm.application.shared.dto.operate.comment.CommentReportQueryRequest
 import com.eghm.application.shared.vo.operate.comment.CommentReportResponse;
 
 /**
- * 评论举报查询端口
+ * 评论举报查询服务
  *
  * @author 二哥很猛
  * @since 2024-01-17

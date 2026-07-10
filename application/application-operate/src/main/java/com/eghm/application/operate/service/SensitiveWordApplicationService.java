@@ -1,22 +1,10 @@
 package com.eghm.application.operate.service;
 
-import com.eghm.application.shared.dto.ext.Page;
-import com.eghm.application.shared.dto.ext.PagingQuery;
-import com.eghm.domain.operate.model.SensitiveWord;
-
 /**
  * @author wyb
  * @since 2021/12/4 11:02
  */
 public interface SensitiveWordApplicationService {
-
-    /**
-     * 分页查询敏感词信息
-     *
-     * @param query 查询条件
-     * @return 列表
-     */
-    Page<SensitiveWord> getByPage(PagingQuery query);
 
     /**
      * 重新加载敏感词

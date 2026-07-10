@@ -9,7 +9,7 @@ import com.eghm.application.shared.vo.operate.help.HelpResponse;
 import java.util.List;
 
 /**
- * 帮助中心查询端口
+ * 帮助中心查询服务
  *
  * @author 二哥很猛
  */

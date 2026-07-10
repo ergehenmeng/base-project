@@ -1,24 +1,13 @@
 package com.eghm.application.operate.service;
 
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.dto.operate.banner.BannerAddRequest;
 import com.eghm.application.shared.dto.operate.banner.BannerEditRequest;
-import com.eghm.application.shared.dto.operate.banner.BannerQueryRequest;
-import com.eghm.application.shared.vo.operate.banner.BannerResponse;
 
 /**
  * @author 二哥很猛
  * @since 2018/10/17 9:20
  */
 public interface BannerApplicationService {
-
-    /**
-     * 根据条件分页查询录播图列表
-     *
-     * @param request 查询条件
-     * @return 列表
-     */
-    Page<BannerResponse> getByPage(BannerQueryRequest request);
 
     /**
      * 新增轮播图信息

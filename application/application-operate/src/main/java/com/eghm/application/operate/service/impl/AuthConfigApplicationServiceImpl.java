@@ -1,20 +1,16 @@
 package com.eghm.application.operate.service.impl;
 
 import cn.hutool.core.util.IdUtil;
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.common.EmailService;
-import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.dto.operate.auth.AuthConfigAddRequest;
 import com.eghm.application.shared.dto.operate.auth.AuthConfigEditRequest;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.domain.operate.model.AuthConfig;
 import com.eghm.domain.operate.repository.AuthConfigRepository;
-import com.eghm.application.operate.query.AuthConfigQueryService;
 import com.eghm.application.operate.service.AuthConfigApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.application.shared.utils.StringUtil;
-import com.eghm.application.shared.vo.operate.auth.AuthConfigResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -34,13 +30,6 @@ public class AuthConfigApplicationServiceImpl implements AuthConfigApplicationSe
     private final EmailService emailService;
 
     private final AuthConfigRepository authConfigRepository;
-
-    private final AuthConfigQueryService authConfigQueryService;
-
-    @Override
-    public Page<AuthConfigResponse> getByPage(PagingQuery request) {
-        return authConfigQueryService.getByPage(request);
-    }
 
     @Override
     public void create(AuthConfigAddRequest request) {

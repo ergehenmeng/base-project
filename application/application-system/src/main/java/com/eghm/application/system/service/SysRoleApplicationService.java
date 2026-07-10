@@ -1,12 +1,9 @@
 package com.eghm.application.system.service;
 
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.dto.ext.CheckBox;
-import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.dto.sys.role.RoleAddRequest;
 import com.eghm.application.shared.dto.sys.role.RoleEditRequest;
 import com.eghm.domain.system.model.SysRole;
-import com.eghm.application.shared.vo.sys.ext.SysRoleResponse;
 
 import java.util.List;
 
@@ -15,14 +12,6 @@ import java.util.List;
  * @since 2018/11/26 15:33
  */
 public interface SysRoleApplicationService {
-
-    /**
-     * 分页查询角色信息
-     *
-     * @param request 前台查询条件
-     * @return 列表
-     */
-    Page<SysRoleResponse> getByPage(PagingQuery request);
 
     /**
      * 更新角色信息
@@ -91,5 +80,13 @@ public interface SysRoleApplicationService {
      * @return 角色信息
      */
     SysRole getById(Long id);
+
+    /**
+     * 获取角色授权菜单显示状态.
+     *
+     * @param id 角色id
+     * @return 菜单显示状态
+     */
+    Integer getMenuDisplayState(Long id);
 }
 

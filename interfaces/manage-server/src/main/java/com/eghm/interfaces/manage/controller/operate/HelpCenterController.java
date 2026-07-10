@@ -9,6 +9,7 @@ import com.eghm.application.shared.dto.operate.help.HelpAddRequest;
 import com.eghm.application.shared.dto.operate.help.HelpEditRequest;
 import com.eghm.application.shared.dto.operate.help.HelpQueryRequest;
 import com.eghm.domain.operate.model.HelpCenter;
+import com.eghm.application.operate.query.HelpCenterQueryService;
 import com.eghm.application.operate.service.HelpCenterApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.application.shared.vo.operate.help.HelpDetailResponse;
@@ -33,10 +34,12 @@ public class HelpCenterController {
 
     private final HelpCenterApplicationService helpCenterService;
 
+    private final HelpCenterQueryService helpCenterQueryService;
+
     @GetMapping("/listPage")
     @Operation(summary = "列表")
     public RespBody<PageData<HelpResponse>> listPage(@ParameterObject @Validated HelpQueryRequest request) {
-        Page<HelpResponse> byPage = helpCenterService.getByPage(request);
+        Page<HelpResponse> byPage = helpCenterQueryService.getByPage(request.createPage(), request);
         return RespBody.success(PageData.convert(byPage));
     }
 

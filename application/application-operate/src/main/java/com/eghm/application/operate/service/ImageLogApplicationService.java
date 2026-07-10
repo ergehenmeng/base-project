@@ -1,24 +1,13 @@
 package com.eghm.application.operate.service;
 
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.dto.operate.image.ImageAddRequest;
 import com.eghm.application.shared.dto.operate.image.ImageEditRequest;
-import com.eghm.application.shared.dto.operate.image.ImageQueryRequest;
-import com.eghm.application.shared.vo.operate.log.ImageLogResponse;
 
 /**
  * @author 二哥很猛
  * @since 2018/11/27 17:11
  */
 public interface ImageLogApplicationService {
-
-    /**
-     * 分页查询图片上传列表
-     *
-     * @param request 查询条件
-     * @return 结果
-     */
-    Page<ImageLogResponse> getByPage(ImageQueryRequest request);
 
     /**
      * 添加图片记录

@@ -5,7 +5,7 @@ import com.eghm.application.shared.dto.operate.feedback.FeedbackQueryRequest;
 import com.eghm.application.shared.vo.operate.feedback.FeedbackResponse;
 
 /**
- * 用户反馈查询端口
+ * 用户反馈查询服务
  *
  * @author 二哥很猛
  * @since 2019/8/28 10:46

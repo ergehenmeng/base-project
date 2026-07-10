@@ -10,8 +10,7 @@ import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.infrastructure.persistence.mybatis.mapper.BlackRosterMapper;
 import com.eghm.infrastructure.persistence.mybatis.po.BlackRosterPO;
 import com.eghm.application.system.query.BlackRosterQueryService;
-import com.eghm.domain.system.model.BlackRoster;
-import com.eghm.application.shared.utils.DataUtil;
+import com.eghm.application.shared.vo.sys.roster.BlackRosterResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -29,7 +28,7 @@ public class MybatisBlackRosterQueryService implements BlackRosterQueryService {
     private final BlackRosterMapper blackRosterMapper;
 
     @Override
-    public Page<BlackRoster> getByPage(PagingQuery request) {
+    public Page<BlackRosterResponse> getByPage(PagingQuery request) {
         LambdaQueryWrapper<BlackRosterPO> wrapper = Wrappers.lambdaQuery();
         if (isNotBlank(request.getQueryName())) {
             if (PatternPool.IPV4.matcher(request.getQueryName()).matches()) {
@@ -41,7 +40,7 @@ public class MybatisBlackRosterQueryService implements BlackRosterQueryService {
             }
         }
         wrapper.orderByDesc(BlackRosterPO::getId);
-        return MybatisPageUtil.copy(blackRosterMapper.selectPage(MybatisPageUtil.toMybatis(request.createPage()), wrapper), BlackRoster.class);
+        return MybatisPageUtil.copy(blackRosterMapper.selectPage(MybatisPageUtil.toMybatis(request.createPage()), wrapper), BlackRosterResponse.class);
     }
 }
 

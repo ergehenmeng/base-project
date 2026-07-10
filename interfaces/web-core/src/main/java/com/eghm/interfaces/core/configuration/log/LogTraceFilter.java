@@ -1,5 +1,6 @@
 package com.eghm.interfaces.core.configuration.log;
 
+import com.eghm.application.shared.configuration.log.LogTraceHolder;
 import com.eghm.application.shared.utils.StringUtil;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.FilterChain;

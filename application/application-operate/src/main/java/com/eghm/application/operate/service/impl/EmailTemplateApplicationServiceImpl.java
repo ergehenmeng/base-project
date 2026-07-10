@@ -1,17 +1,13 @@
 package com.eghm.application.operate.service.impl;
 
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.cache.CacheProxyService;
-import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.dto.operate.email.EmailTemplateRequest;
 import com.eghm.enums.EmailType;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.domain.operate.model.EmailTemplate;
 import com.eghm.domain.operate.repository.EmailTemplateRepository;
-import com.eghm.application.operate.query.EmailTemplateQueryService;
 import com.eghm.application.operate.service.EmailTemplateApplicationService;
-import com.eghm.application.shared.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,13 +22,6 @@ public class EmailTemplateApplicationServiceImpl implements EmailTemplateApplica
     private final CacheProxyService cacheProxyService;
 
     private final EmailTemplateRepository emailTemplateRepository;
-
-    private final EmailTemplateQueryService emailTemplateQueryService;
-
-    @Override
-    public Page<EmailTemplate> getByPage(PagingQuery query) {
-        return emailTemplateQueryService.getByPage(query);
-    }
 
     @Override
     public void update(EmailTemplateRequest request) {

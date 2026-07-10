@@ -1,26 +1,20 @@
 package com.eghm.application.operate.service.impl;
 
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.cache.CacheProxyService;
 import com.eghm.application.shared.common.SysConfigService;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.DictConstant;
-import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.dto.operate.notice.NoticeAddRequest;
 import com.eghm.application.shared.dto.operate.notice.NoticeEditRequest;
-import com.eghm.application.shared.dto.operate.notice.NoticeQueryRequest;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.domain.operate.model.SysNotice;
 import com.eghm.domain.operate.repository.SysNoticeRepository;
-import com.eghm.application.operate.query.SysNoticeQueryService;
 import com.eghm.application.operate.service.SysNoticeApplicationService;
 import com.eghm.application.system.service.SysDictApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.application.shared.vo.operate.notice.NoticeDetailVO;
-import com.eghm.application.shared.vo.operate.notice.NoticeResponse;
 import com.eghm.application.shared.vo.operate.notice.NoticeTopVO;
-import com.eghm.application.shared.vo.operate.notice.NoticeVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -42,14 +36,7 @@ public class SysNoticeApplicationServiceImpl implements SysNoticeApplicationServ
 
     private final SysNoticeRepository sysNoticeRepository;
 
-    private final SysNoticeQueryService sysNoticeQueryService;
-
     private final CacheProxyService cacheProxyService;
-
-    @Override
-    public Page<NoticeResponse> getByPage(NoticeQueryRequest request) {
-        return sysNoticeQueryService.getByPage(request.createPage(), request);
-    }
 
     @Override
     public List<NoticeTopVO> getTop() {
@@ -61,11 +48,6 @@ public class SysNoticeApplicationServiceImpl implements SysNoticeApplicationServ
             vo.setTitle(sysDictService.getDictValue(DictConstant.NOTICE_TYPE, notice.getNoticeType()) + ": " + vo.getTitle());
             return vo;
         });
-    }
-
-    @Override
-    public List<NoticeVO> getList(PagingQuery query) {
-        return sysNoticeQueryService.getList(query);
     }
 
     @Override

@@ -1,11 +1,8 @@
 package com.eghm.application.payment.service;
 
-import com.eghm.application.shared.dto.ext.Page;
-import com.eghm.application.shared.dto.business.pay.PayLogQueryRequest;
 import com.eghm.domain.payment.model.PayNotifyLog;
 import com.eghm.domain.payment.enums.StepType;
 import com.eghm.application.payment.dto.PayNotifyMessage;
-import com.eghm.application.shared.vo.operate.log.PayNotifyLogResponse;
 
 import java.util.Map;
 
@@ -14,14 +11,6 @@ import java.util.Map;
  * @since 2022/7/26
  */
 public interface PayNotifyLogApplicationService {
-
-    /**
-     * 分页查询支付退款异步请求的日志
-     *
-     * @param request 查询条件
-     * @return 列表
-     */
-    Page<PayNotifyLogResponse> getByPage(PayLogQueryRequest request);
 
     /**
      * 添加支付宝异步通知日志

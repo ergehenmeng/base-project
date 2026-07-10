@@ -4,8 +4,6 @@ import com.eghm.application.shared.cache.CacheService;
 import com.eghm.application.shared.cache.SysCacheService;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.sys.cache.DeleteRequest;
-import com.eghm.domain.system.model.SysCache;
-import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.application.shared.vo.sys.cache.SysCacheResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -38,8 +36,7 @@ public class CacheController {
     @GetMapping("/list")
     @Operation(summary = "缓存列表(不分页)")
     public RespBody<List<SysCacheResponse>> list() {
-        List<SysCache> list = sysCacheService.getList();
-        return RespBody.success(DataUtil.copy(list, SysCacheResponse.class));
+        return RespBody.success(sysCacheService.getList());
     }
 
     @GetMapping("/clear")

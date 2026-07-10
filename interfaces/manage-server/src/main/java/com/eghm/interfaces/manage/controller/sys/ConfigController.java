@@ -5,6 +5,7 @@ import com.eghm.application.shared.dto.ext.PageData;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.sys.config.ConfigEditRequest;
 import com.eghm.application.shared.dto.sys.config.ConfigQueryRequest;
+import com.eghm.application.system.query.SysConfigQueryService;
 import com.eghm.application.system.service.SysConfigApplicationService;
 import com.eghm.application.shared.vo.sys.ext.SysConfigResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,10 +29,12 @@ public class ConfigController {
 
     private final SysConfigApplicationService sysConfigService;
 
+    private final SysConfigQueryService sysConfigQueryService;
+
     @GetMapping("/listPage")
     @Operation(summary = "列表")
     public RespBody<PageData<SysConfigResponse>> listPage(@ParameterObject ConfigQueryRequest request) {
-        Page<SysConfigResponse> listByPage = sysConfigService.getByPage(request);
+        Page<SysConfigResponse> listByPage = sysConfigQueryService.getByPage(request);
         return RespBody.success(PageData.convert(listByPage));
     }
 

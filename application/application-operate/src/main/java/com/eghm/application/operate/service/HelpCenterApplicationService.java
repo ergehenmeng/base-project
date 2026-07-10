@@ -1,29 +1,14 @@
 package com.eghm.application.operate.service;
 
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.dto.operate.help.HelpAddRequest;
 import com.eghm.application.shared.dto.operate.help.HelpEditRequest;
-import com.eghm.application.shared.dto.operate.help.HelpQueryDTO;
-import com.eghm.application.shared.dto.operate.help.HelpQueryRequest;
 import com.eghm.domain.operate.model.HelpCenter;
-import com.eghm.application.shared.vo.operate.help.HelpCenterVO;
-import com.eghm.application.shared.vo.operate.help.HelpResponse;
-
-import java.util.List;
 
 /**
  * @author 帮助说明
  * @since 2018/11/20 20:20
  */
 public interface HelpCenterApplicationService {
-
-    /**
-     * 分页获取帮助说明
-     *
-     * @param request 前台参数
-     * @return 分页列表
-     */
-    Page<HelpResponse> getByPage(HelpQueryRequest request);
 
     /**
      * 添加帮助说明
@@ -62,12 +47,5 @@ public interface HelpCenterApplicationService {
      */
     HelpCenter selectById(Long id);
 
-    /**
-     * 按分类查询帮助信息
-     *
-     * @param dto 查询条件
-     * @return 不分页
-     */
-    List<HelpCenterVO> list(HelpQueryDTO dto);
 }
 

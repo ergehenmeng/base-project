@@ -1,16 +1,12 @@
 package com.eghm.application.operate.service.impl;
 
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.dto.operate.comment.CommentReportDTO;
-import com.eghm.application.shared.dto.operate.comment.CommentReportQueryRequest;
 import com.eghm.domain.operate.model.Comment;
 import com.eghm.domain.operate.model.CommentReport;
 import com.eghm.domain.operate.repository.CommentReportRepository;
 import com.eghm.domain.operate.repository.CommentRepository;
-import com.eghm.application.operate.query.CommentReportQueryService;
 import com.eghm.application.operate.service.CommentReportApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
-import com.eghm.application.shared.vo.operate.comment.CommentReportResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -31,13 +27,6 @@ public class CommentReportApplicationServiceImpl implements CommentReportApplica
     private final CommentRepository commentRepository;
 
     private final CommentReportRepository commentReportRepository;
-
-    private final CommentReportQueryService commentReportQueryService;
-
-    @Override
-    public Page<CommentReportResponse> getByPage(CommentReportQueryRequest request) {
-        return commentReportQueryService.getByPage(request.createPage(), request);
-    }
 
     @Override
     public void report(CommentReportDTO dto) {

@@ -4,6 +4,7 @@ import com.eghm.application.shared.dto.business.collect.CollectDTO;
 import com.eghm.application.shared.dto.business.collect.CollectQueryDTO;
 import com.eghm.application.shared.configuration.authentication.ApiHolder;
 import com.eghm.application.shared.dto.ext.RespBody;
+import com.eghm.application.member.query.MemberCollectQueryService;
 import com.eghm.application.member.service.MemberCollectApplicationService;
 import com.eghm.application.shared.vo.business.collect.MemberCollectVO;
 import com.eghm.interfaces.webapp.annotation.AccessToken;
@@ -30,12 +31,14 @@ public class MemberCollectController {
 
     private final MemberCollectApplicationService memberCollectService;
 
+    private final MemberCollectQueryService memberCollectQueryService;
+
     @GetMapping("/listPage")
     @Operation(summary = "列表")
     @AccessToken
     public RespBody<List<MemberCollectVO>> listPage(@ParameterObject CollectQueryDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
-        List<MemberCollectVO> byPage = memberCollectService.getByPage(dto);
+        List<MemberCollectVO> byPage = memberCollectQueryService.listCollectedPage(dto);
         return RespBody.success(byPage);
     }
 

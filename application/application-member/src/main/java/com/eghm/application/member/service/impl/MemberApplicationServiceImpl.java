@@ -1,7 +1,6 @@
 package com.eghm.application.member.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.common.SendSmsService;
 import com.eghm.constants.CommonConstant;
 import com.eghm.domain.member.model.Member;
@@ -31,7 +30,6 @@ import com.eghm.application.member.service.MemberRegisterApplicationService;
 import com.eghm.application.member.service.MemberScoreApplicationService;
 import com.eghm.application.member.service.MemberApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
-import com.eghm.application.shared.vo.business.member.MemberResponse;
 import com.eghm.application.shared.vo.business.member.MemberVO;
 import com.eghm.application.shared.vo.business.member.SignInVO;
 import com.eghm.application.shared.vo.business.statistics.MemberRegisterVO;
@@ -69,17 +67,6 @@ public class MemberApplicationServiceImpl implements MemberApplicationService {
     private final MemberRegisterApplicationService memberRegisterService;
     private final MemberProfileApplicationService memberProfileService;
     private final MemberScoreApplicationService memberScoreService;
-
-    @Override
-    public Page<MemberResponse> getByPage(MemberQueryRequest request) {
-        return memberQueryService.listPage(request.createPage(), request);
-    }
-
-    @Override
-    public List<MemberResponse> getList(MemberQueryRequest request) {
-        Page<MemberResponse> listPage = memberQueryService.listPage(request.createNullPage(), request);
-        return listPage.getRecords();
-    }
 
     @Override
     public LoginTokenVO accountLogin(AccountLoginDTO login) {

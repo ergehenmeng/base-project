@@ -7,6 +7,7 @@ import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.operate.sensitive.KeywordDTO;
 import com.eghm.domain.operate.model.SensitiveWord;
+import com.eghm.application.operate.query.SensitiveWordQueryService;
 import com.eghm.application.operate.service.SensitiveWordApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.application.shared.vo.operate.sensitive.SensitiveWordResponse;
@@ -31,10 +32,12 @@ public class SensitiveWordController {
 
     private final SensitiveWordApplicationService sensitiveWordService;
 
+    private final SensitiveWordQueryService sensitiveWordQueryService;
+
     @GetMapping("/listPage")
     @Operation(summary = "列表")
     public RespBody<PageData<SensitiveWordResponse>> listPage(@ParameterObject PagingQuery query) {
-        Page<SensitiveWord> byPage = sensitiveWordService.getByPage(query);
+        Page<SensitiveWord> byPage = sensitiveWordQueryService.getByPage(query);
         return RespBody.success(DataUtil.copy(byPage, SensitiveWordResponse.class));
     }
 

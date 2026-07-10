@@ -1,18 +1,14 @@
 package com.eghm.application.payment.service.impl;
 
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.domain.shared.service.JsonService;
-import com.eghm.application.shared.dto.business.pay.PayLogQueryRequest;
 import com.eghm.application.payment.dto.PrepayDTO;
 import com.eghm.application.payment.dto.RefundDTO;
 import com.eghm.domain.payment.enums.StepType;
 import com.eghm.domain.payment.model.PayRequestLog;
 import com.eghm.domain.payment.repository.PayRequestLogRepository;
-import com.eghm.application.payment.query.PayRequestLogQueryService;
 import com.eghm.application.payment.service.PayRequestLogApplicationService;
 import com.eghm.application.payment.vo.PrepayVO;
 import com.eghm.application.payment.vo.RefundVO;
-import com.eghm.application.shared.vo.operate.log.PayRequestLogResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -34,13 +30,6 @@ public class PayRequestLogApplicationServiceImpl implements PayRequestLogApplica
     private final JsonService jsonService;
 
     private final PayRequestLogRepository payRequestLogRepository;
-
-    private final PayRequestLogQueryService payRequestLogQueryService;
-
-    @Override
-    public Page<PayRequestLogResponse> getByPage(PayLogQueryRequest request) {
-        return payRequestLogQueryService.getByPage(request.createPage(), request);
-    }
 
     @Async
     @Override

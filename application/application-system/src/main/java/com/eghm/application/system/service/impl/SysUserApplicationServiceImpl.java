@@ -2,7 +2,6 @@ package com.eghm.application.system.service.impl;
 
 import com.eghm.domain.shared.enums.UserState;
 import com.eghm.domain.system.model.SysUser;
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.dto.sys.login.SmsLoginRequest;
 import com.eghm.application.shared.dto.sys.login.TotpBindRequest;
 import com.eghm.application.shared.dto.sys.login.TotpCheckRequest;
@@ -10,19 +9,21 @@ import com.eghm.application.shared.dto.sys.user.PasswordEditRequest;
 import com.eghm.application.shared.dto.sys.user.UserAddRequest;
 import com.eghm.application.shared.dto.sys.user.UserEditRequest;
 import com.eghm.application.shared.dto.sys.user.UserProfileRequest;
-import com.eghm.application.shared.dto.sys.user.UserQueryRequest;
 import com.eghm.application.system.service.SysUserAuthApplicationService;
 import com.eghm.application.system.service.SysUserCommandApplicationService;
 import com.eghm.application.system.service.SysUserPasswordApplicationService;
-import com.eghm.application.system.query.SysUserQueryService;
 import com.eghm.application.system.service.SysUserApplicationService;
+import com.eghm.application.system.service.SysRoleApplicationService;
+import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.application.shared.vo.login.LoginMenuResponse;
 import com.eghm.application.shared.vo.login.LoginResponse;
 import com.eghm.application.shared.vo.login.TotpLoginResponse;
-import com.eghm.application.shared.vo.sys.user.UserResponse;
+import com.eghm.application.shared.vo.sys.user.UserDetailResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 系统用户服务门面 - 委托给子服务处理具体业务
@@ -35,15 +36,10 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class SysUserApplicationServiceImpl implements SysUserApplicationService {
 
-    private final SysUserQueryService sysUserQueryService;
     private final SysUserAuthApplicationService sysUserAuthService;
     private final SysUserPasswordApplicationService sysUserPasswordService;
     private final SysUserCommandApplicationService sysUserCommandService;
-
-    @Override
-    public Page<UserResponse> getByPage(UserQueryRequest request) {
-        return sysUserQueryService.getByPage(request);
-    }
+    private final SysRoleApplicationService sysRoleService;
 
     @Override
     public void updateLoginPassword(PasswordEditRequest request) {
@@ -63,6 +59,15 @@ public class SysUserApplicationServiceImpl implements SysUserApplicationService 
     @Override
     public SysUser getByIdRequired(Long id) {
         return sysUserCommandService.getByIdRequired(id);
+    }
+
+    @Override
+    public UserDetailResponse getDetailById(Long id) {
+        SysUser user = sysUserCommandService.getByIdRequired(id);
+        UserDetailResponse response = DataUtil.copy(user, UserDetailResponse.class);
+        List<Long> roleList = sysRoleService.getByUserId(id);
+        response.setRoleIds(roleList);
+        return response;
     }
 
     @Override

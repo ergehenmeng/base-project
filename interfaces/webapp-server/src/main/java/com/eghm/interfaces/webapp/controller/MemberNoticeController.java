@@ -5,6 +5,7 @@ import com.eghm.application.shared.dto.IdDTO;
 import com.eghm.application.shared.configuration.authentication.ApiHolder;
 import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.dto.ext.RespBody;
+import com.eghm.application.member.query.MemberNoticeQueryService;
 import com.eghm.application.member.service.MemberNoticeApplicationService;
 import com.eghm.application.shared.vo.business.member.MemberNoticeVO;
 import com.eghm.interfaces.webapp.annotation.AccessToken;
@@ -30,10 +31,12 @@ public class MemberNoticeController {
 
     private final MemberNoticeApplicationService memberNoticeService;
 
+    private final MemberNoticeQueryService memberNoticeQueryService;
+
     @GetMapping("/listPage")
     @Operation(summary = "列表")
     public RespBody<List<MemberNoticeVO>> listPage(@ParameterObject PagingQuery query) {
-        List<MemberNoticeVO> paging = memberNoticeService.getByPage(query, ApiHolder.getMemberId());
+        List<MemberNoticeVO> paging = memberNoticeQueryService.getByPage(query.createPage(false), ApiHolder.getMemberId());
         return RespBody.success(paging);
     }
 

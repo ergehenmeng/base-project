@@ -1,16 +1,9 @@
 package com.eghm.application.operate.service;
 
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.dto.business.news.NewsAddRequest;
 import com.eghm.application.shared.dto.business.news.NewsEditRequest;
-import com.eghm.application.shared.dto.business.news.NewsQueryRequest;
-import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.domain.operate.model.News;
 import com.eghm.application.shared.vo.business.news.NewsDetailVO;
-import com.eghm.application.shared.vo.business.news.NewsResponse;
-import com.eghm.application.shared.vo.business.news.NewsVO;
-
-import java.util.List;
 
 /**
  * <p>
@@ -21,14 +14,6 @@ import java.util.List;
  * @since 2023-12-29
  */
 public interface NewsApplicationService {
-
-    /**
-     * 分页查询资讯
-     *
-     * @param request 查询条件
-     * @return 分页列表
-     */
-    Page<NewsResponse> getByPage(NewsQueryRequest request);
 
     /**
      * 新增资讯
@@ -50,14 +35,6 @@ public interface NewsApplicationService {
      * @param id 资讯id
      */
     void deleteById(Long id);
-
-    /**
-     * 移动端查询资讯列表
-     *
-     * @param query 查询条件
-     * @return 列表
-     */
-    List<NewsVO> getByPage(PagingQuery query);
 
     /**
      * 根据id查询资讯

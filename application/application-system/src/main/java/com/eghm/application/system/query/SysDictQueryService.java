@@ -6,7 +6,7 @@ import com.eghm.application.shared.vo.sys.dict.DictResponse;
 import java.util.List;
 
 /**
- * 数据字典查询网关
+ * 数据字典查询服务
  *
  * @author 二哥很猛
  */

@@ -1,6 +1,5 @@
 package com.eghm.application.member.service;
 
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.dto.business.member.*;
 import com.eghm.application.shared.dto.business.statistics.DateRequest;
 import com.eghm.application.shared.dto.sys.login.AccountLoginDTO;
@@ -11,7 +10,6 @@ import com.eghm.application.shared.dto.sys.register.MobileRegisterDTO;
 import com.eghm.domain.shared.enums.MemberState;
 import com.eghm.domain.shared.enums.ScoreType;
 import com.eghm.domain.member.model.Member;
-import com.eghm.application.shared.vo.business.member.MemberResponse;
 import com.eghm.application.shared.vo.business.member.MemberVO;
 import com.eghm.application.shared.vo.business.member.SignInVO;
 import com.eghm.application.shared.vo.business.statistics.MemberRegisterVO;
@@ -25,22 +23,6 @@ import java.util.List;
  * @since 2019/8/19 15:50
  */
 public interface MemberApplicationService {
-
-    /**
-     * 分页查询会员信息
-     *
-     * @param request 查询条件
-     * @return 列表
-     */
-    Page<MemberResponse> getByPage(MemberQueryRequest request);
-
-    /**
-     * 分页查询会员信息 导出
-     *
-     * @param request 查询条件
-     * @return 列表
-     */
-    List<MemberResponse> getList(MemberQueryRequest request);
 
     /**
      * 账号登陆 邮箱或密码登陆

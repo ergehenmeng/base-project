@@ -1,26 +1,13 @@
 package com.eghm.application.member.service;
 
-import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.dto.ext.SendNotice;
 import com.eghm.application.shared.dto.business.member.SendNotifyRequest;
-import com.eghm.application.shared.vo.business.member.MemberNoticeVO;
-
-import java.util.List;
 
 /**
  * @author 殿小二
  * @since 2020/9/11
  */
 public interface MemberNoticeApplicationService {
-
-    /**
-     * 查询用户站内信通知列表
-     *
-     * @param query    分页参数
-     * @param memberId 用户id
-     * @return 列表
-     */
-    List<MemberNoticeVO> getByPage(PagingQuery query, Long memberId);
 
     /**
      * 发送站内信
@@ -53,11 +40,4 @@ public interface MemberNoticeApplicationService {
      */
     void setNoticeRead(Long id, Long memberId);
 
-    /**
-     * 统计用户未读消息数量
-     *
-     * @param memberId memberId
-     * @return 数量
-     */
-    Long countUnRead(Long memberId);
 }

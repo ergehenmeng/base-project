@@ -2,10 +2,10 @@ package com.eghm.application.system.query;
 
 import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.dto.ext.PagingQuery;
-import com.eghm.domain.system.model.BlackRoster;
+import com.eghm.application.shared.vo.sys.roster.BlackRosterResponse;
 
 /**
- * 黑名单查询网关
+ * 黑名单查询服务
  *
  * @author 二哥很猛
  */
@@ -17,5 +17,5 @@ public interface BlackRosterQueryService {
      * @param request 查询条件
      * @return 列表
      */
-    Page<BlackRoster> getByPage(PagingQuery request);
+    Page<BlackRosterResponse> getByPage(PagingQuery request);
 }

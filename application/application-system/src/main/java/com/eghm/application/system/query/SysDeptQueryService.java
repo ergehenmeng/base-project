@@ -6,7 +6,7 @@ import com.eghm.application.shared.vo.sys.ext.SysDeptResponse;
 import java.util.List;
 
 /**
- * 部门查询网关
+ * 部门查询服务
  *
  * @author 二哥很猛
  */

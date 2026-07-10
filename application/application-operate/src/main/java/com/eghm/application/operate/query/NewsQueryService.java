@@ -2,11 +2,14 @@ package com.eghm.application.operate.query;
 
 import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.dto.business.news.NewsQueryRequest;
+import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.vo.business.news.NewsResponse;
 import com.eghm.application.shared.vo.business.news.NewsVO;
 
+import java.util.List;
+
 /**
- * 资讯查询端口
+ * 资讯查询服务
  *
  * @author 二哥很猛
  * @since 2023-12-29
@@ -30,4 +33,6 @@ public interface NewsQueryService {
      * @return 列表
      */
     Page<NewsVO> getByPage(Page<NewsVO> page, String queryName);
+
+    List<NewsVO> listClientPage(PagingQuery query);
 }

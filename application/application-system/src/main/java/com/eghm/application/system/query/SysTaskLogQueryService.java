@@ -5,7 +5,7 @@ import com.eghm.application.shared.dto.sys.task.TaskLogQueryRequest;
 import com.eghm.application.shared.vo.operate.log.SysTaskLogResponse;
 
 /**
- * 定时任务日志查询端口
+ * 定时任务日志查询服务
  *
  * @author 二哥很猛
  * @since 2019/9/11 11:18

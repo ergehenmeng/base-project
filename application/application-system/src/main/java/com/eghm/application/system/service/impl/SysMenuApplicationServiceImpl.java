@@ -1,6 +1,5 @@
 package com.eghm.application.system.service.impl;
 
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.common.CommonService;
 import com.eghm.constants.CommonConstant;
 import com.eghm.application.shared.dto.sys.menu.MenuAddRequest;
@@ -16,7 +15,6 @@ import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.application.shared.utils.StringUtil;
 import com.eghm.application.shared.utils.TreeUtil;
 import com.eghm.application.shared.vo.sys.menu.MenuFullResponse;
-import com.eghm.application.shared.vo.sys.menu.MenuResponse;
 import com.eghm.application.shared.vo.sys.menu.MenuTreeResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -56,11 +54,6 @@ public class SysMenuApplicationServiceImpl implements SysMenuApplicationService 
         response.setId(ROOT);
         response.setTitle("系统菜单");
         return response;
-    }
-
-    @Override
-    public Page<MenuResponse> getByPage(MenuQueryRequest request) {
-        return sysMenuQueryService.getByPage(request);
     }
 
     @Override

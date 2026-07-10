@@ -5,7 +5,7 @@ import com.eghm.application.shared.dto.operate.banner.BannerQueryRequest;
 import com.eghm.application.shared.vo.operate.banner.BannerResponse;
 
 /**
- * 轮播图查询端口
+ * 轮播图查询服务
  *
  * @author 二哥很猛
  */

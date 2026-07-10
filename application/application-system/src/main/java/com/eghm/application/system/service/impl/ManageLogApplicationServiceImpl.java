@@ -1,12 +1,8 @@
 package com.eghm.application.system.service.impl;
 
-import com.eghm.application.shared.dto.ext.Page;
-import com.eghm.application.shared.dto.sys.log.ManageQueryRequest;
-import com.eghm.application.system.query.ManageLogQueryService;
 import com.eghm.application.system.service.ManageLogApplicationService;
 import com.eghm.domain.system.model.ManageLog;
 import com.eghm.domain.system.repository.ManageLogRepository;
-import com.eghm.application.shared.vo.operate.log.ManageLogResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,13 +17,6 @@ import org.springframework.stereotype.Service;
 public class ManageLogApplicationServiceImpl implements ManageLogApplicationService {
 
     private final ManageLogRepository manageLogRepository;
-
-    private final ManageLogQueryService manageLogQueryService;
-
-    @Override
-    public Page<ManageLogResponse> getByPage(ManageQueryRequest request) {
-        return manageLogQueryService.getByPage(request.createPage(), request);
-    }
 
     @Override
     public void insertManageLog(ManageLog log) {

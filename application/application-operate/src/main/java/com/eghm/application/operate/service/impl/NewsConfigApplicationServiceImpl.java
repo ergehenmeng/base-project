@@ -1,22 +1,16 @@
 package com.eghm.application.operate.service.impl;
 
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.dto.business.news.config.NewsConfigAddRequest;
 import com.eghm.application.shared.dto.business.news.config.NewsConfigEditRequest;
-import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.domain.operate.model.NewsConfig;
 import com.eghm.domain.operate.repository.NewsConfigRepository;
-import com.eghm.application.operate.query.NewsConfigQueryService;
 import com.eghm.application.operate.service.NewsConfigApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
-import com.eghm.application.shared.vo.business.news.NewsConfigResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * <p>
@@ -32,18 +26,6 @@ import java.util.List;
 public class NewsConfigApplicationServiceImpl implements NewsConfigApplicationService {
 
     private final NewsConfigRepository newsConfigRepository;
-
-    private final NewsConfigQueryService newsConfigQueryService;
-
-    @Override
-    public Page<NewsConfig> getByPage(PagingQuery query) {
-        return newsConfigQueryService.getByPage(query);
-    }
-
-    @Override
-    public List<NewsConfigResponse> getList() {
-        return newsConfigQueryService.getList();
-    }
 
     @Override
     public void create(NewsConfigAddRequest request) {

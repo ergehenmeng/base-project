@@ -1,18 +1,14 @@
 package com.eghm.application.operate.service.impl;
 
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.dto.ext.SendNotice;
 import com.eghm.application.shared.dto.operate.feedback.FeedbackAddDTO;
 import com.eghm.application.shared.dto.operate.feedback.FeedbackDisposeRequest;
-import com.eghm.application.shared.dto.operate.feedback.FeedbackQueryRequest;
 import com.eghm.domain.shared.enums.MessageType;
 import com.eghm.domain.operate.model.FeedbackLog;
 import com.eghm.domain.operate.repository.FeedbackLogRepository;
 import com.eghm.application.member.service.MemberNoticeApplicationService;
-import com.eghm.application.operate.query.FeedbackQueryService;
 import com.eghm.application.operate.service.FeedbackApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
-import com.eghm.application.shared.vo.operate.feedback.FeedbackResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,14 +27,7 @@ public class FeedbackApplicationServiceImpl implements FeedbackApplicationServic
 
     private final FeedbackLogRepository feedbackLogRepository;
 
-    private final FeedbackQueryService feedbackQueryService;
-
     private final MemberNoticeApplicationService memberNoticeService;
-
-    @Override
-    public Page<FeedbackResponse> getByPage(FeedbackQueryRequest request) {
-        return feedbackQueryService.getByPage(request.createPage(), request);
-    }
 
     @Override
     public void addFeedback(FeedbackAddDTO request) {

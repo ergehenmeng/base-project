@@ -1,12 +1,8 @@
 package com.eghm.application.system.service.impl;
 
-import com.eghm.application.shared.dto.ext.Page;
-import com.eghm.application.shared.dto.sys.task.TaskLogQueryRequest;
-import com.eghm.application.system.query.SysTaskLogQueryService;
 import com.eghm.application.system.service.SysTaskLogApplicationService;
 import com.eghm.domain.system.model.SysTaskLog;
 import com.eghm.domain.system.repository.SysTaskLogRepository;
-import com.eghm.application.shared.vo.operate.log.SysTaskLogResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,13 +15,6 @@ import org.springframework.stereotype.Service;
 public class SysTaskLogApplicationServiceImpl implements SysTaskLogApplicationService {
 
     private final SysTaskLogRepository sysTaskLogRepository;
-
-    private final SysTaskLogQueryService sysTaskLogQueryService;
-
-    @Override
-    public Page<SysTaskLogResponse> getByPage(TaskLogQueryRequest request) {
-        return sysTaskLogQueryService.getByPage(request.createPage(), request);
-    }
 
     @Override
     public void addTaskLog(SysTaskLog log) {

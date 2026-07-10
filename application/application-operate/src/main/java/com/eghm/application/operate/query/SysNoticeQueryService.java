@@ -9,7 +9,7 @@ import com.eghm.application.shared.vo.operate.notice.NoticeVO;
 import java.util.List;
 
 /**
- * 系统公告查询端口
+ * 系统公告查询服务
  *
  * @author 二哥很猛
  */

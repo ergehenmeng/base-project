@@ -5,6 +5,7 @@ import com.eghm.application.shared.dto.IdDTO;
 import com.eghm.application.shared.dto.ext.PageData;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.sys.task.TaskLogQueryRequest;
+import com.eghm.application.system.query.SysTaskLogQueryService;
 import com.eghm.application.system.service.SysTaskLogApplicationService;
 import com.eghm.application.shared.vo.operate.log.SysTaskLogResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -31,10 +32,12 @@ public class SysTaskLogController {
 
     private final SysTaskLogApplicationService sysTaskLogService;
 
+    private final SysTaskLogQueryService sysTaskLogQueryService;
+
     @GetMapping("/listPage")
     @Operation(summary = "列表")
     public RespBody<PageData<SysTaskLogResponse>> listPage(@ParameterObject TaskLogQueryRequest request) {
-        Page<SysTaskLogResponse> byPage = sysTaskLogService.getByPage(request);
+        Page<SysTaskLogResponse> byPage = sysTaskLogQueryService.getByPage(request.createPage(), request);
         return RespBody.success(PageData.convert(byPage));
     }
 

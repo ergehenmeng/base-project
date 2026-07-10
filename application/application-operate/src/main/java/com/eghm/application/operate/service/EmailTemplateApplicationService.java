@@ -1,8 +1,6 @@
 package com.eghm.application.operate.service;
 
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.dto.operate.email.EmailTemplateRequest;
-import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.enums.EmailType;
 import com.eghm.domain.operate.model.EmailTemplate;
 
@@ -11,14 +9,6 @@ import com.eghm.domain.operate.model.EmailTemplate;
  * @since 2020/8/28
  */
 public interface EmailTemplateApplicationService {
-
-    /**
-     * 分页查询邮件模板
-     *
-     * @param query 分页信息
-     * @return 列表
-     */
-    Page<EmailTemplate> getByPage(PagingQuery query);
 
     /**
      * 更新邮件模板

@@ -10,6 +10,7 @@ import com.eghm.application.shared.dto.business.news.NewsQueryRequest;
 import com.eghm.application.shared.dto.ext.PageData;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.domain.operate.model.News;
+import com.eghm.application.operate.query.NewsQueryService;
 import com.eghm.application.operate.service.NewsApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.application.shared.vo.business.news.NewsDetailResponse;
@@ -35,10 +36,12 @@ public class NewsController {
 
     private final NewsApplicationService newsService;
 
+    private final NewsQueryService newsQueryService;
+
     @Operation(summary = "列表")
     @GetMapping("/listPage")
     public RespBody<PageData<NewsResponse>> getByPage(@ParameterObject @Validated NewsQueryRequest request) {
-        Page<NewsResponse> scenicPage = newsService.getByPage(request);
+        Page<NewsResponse> scenicPage = newsQueryService.listPage(request.createPage(), request);
         return RespBody.success(PageData.convert(scenicPage));
     }
 

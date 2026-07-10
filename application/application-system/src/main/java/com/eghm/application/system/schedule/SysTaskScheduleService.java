@@ -10,6 +10,13 @@ import java.time.LocalDateTime;
 public interface SysTaskScheduleService {
 
     /**
+     * 重新加载定时任务.
+     *
+     * @return true:刷新成功 false:调度器未启用
+     */
+    boolean reloadTask();
+
+    /**
      * 安排一次任务执行
      *
      * @param beanName    bean名称

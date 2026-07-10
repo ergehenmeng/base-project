@@ -5,7 +5,7 @@ import com.eghm.application.shared.dto.sys.task.TaskQueryRequest;
 import com.eghm.application.shared.vo.operate.task.SysTaskResponse;
 
 /**
- * 定时任务查询网关
+ * 定时任务查询服务
  *
  * @author 二哥很猛
  */

@@ -1,11 +1,8 @@
 package com.eghm.application.member.service;
 
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.domain.member.model.LoginDevice;
 import com.eghm.application.shared.dto.ext.LoginRecord;
-import com.eghm.application.shared.dto.business.member.LoginLogQueryRequest;
 import com.eghm.application.shared.vo.business.member.LoginDeviceVO;
-import com.eghm.application.shared.vo.business.member.LoginLogResponse;
 
 import java.util.List;
 
@@ -14,14 +11,6 @@ import java.util.List;
  * @since 2023/3/23
  */
 public interface LoginApplicationService {
-
-    /**
-     * 分页查询登陆日志
-     *
-     * @param request 分页查询参数
-     * @return 登录日志
-     */
-    Page<LoginLogResponse> getByPage(LoginLogQueryRequest request);
 
     /**
      * 添加登陆日志

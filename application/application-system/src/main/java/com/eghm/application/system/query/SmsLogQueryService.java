@@ -5,7 +5,7 @@ import com.eghm.application.shared.dto.sys.log.SmsLogQueryRequest;
 import com.eghm.application.shared.vo.operate.log.SmsLogResponse;
 
 /**
- * 短信日志查询端口
+ * 短信日志查询服务
  *
  * @author 二哥很猛
  * @since 2019/8/16 18:47

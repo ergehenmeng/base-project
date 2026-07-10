@@ -1,18 +1,15 @@
 package com.eghm.application.member.service.impl;
 
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.domain.shared.service.IdGenerator;
 import com.eghm.domain.member.model.LoginDevice;
 import com.eghm.domain.member.model.LoginLog;
 import com.eghm.domain.member.repository.LoginRepository;
-import com.eghm.application.shared.dto.business.member.LoginLogQueryRequest;
 import com.eghm.application.shared.dto.ext.LoginRecord;
 import com.eghm.application.member.query.LoginQueryService;
 import com.eghm.application.member.service.LoginApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.application.shared.utils.DateUtil;
 import com.eghm.application.shared.vo.business.member.LoginDeviceVO;
-import com.eghm.application.shared.vo.business.member.LoginLogResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,11 +28,6 @@ public class LoginApplicationServiceImpl implements LoginApplicationService {
     private final LoginQueryService loginQueryService;
 
     private final IdGenerator idGenerator;
-
-    @Override
-    public Page<LoginLogResponse> getByPage(LoginLogQueryRequest request) {
-        return loginQueryService.listLoginLog(request);
-    }
 
     @Override
     public void insertLoginLog(LoginRecord loginRecord) {

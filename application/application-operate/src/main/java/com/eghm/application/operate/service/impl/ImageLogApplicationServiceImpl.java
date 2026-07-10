@@ -1,15 +1,11 @@
 package com.eghm.application.operate.service.impl;
 
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.dto.operate.image.ImageAddRequest;
 import com.eghm.application.shared.dto.operate.image.ImageEditRequest;
-import com.eghm.application.shared.dto.operate.image.ImageQueryRequest;
 import com.eghm.domain.operate.model.ImageLog;
 import com.eghm.domain.operate.repository.ImageLogRepository;
-import com.eghm.application.operate.query.ImageLogQueryService;
 import com.eghm.application.operate.service.ImageLogApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
-import com.eghm.application.shared.vo.operate.log.ImageLogResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,13 +18,6 @@ import org.springframework.stereotype.Service;
 public class ImageLogApplicationServiceImpl implements ImageLogApplicationService {
 
     private final ImageLogRepository imageLogRepository;
-
-    private final ImageLogQueryService imageLogQueryService;
-
-    @Override
-    public Page<ImageLogResponse> getByPage(ImageQueryRequest request) {
-        return imageLogQueryService.getByPage(request.createPage(), request);
-    }
 
     @Override
     public void create(ImageAddRequest request) {

@@ -8,6 +8,7 @@ import com.eghm.application.shared.dto.ext.PageData;
 import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.domain.operate.model.NewsConfig;
+import com.eghm.application.operate.query.NewsConfigQueryService;
 import com.eghm.application.operate.service.NewsConfigApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.application.shared.vo.business.news.NewsConfigDetailResponse;
@@ -36,10 +37,12 @@ public class NewsConfigController {
 
     private final NewsConfigApplicationService newsConfigService;
 
+    private final NewsConfigQueryService newsConfigQueryService;
+
     @Operation(summary = "列表")
     @GetMapping("/listPage")
     public RespBody<PageData<NewsConfigDetailResponse>> getByPage(@ParameterObject PagingQuery request) {
-        Page<NewsConfig> scenicPage = newsConfigService.getByPage(request);
+        Page<NewsConfig> scenicPage = newsConfigQueryService.getByPage(request);
         return RespBody.success(DataUtil.copy(scenicPage, NewsConfigDetailResponse.class));
     }
 
@@ -67,7 +70,7 @@ public class NewsConfigController {
     @Operation(summary = "全部资讯分类")
     @GetMapping("/list")
     public RespBody<List<NewsConfigResponse>> list() {
-        List<NewsConfigResponse> configList = newsConfigService.getList();
+        List<NewsConfigResponse> configList = newsConfigQueryService.getList();
         return RespBody.success(configList);
     }
 

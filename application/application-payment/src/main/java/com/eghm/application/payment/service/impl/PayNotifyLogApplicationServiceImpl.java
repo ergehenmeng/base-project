@@ -1,15 +1,11 @@
 package com.eghm.application.payment.service.impl;
 
-import com.eghm.application.shared.dto.ext.Page;
-import com.eghm.application.shared.dto.business.pay.PayLogQueryRequest;
 import com.eghm.application.payment.dto.PayNotifyMessage;
 import com.eghm.domain.payment.enums.PayChannel;
 import com.eghm.domain.payment.enums.StepType;
 import com.eghm.domain.payment.model.PayNotifyLog;
 import com.eghm.domain.payment.repository.PayNotifyLogRepository;
-import com.eghm.application.payment.query.PayNotifyLogQueryService;
 import com.eghm.application.payment.service.PayNotifyLogApplicationService;
-import com.eghm.application.shared.vo.operate.log.PayNotifyLogResponse;
 import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
@@ -28,13 +24,6 @@ import java.util.Map;
 public class PayNotifyLogApplicationServiceImpl implements PayNotifyLogApplicationService {
 
     private final PayNotifyLogRepository payNotifyLogRepository;
-
-    private final PayNotifyLogQueryService payNotifyLogQueryService;
-
-    @Override
-    public Page<PayNotifyLogResponse> getByPage(PayLogQueryRequest request) {
-        return payNotifyLogQueryService.getByPage(request.createPage(), request);
-    }
 
     @Async
     @Override

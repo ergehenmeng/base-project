@@ -1,15 +1,11 @@
 package com.eghm.application.operate.service.impl;
 
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.dto.operate.banner.BannerAddRequest;
 import com.eghm.application.shared.dto.operate.banner.BannerEditRequest;
-import com.eghm.application.shared.dto.operate.banner.BannerQueryRequest;
 import com.eghm.domain.operate.model.Banner;
 import com.eghm.domain.operate.repository.BannerRepository;
-import com.eghm.application.operate.query.BannerQueryService;
 import com.eghm.application.operate.service.BannerApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
-import com.eghm.application.shared.vo.operate.banner.BannerResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,13 +18,6 @@ import org.springframework.stereotype.Service;
 public class BannerApplicationServiceImpl implements BannerApplicationService {
 
     private final BannerRepository bannerRepository;
-
-    private final BannerQueryService bannerQueryService;
-
-    @Override
-    public Page<BannerResponse> getByPage(BannerQueryRequest request) {
-        return bannerQueryService.getByPage(request.createPage(), request);
-    }
 
     @Override
     public void create(BannerAddRequest request) {

@@ -3,6 +3,7 @@ package com.eghm.interfaces.webapp.controller;
 import com.eghm.application.shared.dto.IdDTO;
 import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.dto.ext.RespBody;
+import com.eghm.application.operate.query.SysNoticeQueryService;
 import com.eghm.application.operate.service.SysNoticeApplicationService;
 import com.eghm.application.shared.vo.operate.notice.NoticeDetailVO;
 import com.eghm.application.shared.vo.operate.notice.NoticeTopVO;
@@ -31,6 +32,8 @@ public class NoticeController {
 
     private final SysNoticeApplicationService sysNoticeService;
 
+    private final SysNoticeQueryService sysNoticeQueryService;
+
     @GetMapping("/top")
     @Operation(summary = "首页公告Top-N")
     public RespBody<List<NoticeTopVO>> top() {
@@ -41,7 +44,7 @@ public class NoticeController {
     @GetMapping("/listPage")
     @Operation(summary = "公告列表")
     public RespBody<List<NoticeVO>> listPage(@ParameterObject PagingQuery query) {
-        List<NoticeVO> list = sysNoticeService.getList(query);
+        List<NoticeVO> list = sysNoticeQueryService.getList(query);
         return RespBody.success(list);
     }
 

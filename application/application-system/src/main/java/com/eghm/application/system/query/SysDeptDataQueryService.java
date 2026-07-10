@@ -3,7 +3,7 @@ package com.eghm.application.system.query;
 import java.util.List;
 
 /**
- * 部门数据权限查询网关
+ * 部门数据权限查询服务
  *
  * @author eghm
  */

@@ -1,12 +1,12 @@
 package com.eghm.interfaces.manage.controller.sys;
 
 import com.eghm.application.shared.dto.ext.Page;
-import com.eghm.infrastructure.persistence.schedule.config.TaskRegistrar;
 import com.eghm.application.shared.dto.ext.PageData;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.sys.task.TaskEditRequest;
 import com.eghm.application.shared.dto.sys.task.TaskQueryRequest;
 import com.eghm.application.shared.dto.sys.task.TaskRunRequest;
+import com.eghm.application.system.query.SysTaskQueryService;
 import com.eghm.application.system.service.SysTaskApplicationService;
 import com.eghm.application.shared.vo.operate.task.SysTaskResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -29,12 +29,12 @@ public class SysTaskController {
 
     private final SysTaskApplicationService sysTaskService;
 
-    private final TaskRegistrar taskRegistrar;
+    private final SysTaskQueryService sysTaskQueryService;
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
     public RespBody<PageData<SysTaskResponse>> listPage(@ParameterObject TaskQueryRequest request) {
-        Page<SysTaskResponse> byPage = sysTaskService.getByPage(request);
+        Page<SysTaskResponse> byPage = sysTaskQueryService.getByPage(request);
         return RespBody.success(PageData.convert(byPage));
     }
 
@@ -48,7 +48,7 @@ public class SysTaskController {
     @PostMapping(value = "/refresh")
     @Operation(summary = "刷新")
     public RespBody<Void> refresh() {
-        taskRegistrar.reloadTask();
+        sysTaskService.refresh();
         return RespBody.success();
     }
 

@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * Query port for member read models and statistics.
+ * Member read model and statistics query service.
  */
 public interface MemberQueryService {
 

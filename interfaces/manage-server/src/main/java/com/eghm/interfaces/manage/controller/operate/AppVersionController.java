@@ -8,6 +8,7 @@ import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.operate.version.VersionAddRequest;
 import com.eghm.application.shared.dto.operate.version.VersionEditRequest;
 import com.eghm.application.shared.dto.operate.version.VersionQueryRequest;
+import com.eghm.application.operate.query.AppVersionQueryService;
 import com.eghm.application.operate.service.AppVersionApplicationService;
 import com.eghm.application.shared.vo.operate.version.AppVersionResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -30,10 +31,12 @@ public class AppVersionController {
 
     private final AppVersionApplicationService appVersionService;
 
+    private final AppVersionQueryService appVersionQueryService;
+
     @GetMapping("/listPage")
     @Operation(summary = "列表")
     public RespBody<PageData<AppVersionResponse>> listPage(@ParameterObject VersionQueryRequest request) {
-        Page<AppVersionResponse> byPage = appVersionService.getByPage(request);
+        Page<AppVersionResponse> byPage = appVersionQueryService.getByPage(request.createPage(), request);
         return RespBody.success(PageData.convert(byPage));
     }
 

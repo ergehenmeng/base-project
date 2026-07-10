@@ -5,7 +5,7 @@ import com.eghm.application.shared.dto.sys.config.ConfigQueryRequest;
 import com.eghm.application.shared.vo.sys.ext.SysConfigResponse;
 
 /**
- * 系统配置查询网关
+ * 系统配置查询服务
  *
  * @author 二哥很猛
  */

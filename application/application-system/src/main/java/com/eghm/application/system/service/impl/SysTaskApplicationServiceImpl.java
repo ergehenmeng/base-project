@@ -1,17 +1,13 @@
 package com.eghm.application.system.service.impl;
 
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.dto.sys.task.TaskEditRequest;
-import com.eghm.application.shared.dto.sys.task.TaskQueryRequest;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.exception.BusinessException;
-import com.eghm.application.system.query.SysTaskQueryService;
 import com.eghm.application.system.schedule.SysTaskScheduleService;
 import com.eghm.application.system.service.SysTaskApplicationService;
 import com.eghm.domain.system.model.SysTask;
 import com.eghm.domain.system.repository.SysTaskRepository;
 import com.eghm.application.shared.utils.DataUtil;
-import com.eghm.application.shared.vo.operate.task.SysTaskResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.support.CronExpression;
@@ -31,14 +27,7 @@ public class SysTaskApplicationServiceImpl implements SysTaskApplicationService 
 
     private final SysTaskRepository sysTaskRepository;
 
-    private final SysTaskQueryService sysTaskQueryService;
-
     private final SysTaskScheduleService sysTaskScheduleService;
-
-    @Override
-    public Page<SysTaskResponse> getByPage(TaskQueryRequest request) {
-        return sysTaskQueryService.getByPage(request);
-    }
 
     @Override
     public void update(TaskEditRequest request) {
@@ -46,6 +35,13 @@ public class SysTaskApplicationServiceImpl implements SysTaskApplicationService 
             throw new BusinessException(ErrorCode.CRON_CONFIG_ERROR);
         }
         sysTaskRepository.update(DataUtil.copy(request, SysTask.class));
+    }
+
+    @Override
+    public void refresh() {
+        if (!sysTaskScheduleService.reloadTask()) {
+            throw new BusinessException(ErrorCode.TASK_CONFIG_NULL);
+        }
     }
 
     @Override

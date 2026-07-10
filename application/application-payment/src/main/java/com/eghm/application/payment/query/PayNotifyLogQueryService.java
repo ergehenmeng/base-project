@@ -5,7 +5,7 @@ import com.eghm.application.shared.dto.business.pay.PayLogQueryRequest;
 import com.eghm.application.shared.vo.operate.log.PayNotifyLogResponse;
 
 /**
- * 支付异步通知日志查询端口
+ * 支付异步通知日志查询服务
  *
  * @author 二哥很猛
  * @since 2022/7/26

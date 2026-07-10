@@ -1,21 +1,17 @@
 package com.eghm.application.operate.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.domain.shared.service.AlarmService;
 import com.eghm.application.shared.configuration.authentication.ApiHolder;
 import com.eghm.application.shared.dto.operate.version.VersionAddRequest;
 import com.eghm.application.shared.dto.operate.version.VersionEditRequest;
-import com.eghm.application.shared.dto.operate.version.VersionQueryRequest;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.domain.operate.model.AppVersion;
 import com.eghm.domain.operate.repository.AppVersionRepository;
-import com.eghm.application.operate.query.AppVersionQueryService;
 import com.eghm.application.operate.service.AppVersionApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.application.shared.utils.VersionUtil;
-import com.eghm.application.shared.vo.operate.version.AppVersionResponse;
 import com.eghm.application.shared.vo.operate.version.AppVersionVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,13 +31,6 @@ public class AppVersionApplicationServiceImpl implements AppVersionApplicationSe
     private final AlarmService alarmService;
 
     private final AppVersionRepository appVersionRepository;
-
-    private final AppVersionQueryService appVersionQueryService;
-
-    @Override
-    public Page<AppVersionResponse> getByPage(VersionQueryRequest request) {
-        return appVersionQueryService.getByPage(request.createPage(), request);
-    }
 
     @Override
     public void create(VersionAddRequest request) {
