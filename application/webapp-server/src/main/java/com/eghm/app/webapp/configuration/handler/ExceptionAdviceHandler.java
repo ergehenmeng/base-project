@@ -1,0 +1,176 @@
+package com.eghm.app.webapp.configuration.handler;
+
+import cn.hutool.core.exceptions.ExceptionUtil;
+import com.eghm.foundation.web.config.log.LogTraceHolder;
+import com.eghm.foundation.core.configuration.authentication.ApiHolder;
+import com.eghm.foundation.core.dto.ext.RequestMessage;
+import com.eghm.foundation.core.dto.ext.RespBody;
+import com.eghm.foundation.core.enums.ErrorCode;
+import com.eghm.foundation.core.enums.ExchangeQueue;
+import com.eghm.foundation.core.exception.*;
+import com.eghm.platform.audit.entity.WebappLog;
+import com.eghm.integration.messaging.service.MessageService;
+import com.eghm.foundation.web.utility.DataUtil;
+import com.eghm.foundation.web.utility.IpUtil;
+import com.eghm.foundation.web.utility.WebUtil;
+import com.google.common.collect.Maps;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.NoHandlerFoundException;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+import java.util.Map;
+
+/**
+ * @author 二哥很猛
+ * @since 2019/6/21 12:09
+ */
+@RestControllerAdvice
+@Slf4j
+@AllArgsConstructor
+public class ExceptionAdviceHandler {
+
+    private final MessageService messageService;
+
+    private static final String FAIL = "FAIL";
+
+    /**
+     * 特殊业务异常统一拦截
+     *
+     * @param e 异常
+     * @return 返回标准对象
+     */
+    @ExceptionHandler(DataException.class)
+    public RespBody<Object> dataException(HttpServletRequest request, DataException e) {
+        log.warn("特殊业务异常:[{}] 错误码:[{}]", request.getRequestURI(), e.getCode(), e);
+        RespBody<Object> body = RespBody.error(e.getCode(), e.getMessage());
+        body.setData(e.getData());
+        return body;
+    }
+
+    /**
+     * 业务异常统一拦截
+     *
+     * @param e 异常
+     * @return 返回标准对象
+     */
+    @ExceptionHandler(BusinessException.class)
+    public RespBody<Void> businessException(HttpServletRequest request, BusinessException e) {
+        log.warn("业务异常:[{}] 错误码:[{}]", request.getRequestURI(), e.getCode(), e);
+        return RespBody.error(e.getCode(), e.getMessage());
+    }
+
+    /**
+     * 参数异常
+     *
+     * @param e 异常
+     * @return 返回标准对象
+     */
+    @ExceptionHandler(ParameterException.class)
+    public RespBody<Void> parameterException(HttpServletRequest request, ParameterException e) {
+        log.warn("参数校验异常:[{}] [{}]", request.getRequestURI(), e.getCode(), e);
+        return RespBody.error(e.getCode(), e.getMessage());
+    }
+
+    /**
+     * 系统级异常统一拦截
+     *
+     * @param e 异常
+     * @return 返回标准对象
+     */
+    @ExceptionHandler(Exception.class)
+    public RespBody<Void> exception(HttpServletRequest request, Exception e) {
+        log.error("系统异常 [{}]", request.getRequestURI(), e);
+        RequestMessage message = ApiHolder.get();
+        WebappLog webappLog = DataUtil.copy(message, WebappLog.class);
+        webappLog.setUrl(request.getRequestURI());
+        webappLog.setIp(IpUtil.getIpAddress(request));
+        webappLog.setMemberId(ApiHolder.tryGetMemberId());
+        webappLog.setRequestParam(ApiHolder.getRequestParam());
+        webappLog.setTraceId(LogTraceHolder.getTraceId());
+        webappLog.setErrorMsg(ExceptionUtil.stacktraceToString(e));
+        messageService.send(ExchangeQueue.WEBAPP_LOG, webappLog);
+        return RespBody.error(ErrorCode.SYSTEM_ERROR);
+    }
+
+    /**
+     * 请求类型不支持
+     */
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public RespBody<Void> exception(HttpServletRequest request, HttpRequestMethodNotSupportedException e) {
+        log.error("系统异常, 接口[{}]不支持[{}]请求方式", request.getRequestURI(), e.getMethod());
+        return RespBody.error(ErrorCode.METHOD_NOT_SUPPORTED, e.getMethod());
+    }
+
+    /**
+     * 非系统url请求
+     *
+     * @param request 请求request
+     * @return 404
+     */
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public RespBody<Void> noHandlerFoundException(HttpServletRequest request) {
+        log.warn("访问地址不存在:[{}]", request.getRequestURI());
+        return RespBody.error(ErrorCode.PAGE_NOT_FOUND);
+    }
+
+    /**
+     * 参数绑定失败
+     */
+    @ExceptionHandler(BindException.class)
+    public RespBody<Void> exception(HttpServletRequest request, BindException e) {
+        log.error("数据绑定异常, 接口[{}]", request.getRequestURI(), e);
+        return WebUtil.fieldValid(e.getBindingResult());
+    }
+
+    /**
+     * 参数校验失败
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public RespBody<Void> exception(HttpServletRequest request, MethodArgumentNotValidException e) {
+        log.error("参数校验异常, 接口[{}]", request.getRequestURI(), e);
+        return WebUtil.fieldValid(e.getBindingResult());
+    }
+
+    /**
+     * 微信异步通知异常
+     *
+     * @return 404
+     */
+    @ExceptionHandler(WeChatPayException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Map<String, String> weChatPayException(HttpServletRequest request, WeChatPayException e) {
+        log.error("微信异步通知异常 [{}] 错误信息: [{}] ", request.getRequestURI(), e.getCode(), e);
+        Map<String, String> map = Maps.newHashMapWithExpectedSize(2);
+        map.put("code", FAIL);
+        map.put("message", "系统处理失败");
+        return map;
+    }
+
+    /**
+     * 支付宝异步通知
+     */
+    @ExceptionHandler(AliPayException.class)
+    public String aliPayException(HttpServletRequest request, AliPayException e) {
+        log.error("支付宝异步通知异常 [{}] [{}] [{}]", request.getRequestURI(), e.getCode(), e.getMessage());
+        return FAIL;
+    }
+
+    /**
+     * 参数为空校验
+     */
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public RespBody<Void> notNullException(HttpServletRequest request, MissingServletRequestParameterException e) {
+        log.error("参数校验为空, 接口[{}]", request.getRequestURI());
+        return RespBody.error(ErrorCode.PARAM_NULL_ERROR, e.getParameterName());
+    }
+}

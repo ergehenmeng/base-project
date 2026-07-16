@@ -1,0 +1,26 @@
+package com.eghm.foundation.core.exception;
+
+import com.eghm.foundation.core.enums.ErrorCode;
+import lombok.Getter;
+
+/**
+ * 系统异常基类,不要直接使用
+ *
+ * @author 二哥很猛
+ * @since 2018/1/12 16:39
+ */
+@Getter
+public class SystemException extends RuntimeException {
+
+    private final int code;
+
+    public SystemException(ErrorCode error) {
+        this(error.getCode(), error.getMsg());
+    }
+
+    SystemException(int code, String msg) {
+        super(msg);
+        this.code = code;
+    }
+
+}

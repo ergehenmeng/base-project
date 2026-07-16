@@ -1,0 +1,20 @@
+package com.eghm.platform.config.dto;
+
+
+import com.eghm.foundation.core.dto.ext.PagingQuery;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+/**
+ * @author 二哥很猛
+ * @since 2018/1/18 16:04
+ */
+@Data
+@EqualsAndHashCode(callSuper = false)
+public class ConfigQueryRequest extends PagingQuery {
+
+    @Schema(description = "是否禁止编辑 true:禁止编辑 false:可以编辑")
+    private Boolean locked;
+
+}

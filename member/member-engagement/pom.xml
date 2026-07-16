@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.eghm</groupId>
+        <artifactId>parent</artifactId>
+        <version>1.0</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+    
+    <artifactId>member-engagement</artifactId>
+    
+    <dependencies>
+        <dependency>
+            <groupId>com.eghm</groupId>
+            <artifactId>base-data</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.eghm</groupId>
+            <artifactId>base-web</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.eghm</groupId>
+            <artifactId>integration-messaging</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.eghm</groupId>
+            <artifactId>platform-config</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.eghm</groupId>
+            <artifactId>operation</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+</project>

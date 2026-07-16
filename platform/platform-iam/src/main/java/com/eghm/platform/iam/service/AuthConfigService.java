@@ -1,0 +1,60 @@
+package com.eghm.platform.iam.service;
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.foundation.core.dto.ext.PagingQuery;
+import com.eghm.platform.iam.dto.AuthConfigAddRequest;
+import com.eghm.platform.iam.dto.AuthConfigEditRequest;
+import com.eghm.platform.iam.vo.AuthConfigResponse;
+
+import java.io.File;
+
+/**
+ * @author 二哥很猛
+ * @since 2023/10/20
+ */
+public interface AuthConfigService {
+
+    /**
+     * 分页查询第三方配置信息
+     *
+     * @param request 查询条件
+     * @return 分页列表
+     */
+    Page<AuthConfigResponse> getByPage(PagingQuery request);
+
+    /**
+     * 创建第三方授权配置信息,并生成秘钥
+     *
+     * @param request 第三方信息
+     */
+    void create(AuthConfigAddRequest request);
+
+    /**
+     * 编辑第三方授权配置信息
+     *
+     * @param request 第三方信息
+     */
+    void update(AuthConfigEditRequest request);
+
+    /**
+     * 删除授权信息
+     *
+     * @param id id
+     */
+    void deleteById(Long id);
+
+    /**
+     * 重置秘钥
+     *
+     * @param id id
+     */
+    void reset(Long id);
+
+    /**
+     * 发送邮件
+     *
+     * @param id id
+     * @param file 文档
+     */
+    void sendEmail(Long id, File file);
+}

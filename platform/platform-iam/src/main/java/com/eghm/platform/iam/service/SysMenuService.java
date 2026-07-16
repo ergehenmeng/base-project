@@ -1,0 +1,124 @@
+package com.eghm.platform.iam.service;
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.platform.iam.dto.MenuAddRequest;
+import com.eghm.platform.iam.dto.MenuEditRequest;
+import com.eghm.platform.iam.dto.MenuQueryRequest;
+import com.eghm.platform.iam.entity.SysMenu;
+import com.eghm.platform.iam.vo.MenuFullResponse;
+import com.eghm.platform.iam.vo.MenuResponse;
+import com.eghm.platform.iam.vo.MenuTreeResponse;
+
+import java.util.List;
+
+/**
+ * @author 二哥很猛
+ * @since 2018/1/26 16:14
+ */
+public interface SysMenuService {
+
+    /**
+     * 左侧菜单
+     *
+     * @return list
+     */
+    MenuTreeResponse tree();
+
+    /**
+     * 获取所有可用的菜单+按钮菜单
+     *
+     * @param request 查询条件
+     * @return 菜单列表
+     */
+    Page<MenuResponse> getByPage(MenuQueryRequest request);
+
+    /**
+     * 获取用户导航菜单列表,不包含按钮菜单
+     *
+     * @param userId 用户id
+     * @return 菜单列表(一级菜单 内部包含二级菜单)
+     */
+    List<MenuTreeResponse> getLeftMenuList(Long userId);
+
+    /**
+     * 获取超管所有导航菜单列表,不包含按钮菜单
+     *
+     * @return 菜单列表(一级菜单 内部包含二级菜单)
+     */
+    List<MenuTreeResponse> getAdminLeftMenuList();
+
+    /**
+     * 获取系统所有导航菜单列表,按钮
+     *
+     * @param displayState 根据该状态决定是否回写disabled字段, 为空则不显示
+     * @return 菜单列表
+     */
+    List<MenuTreeResponse> getAll(Integer displayState);
+
+    /**
+     * 获取所有可用的菜单+按钮菜单
+     *
+     * @param request 查询条件
+     * @return 菜单列表
+     */
+    List<MenuFullResponse> getList(MenuQueryRequest request);
+
+    /**
+     * 获取所有可用的按钮菜单
+     *
+     * @return 按钮列表
+     */
+    List<SysMenu> getButtonList();
+
+    /**
+     * 添加菜单
+     *
+     * @param request 要添加的菜单信息
+     */
+    void create(MenuAddRequest request);
+
+    /**
+     * 更新菜单信息
+     *
+     * @param request 要更新的菜单信息
+     */
+    void update(MenuEditRequest request);
+
+    /**
+     * 根据主键删除菜单
+     *
+     * @param id 主键
+     */
+    void delete(String id);
+
+    /**
+     * 更新菜单状态
+     *
+     * @param id    id
+     * @param state false:禁用 true:启用
+     */
+    void updateState(String id, Boolean state);
+
+    /**
+     * 更新菜单排序
+     *
+     * @param id     id
+     * @param sortBy 排序
+     */
+    void sortBy(String id, Integer sortBy);
+
+    /**
+     * 查询用户的菜单权限标识符
+     *
+     * @param userId 用户id
+     * @return 菜单标示符
+     */
+    List<String> getPermCode(Long userId);
+
+    /**
+     * 查询所有菜单权限
+     *
+     * @return 菜单标识符
+     */
+    List<String> getAdminPermCode();
+}

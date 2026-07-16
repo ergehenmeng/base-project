@@ -1,0 +1,48 @@
+package com.eghm.integration.messaging.entity;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.foundation.core.enums.TemplateType;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+
+/**
+ * 短信发送记录表
+ *
+ * @author 二哥很猛
+ */
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@TableName("sms_log")
+public class SmsLog {
+
+    @TableId(type = IdType.ASSIGN_ID)
+    @Schema(description = "id主键")
+    private Long id;
+
+    @Schema(description = "添加时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createTime;
+
+    @Schema(description = "短信分类")
+    private TemplateType templateType;
+
+    @Schema(description = "手机号")
+    private String mobile;
+
+    @Schema(description = "短信内容")
+    private String content;
+
+    @Schema(description = "发送状态 0:失败 1:已发送")
+    private Integer state;
+
+}

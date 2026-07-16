@@ -1,0 +1,77 @@
+package com.eghm.platform.config.service.impl;
+
+import cn.hutool.core.collection.CollUtil;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import com.eghm.platform.config.service.GeoService;
+import com.eghm.foundation.core.constants.CacheConstant;
+import com.eghm.foundation.core.constants.CommonConstant;
+import com.google.common.collect.Maps;
+import lombok.AllArgsConstructor;
+import org.springframework.data.geo.Circle;
+import org.springframework.data.geo.Distance;
+import org.springframework.data.geo.GeoResults;
+import org.springframework.data.geo.Point;
+import org.springframework.data.redis.connection.RedisGeoCommands;
+import org.springframework.data.redis.core.GeoOperations;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.domain.geo.Metrics;
+import org.springframework.stereotype.Service;
+
+import java.util.LinkedHashMap;
+
+/**
+ * @author 二哥很猛
+ * @since 2022/7/11
+ */
+@AllArgsConstructor
+@Service("geoService")
+public class GeoServiceImpl implements GeoService {
+
+    private final StringRedisTemplate stringRedisTemplate;
+
+    @Override
+    public double distance(double longitude, double latitude, double targetLongitude, double targetLatitude) {
+        GeoOperations<String, String> operations = stringRedisTemplate.opsForGeo();
+        String key = CacheConstant.GEO_DISTANCE + IdWorker.getIdStr();
+        String key1 = IdWorker.getIdStr();
+        String key2 = IdWorker.getIdStr();
+        this.addPoint(key, key1, longitude, latitude);
+        this.addPoint(key, key2, targetLongitude, targetLatitude);
+        Distance distance = operations.distance(key, key1, key2, Metrics.METERS);
+        stringRedisTemplate.delete(key);
+        return distance != null ? distance.getValue() : 0;
+    }
+
+    @Override
+    public void addPoint(String key, String id, double longitude, double latitude) {
+        stringRedisTemplate.opsForGeo().add(key, new RedisGeoCommands.GeoLocation<>(id, new Point(longitude, latitude)));
+    }
+
+    @Override
+    public double distance(String key, String id, double targetLongitude, double targetLatitude) {
+        GeoOperations<String, String> operations = stringRedisTemplate.opsForGeo();
+        String id2 = IdWorker.getIdStr();
+        this.addPoint(key, id2, targetLongitude, targetLatitude);
+        Distance distance = operations.distance(key, id, id2, Metrics.METERS);
+        operations.remove(key, id2);
+        return distance != null ? distance.getValue() : 0;
+    }
+
+    @Override
+    public LinkedHashMap<String, Double> radius(String key, double longitude, double latitude, double radius) {
+        return this.radius(key, longitude, latitude, radius, CommonConstant.GET_LIMIT);
+    }
+
+    @Override
+    public LinkedHashMap<String, Double> radius(String key, double longitude, double latitude, double radius, int limit) {
+        GeoOperations<String, String> operations = stringRedisTemplate.opsForGeo();
+        GeoResults<RedisGeoCommands.GeoLocation<String>> geoResults = operations.radius(key, new Circle(new Point(longitude, latitude), new Distance(radius, Metrics.METERS)),
+                RedisGeoCommands.GeoRadiusCommandArgs.newGeoRadiusArgs().includeDistance().sortAscending().limit(limit));
+        if (geoResults == null || CollUtil.isEmpty(geoResults)) {
+            return Maps.newLinkedHashMapWithExpectedSize(1);
+        }
+        LinkedHashMap<String, Double> hashMap = Maps.newLinkedHashMapWithExpectedSize(limit);
+        geoResults.forEach(result -> hashMap.put(result.getContent().getName(), result.getDistance().getValue()));
+        return hashMap;
+    }
+}

@@ -1,0 +1,65 @@
+server:
+  port: 10086
+spring:
+  ## 数据库配置
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:p6spy:mysql://127.0.0.1:3306/base_project?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&tinyInt1isBit=false&serverTimezone=Asia/Shanghai&useSSL=true
+    username: root
+    password: root
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    hikari:
+      connection-test-query: select 'x'
+      idle-timeout: 60000
+      maximum-pool-size: 100
+      minimum-idle: 5
+  mail:
+    host: smtp.qq.com
+    password: wahdqqmlznmhbcae
+    username: ergehenmeng@qq.com
+    port: 465
+    properties:
+      mail.from: 运营团队<ergehenmeng@qq.com>
+      mail.smtp.auth: true
+      mail.smtp.ssl.enable: true
+  ## redis配置
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      timeout: 30s
+      database: 5
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    listener:
+      simple:
+        prefetch: 1
+        acknowledge-mode: manual
+        max-concurrency: 10
+        retry:
+          initial-interval: 10000
+          enabled: true
+          max-interval: 30000
+application:
+  # 全局文件上传路径
+  upload-path: D://file
+  # 管理后台配置
+  manage:
+    login-types:
+      - password
+      - sms
+  # 微信小程序 公众号 微信支付配置
+  wechat:
+    ma:
+      version: develop
+  # 系统环境
+  env: dev
+  alarm:
+    web-hook: 7bbdb2b279eb7a7e5a9bf0c4d554977d671238ea8c0bd245f5ceaeaf485a4c26
+    type: ding_talk
+  # rsa 密码加解密公私钥
+  public-key: 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCcw41K1SZd9nPebOxjp0JF13nhJ8HKRrtm5sygNjkmsDdL5QIIUPm3+uoYM2ZQGy2UezEY3zsg1WWz6/sOgOFvax54pm9+WJP/wWGuc4gXcZqAvd0pPuoXOduFMqbJ6EN+hbZrWUnhobSucOUnuHw68pC/MyXCMFjziGXNkCTLCwIDAQAB'
+  private-key: 'MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAJzDjUrVJl32c95s7GOnQkXXeeEnwcpGu2bmzKA2OSawN0vlAghQ+bf66hgzZlAbLZR7MRjfOyDVZbPr+w6A4W9rHnimb35Yk//BYa5ziBdxmoC93Sk+6hc524UypsnoQ36FtmtZSeGhtK5w5Se4fDrykL8zJcIwWPOIZc2QJMsLAgMBAAECgYANvBxvCAnahbNVM5nqiUcHM3/cOE2EWXol4+bdyqJrP1k47xGkhOO8OOG1yRsXvanaroh4s2ZM1CWbA/v1I1mc9Ex+q6xf7N8sZI0/wZ+YX1+Zeup9MF/2emOwDMCRzl9KdR3Bn3MXWgmBG5d63C8rieij/ZxiaOaSxsRSkvJcAQJBANTfhb0bVzD9nXt9zs530DKzf5tui6y0N18b0BH+wCSa2xBm3EUOsvNxzc7b4J+LpGSGING3PF1K3XXJr1eqrQECQQC8hfjgz6r6VJxsKLJ8sxkxK/tnoKJCLQJB6IbUes4ojCg15zMuxXIKgvAZZ8ZxkiwKbBVRoeHgkI1/WGFOo1wLAkEAiKSCYIUwTs49TIvROE9IYYM/IjKvjciQ0ogz45k3FUgh3kFomxt4WzRt+57AbSlh+PTwFC4enXP0/CreVtPEAQJARWFsyZfDzeMLukZ0Aa6MC+uq12VnscEMvqLL1DDp5ERInCXdUU46/SFZKZBmmO95o9BJPES+cz3fxUkKbr1yJwJBAKMldh92sbdcKn/AsPCuHfNCh31UDLKv91rtU6XGjVqzNV/dWlvOaz0jJaeS5PLcz7qxlVbNyhQpuKtSuI9+4xc='

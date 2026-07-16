@@ -1,7 +1,5 @@
-/webapp-server/target
-/manage-server/target
-/service/target
+# Maven build output for root and nested modules
+**/target/
 /*.iml
 /**/*.iml
 /.idea
-i18n/target

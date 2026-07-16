@@ -1,0 +1,469 @@
+package com.eghm.platform.iam.service.impl;
+
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.PhoneUtil;
+import cn.hutool.crypto.SecureUtil;
+import cn.hutool.extra.qrcode.QrCodeUtil;
+import cn.hutool.extra.qrcode.QrConfig;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.platform.config.service.CommonService;
+import com.eghm.integration.messaging.service.SmsService;
+import com.eghm.platform.iam.service.UserTokenService;
+import com.eghm.platform.config.service.SysConfigApi;
+import com.eghm.foundation.web.config.encoder.Encoder;
+import com.eghm.foundation.core.configuration.authentication.SecurityHolder;
+import com.eghm.foundation.core.constants.CommonConstant;
+import com.eghm.foundation.core.constants.ConfigConstant;
+import com.eghm.foundation.core.security.UserToken;
+import com.eghm.platform.iam.dto.SmsLoginRequest;
+import com.eghm.platform.iam.dto.TotpBindRequest;
+import com.eghm.platform.iam.dto.TotpCheckRequest;
+import com.eghm.platform.iam.dto.PasswordEditRequest;
+import com.eghm.platform.iam.dto.UserAddRequest;
+import com.eghm.platform.iam.dto.UserEditRequest;
+import com.eghm.platform.iam.dto.UserProfileRequest;
+import com.eghm.platform.iam.dto.UserQueryRequest;
+import com.eghm.foundation.core.enums.DataType;
+import com.eghm.foundation.core.enums.ErrorCode;
+import com.eghm.foundation.core.enums.TemplateType;
+import com.eghm.foundation.core.enums.UserState;
+import com.eghm.foundation.core.enums.UserType;
+import com.eghm.foundation.core.exception.BusinessException;
+import com.eghm.platform.iam.mapper.SysUserMapper;
+import com.eghm.platform.iam.entity.SysDeptData;
+import com.eghm.platform.iam.entity.SysUser;
+import com.eghm.platform.iam.service.SysDeptDataService;
+import com.eghm.platform.iam.service.SysMenuService;
+import com.eghm.platform.iam.service.SysRoleService;
+import com.eghm.platform.iam.service.SysUserService;
+import com.eghm.platform.iam.service.impl.LoginCacheManager;
+import com.eghm.foundation.web.utility.DataUtil;
+import com.eghm.foundation.web.utility.MybatisUtil;
+import com.eghm.foundation.web.utility.TotpUtil;
+import com.eghm.foundation.web.utility.ValidationUtil;
+import com.eghm.platform.iam.vo.LoginMenuResponse;
+import com.eghm.platform.iam.vo.LoginResponse;
+import com.eghm.platform.iam.vo.TotpLoginResponse;
+import com.eghm.platform.iam.vo.MenuTreeResponse;
+import com.eghm.platform.iam.vo.UserResponse;
+import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
+import com.warrenstrange.googleauth.GoogleAuthenticatorQRGenerator;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+import static com.eghm.foundation.core.constants.CommonConstant.MAX_ERROR_NUM;
+
+/**
+ * @author 二哥很猛
+ * @since 2018/11/26 10:24
+ */
+@Slf4j
+@AllArgsConstructor
+@Service("sysUserService")
+public class SysUserServiceImpl implements SysUserService {
+
+    private final Encoder encoder;
+
+    private final SmsService smsService;
+
+    private final SysConfigApi sysConfigApi;
+
+    private final SysUserMapper sysUserMapper;
+
+    private final CommonService commonService;
+
+    private final SysRoleService sysRoleService;
+
+    private final SysMenuService sysMenuService;
+
+    private final UserTokenService userTokenService;
+
+    private final LoginCacheManager loginCacheManager;
+    
+    private final SysDeptDataService sysDeptDataService;
+
+    @Override
+    public Page<UserResponse> getByPage(UserQueryRequest request) {
+        request.setUserType(UserType.SYS_USER.getValue());
+        return sysUserMapper.listPage(request.createPage(), request);
+    }
+
+    @Override
+    public void updateLoginPassword(PasswordEditRequest request) {
+        SysUser user = sysUserMapper.selectById(request.getUserId());
+        this.checkPassword(SecureUtil.sha256(request.getOldPwd()), user.getPwd());
+        String newPassword = encoder.encode(SecureUtil.sha256(request.getNewPwd()));
+        user.setPwd(newPassword);
+        user.setPwdUpdateTime(LocalDateTime.now());
+        sysUserMapper.updateById(user);
+    }
+
+    @Override
+    public void checkPassword(Long userId, String rawPassword) {
+        SysUser user = sysUserMapper.selectById(userId);
+        boolean match = encoder.match(rawPassword, user.getPwd());
+        if (!match) {
+            throw new BusinessException(ErrorCode.PASSWORD_ERROR);
+        }
+    }
+
+    @Override
+    public void create(UserAddRequest request) {
+        ValidationUtil.redoCheck(sysUserMapper, SysUser::getUserName, request.getUserName(), null, null, ErrorCode.USER_NAME_REDO, "账户名被占用 [{}] [{}]");
+        ValidationUtil.redoCheck(sysUserMapper, SysUser::getMobile, request.getMobile(), null, null, ErrorCode.MOBILE_REDO, "手机号码被占用 [{}] [{}]");
+        SysUser user = DataUtil.copy(request, SysUser.class);
+        user.setState(UserState.NORMAL);
+        user.setUserType(UserType.SYS_USER);
+        String password = this.initPassword(request.getMobile());
+        user.setPwd(password);
+        user.setInitPwd(password);
+        user.setPwdUpdateTime(LocalDateTime.now());
+        sysUserMapper.insert(user);
+        // 角色权限
+        sysRoleService.auth(user.getId(), request.getRoleIds());
+        // 数据权限
+        if (request.getDataType() == DataType.CUSTOM) {
+            request.getDeptIds().forEach(s -> sysDeptDataService.insert(new SysDeptData(user.getId(), s)));
+        }
+    }
+
+    @Override
+    public SysUser getByIdRequired(Long id) {
+        SysUser user = sysUserMapper.selectById(id);
+        if (user == null) {
+            throw new BusinessException(ErrorCode.USER_NOT_FOUND);
+        }
+        return user;
+    }
+
+    @Override
+    public void update(UserEditRequest request) {
+        ValidationUtil.redoCheck(sysUserMapper, SysUser::getUserName, request.getUserName(), SysUser::getId, request.getId(), ErrorCode.USER_NAME_REDO, "账户名被占用 [{}] [{}]");
+        ValidationUtil.redoCheck(sysUserMapper, SysUser::getMobile, request.getMobile(), SysUser::getId, request.getId(), ErrorCode.MOBILE_REDO, "手机号码被占用 [{}] [{}]");
+        SysUser user = DataUtil.copy(request, SysUser.class, sysUserMapper::updateById);
+        // 角色权限
+        sysRoleService.auth(user.getId(), request.getRoleIds());
+        // 数据权限, 在新增系统用户时,可以手动指定数据权限,此处既是将用户与其所拥有的的部门权限做关联,方便后续进行数据权限分组
+        if (request.getDataType() != null && request.getDataType() == DataType.CUSTOM) {
+            // 删除旧数据权限
+            sysDeptDataService.deleteByUserId(user.getId());
+            // 添加新数据权限
+            request.getDeptIds().forEach(s -> sysDeptDataService.insert(new SysDeptData(user.getId(), s)));
+        }
+    }
+
+    @Override
+    public void resetPassword(Long id) {
+        SysUser user = sysUserMapper.selectById(id);
+        String password = this.initPassword(user.getMobile());
+        user.setPwd(password);
+        user.setInitPwd(password);
+        user.setPwdUpdateTime(LocalDateTime.now());
+        sysUserMapper.updateById(user);
+        loginCacheManager.clearLoginLockCache(user.getUserName(), user.getMobile());
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        sysUserMapper.deleteById(id);
+    }
+
+    @Override
+    public void updateState(Long id, UserState state) {
+        SysUser user = new SysUser();
+        user.setId(id);
+        user.setState(state);
+        sysUserMapper.updateById(user);
+    }
+
+    @Override
+    public TotpLoginResponse login(String userName, String password, String openId) {
+        SysUser user = this.getAndCheckUser(userName, password);
+        this.tryBindingOpenId(user.getId(), openId);
+        boolean openTotp = sysConfigApi.getBoolean(ConfigConstant.OPEN_TOTP);
+        if (openTotp) {
+            String uuid = IdUtil.simpleUUID();
+            loginCacheManager.saveTotpData(uuid, user.getId());
+            if (user.getTotpSecret() == null) {
+                GoogleAuthenticatorKey secretKey = TotpUtil.createSecretKey();
+                String generated = this.generateTotpUrl(user.getUserName(), secretKey);
+                return TotpLoginResponse.needBindTotp(uuid, QrCodeUtil.generateAsBase64(generated, QrConfig.create(), "png"), secretKey.getKey());
+            }
+            return TotpLoginResponse.needTotp(uuid);
+        }
+        LoginResponse response = this.doLogin(user);
+        return TotpLoginResponse.success(response);
+    }
+
+    @Override
+    public LoginResponse checkTotp(TotpCheckRequest request) {
+        SysUser user = this.getByUuid(request.getUuid());
+        if (TotpUtil.invalid(user.getTotpSecret(), request.getVerifyCode())) {
+            throw new BusinessException(ErrorCode.TOTP_SN_ERROR);
+        }
+        LoginResponse response = this.doLogin(user);
+        loginCacheManager.clearTotpData(request.getUuid());
+        return response;
+    }
+
+    @Override
+    public LoginResponse bindTotp(TotpBindRequest request) {
+        if (TotpUtil.invalid(request.getSecretKey(), request.getVerifyCode())) {
+            throw new BusinessException(ErrorCode.TOTP_SN_ERROR);
+        }
+        SysUser user = this.getByUuid(request.getUuid());
+        user.setTotpSecret(request.getSecretKey());
+        sysUserMapper.updateById(user);
+        loginCacheManager.clearTotpData(request.getUuid());
+        return this.doLogin(user);
+    }
+
+    @Override
+    public void unbindWeChat() {
+        LambdaUpdateWrapper<SysUser> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(SysUser::getId, SecurityHolder.getUserId());
+        wrapper.set(SysUser::getOpenId, null);
+        sysUserMapper.update(null, wrapper);
+    }
+
+    @Override
+    public void sendLoginSms(String mobile, String ip) {
+        SysUser user = this.getAndCheckUser(mobile);
+        smsService.sendSmsCode(TemplateType.USER_LOGIN, user.getMobile(), ip);
+    }
+
+    @Override
+    public LoginResponse smsLogin(SmsLoginRequest request, String openId) {
+        smsService.verifySmsCode(TemplateType.USER_LOGIN, request.getMobile(), request.getSmsCode());
+        SysUser user = this.getAndCheckUser(request.getMobile());
+        this.tryBindingOpenId(user.getId(), openId);
+        return this.doLogin(user);
+    }
+
+    @Override
+    public SysUser getByOpenId(String openId) {
+        return MybatisUtil.getOne(sysUserMapper, SysUser::getOpenId, openId);
+    }
+
+    @Override
+    public LoginResponse doLogin(SysUser user) {
+        List<String> customList = sysDeptDataService.getDeptList(user.getId());
+        String token = userTokenService.createToken(user, customList);
+        LoginResponse response = this.buildLoginResponse(user, token);
+        loginCacheManager.clearAllLoginCache(user);
+        return response;
+    }
+
+    @Override
+    public LoginMenuResponse getPermission() {
+        UserToken userToken = SecurityHolder.getUserRequired();
+        LoginMenuResponse response = new LoginMenuResponse();
+        // 如果用户拥有超管角色,则默认查询全部菜单等信息
+        List<MenuTreeResponse> leftMenu;
+        List<String> buttonList;
+        if (userToken.getUserType() == UserType.ADMINISTRATOR) {
+            leftMenu = sysMenuService.getAdminLeftMenuList();
+            buttonList = sysMenuService.getAdminPermCode();
+        } else {
+            buttonList = sysMenuService.getPermCode(userToken.getId());
+            leftMenu = sysMenuService.getLeftMenuList(userToken.getId());
+        }
+        commonService.savePermission(userToken.getToken(), buttonList);
+        response.setMenuList(leftMenu);
+        response.setPermList(buttonList);
+        return response;
+    }
+
+    @Override
+    public void unBindTotp(Long userId) {
+        LambdaUpdateWrapper<SysUser> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(SysUser::getId, userId);
+        wrapper.set(SysUser::getTotpSecret, null);
+        sysUserMapper.update(null, wrapper);
+    }
+
+    @Override
+    public void updateAvatar(Long userId, String avatar) {
+        LambdaUpdateWrapper<SysUser> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(SysUser::getId, userId);
+        wrapper.set(SysUser::getAvatar, avatar);
+        sysUserMapper.update(null, wrapper);
+    }
+
+    @Override
+    public void updateProfile(UserProfileRequest request) {
+        LambdaUpdateWrapper<SysUser> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(SysUser::getId, request.getUserId());
+        wrapper.set(SysUser::getNickName, request.getNickName());
+        wrapper.set(SysUser::getMobile, request.getMobile());
+        sysUserMapper.update(null, wrapper);
+    }
+    
+    /**
+     * 构建登录响应对象
+     *
+     * @param user  用户信息
+     * @param token 登录令牌
+     * @return 登录响应
+     */
+    private LoginResponse buildLoginResponse(SysUser user, String token) {
+        LoginResponse response = new LoginResponse();
+        response.setAvatar(user.getAvatar());
+        response.setToken(token);
+        response.setMobile(user.getMobile());
+        response.setSystemName(sysConfigApi.getString(ConfigConstant.SYSTEM_NAME));
+        response.setNickName(user.getNickName());
+        response.setUserType(user.getUserType());
+        response.setInit(user.getInitPwd().equals(user.getPwd()));
+        response.setExpire(user.getPwdUpdateTime().plusDays(CommonConstant.PWD_UPDATE_TIPS).isBefore(LocalDateTime.now()));
+        return response;
+    }
+    
+    /**
+     * 生成totpUrl
+     *
+     * @param userName  用户名
+     * @param secretKey 密钥
+     * @return totpUrl otpauth://totp/systemName:userName?secret=ef7umz73ppab2w7wyhnwpgpw3caotwfa&issuer=systemName
+     */
+    private String generateTotpUrl(String userName, GoogleAuthenticatorKey secretKey) {
+        String systemName = sysConfigApi.getString(ConfigConstant.SYSTEM_NAME);
+        return GoogleAuthenticatorQRGenerator.getOtpAuthTotpURL(systemName, userName, secretKey);
+    }
+
+    /**
+     * 根据uuid获取用户信息
+     *
+     * @param uuid 绑定TOTP时生成的uuid
+     * @return 用户信息
+     */
+    private SysUser getByUuid(String uuid) {
+        Long userId = loginCacheManager.getTotpUserId(uuid);
+        if (userId == null) {
+            throw new BusinessException(ErrorCode.TOTP_SN_EXPIRE);
+        }
+        return this.getByIdRequired(userId);
+    }
+
+    /**
+     * 尝试绑定openId
+     *
+     * @param id     id
+     * @param openId openId
+     */
+    private void tryBindingOpenId(Long id, String openId) {
+        if (openId != null) {
+            SysUser user = new SysUser();
+            user.setId(id);
+            user.setOpenId(openId);
+            sysUserMapper.updateById(user);
+        }
+    }
+
+    /**
+     * 根据手机号生成初始化密码,手机号后八位
+     *
+     * @param mobile 手机号
+     * @return 加密密码
+     */
+    private String initPassword(String mobile) {
+        String rsaPassword = SecureUtil.sha256(mobile.substring(3));
+        return encoder.encode(rsaPassword);
+    }
+
+    /**
+     * 校验密码是否正确
+     *
+     * @param rawPassword    原始密码(用户输入的)
+     * @param targetPassword 真实加密后的密码(数据库保存的)
+     */
+    private void checkPassword(String rawPassword, String targetPassword) {
+        boolean match = encoder.match(rawPassword, targetPassword);
+        if (!match) {
+            throw new BusinessException(ErrorCode.USER_PASSWORD_ERROR);
+        }
+    }
+
+    /**
+     * 根据用户名或手机号查询用户信息
+     *
+     * @param userName 用户名或电话号码
+     * @return 用户信息
+     */
+    private SysUser getByAccount(String userName) {
+        if (PhoneUtil.isMobile(userName)) {
+            return this.getByMobile(userName);
+        } else {
+            return this.getByUserName(userName);
+        }
+    }
+
+    /**
+     * 根据手机号码查询用户信息
+     *
+     * @param mobile 手机号码
+     * @return 用户信息
+     */
+    private SysUser getByMobile(String mobile) {
+        return MybatisUtil.getOne(sysUserMapper, SysUser::getMobile, mobile);
+    }
+
+    /**
+     * 根据账户名查询用户信息
+     *
+     * @param userName 账户名
+     * @return 用户信息
+     */
+    private SysUser getByUserName(String userName) {
+        return MybatisUtil.getOne(sysUserMapper, SysUser::getUserName, userName);
+    }
+
+    /**
+     * 获取用户信息并校验密码登是否匹配
+     *
+     * @param userName userName
+     * @param password password md5加密过
+     * @return 用户信息
+     */
+    private SysUser getAndCheckUser(String userName, String password) {
+        int present = loginCacheManager.getLoginErrorCount(userName);
+        if (present > MAX_ERROR_NUM) {
+            throw new BusinessException(ErrorCode.USER_ERROR_LOCK);
+        }
+        SysUser user = this.getByAccount(userName);
+        if (user == null || user.getState() == UserState.LOGOUT || !encoder.match(SecureUtil.sha256(password), user.getPwd())) {
+            loginCacheManager.incrementLoginError(userName);
+            throw new BusinessException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
+        }
+        if (user.getState() == UserState.LOCK) {
+            throw new BusinessException(ErrorCode.USER_LOCKED_ERROR);
+        }
+        return user;
+    }
+
+    /**
+     * 根据手机号查询用户信息并校验基本信息, 获取用户为空不增加错误次数,而是在发短信时校验次数
+     *
+     * @param mobile 手机号
+     * @return 用户信息
+     */
+    private SysUser getAndCheckUser(String mobile) {
+        if (loginCacheManager.isLocked(mobile)) {
+            throw new BusinessException(ErrorCode.USER_ERROR_LOCK);
+        }
+        SysUser user = this.getByMobile(mobile);
+        if (user == null || user.getState() == UserState.LOGOUT) {
+            throw new BusinessException(ErrorCode.USER_MOBILE_NULL);
+        }
+        if (user.getState() == UserState.LOCK) {
+            throw new BusinessException(ErrorCode.USER_LOCKED_ERROR);
+        }
+        return user;
+    }
+}

@@ -1,5 +1,32 @@
 ﻿## 一个基于SpringBoot的基础框架版(完善直至转行)
 
+### 模块结构
+
+项目采用 Java 17、Maven Wrapper 与二级领域聚合结构。根工程只展示七个聚合入口，
+叶子模块继续保留独立的 Maven 坐标与 Jar：
+
+```text
+foundation/   base-core、base-data、base-cache、base-web
+platform/     platform-iam、platform-config、platform-job、platform-audit
+member/       member-account、member-engagement
+business/     operation（新闻、评论、反馈、帮助、Banner、通知、版本等运营能力）
+integration/  integration-storage、integration-messaging、integration-payment、integration-wechat
+starters/     i18n-spring-boot-starter、api-version-spring-boot-starter
+applications/ manage-server、webapp-server
+```
+
+一级目录的 `pom.xml` 只负责 Reactor 聚合，不承载依赖或插件配置；版本和插件仍由根 `pom.xml` 统一管理。
+新增能力应放入对应聚合目录，并按传统分层按需创建 `entity`、`dto`、`vo`、`mapper`、`service`、`service.impl`、`config` 等包；不预建空包。
+
+业务实体、Mapper 接口及 Mapper XML 必须归属同一个叶子模块。模块之间通过对方的 `service` 接口协作，
+不得把业务接口或 Mapper 集中放入 `base-core`、`base-data`，也不得跨模块直接引用对方的 `mapper` 或 `service.impl`。
+
+包依赖方向固定为 `app -> capability -> foundation`。基础模块不得依赖业务或应用模块，
+业务及集成模块不得依赖 `com.eghm.app`。边界规则由 ArchUnit 在 `verify` 阶段自动检查。
+
+Windows 环境使用 `mvnw.cmd clean verify`，Linux/macOS 使用 `./mvnw clean verify`；单模块构建推荐使用
+`mvnw.cmd -pl :manage-server -am package`，避免依赖模块物理路径。
+
 ### 运行环境及技术
 
 * java 17+
@@ -142,14 +169,13 @@
 * `@Desensitization` 脱敏注解,添加到需要进行脱敏的字段上, 例如: `@Desensitization(FieldType.MOBILE_PHONE)`
 * 签名功能, 目前支持一种 `hmacSha256`, 在管理后台 `授权管理` 增加第三方商户信息, 同时将生成的 `appId` 和 `appSecret`给第三方, 具体实现参考 `ApiSignInterceptor`
   * 需要在对应接口上添加 `@ApiSign` 注解, 才会进行签名
-* 注意: `TransactionConfig`中定义的事务管理器作用在 `com.eghm.service` 包, 因此在该包不要定义非事务相关的业务(例如第三方接口调用, 工具类等), 否则可能会导致事务异常.
+* 注意: `TransactionConfig` 中的事务切点统一作用于各能力模块的 `service.impl` 包；第三方接口调用和纯工具类应分别放入 `integration`、`foundation` 包，避免被业务事务切点误包含。
 * 管理后台集成了Websocket, 采用stomp协议, 支持前端实时接收消息, 具体可参考 `WebSocketController`, 后台主动发送消息可注入 `SimpMessagingTemplate` 发送, 注意:需要移动端先订阅消息才可收到消息 
 * 移动端服务和管理后台服务是独立的, 双方之间如需通信, 可通过MQ, 注意: 消息消费端定义的位置
 * `com.eghm.convertor` 包下有各种转换器, 主要是用于序列化,反序列化,Excel导出格式化转换器, 请根据实际场景使用
 * 管理后台支持锁屏功能, 快捷键 `ALT + L`
 * 管理后台管理员初始账号密码 `superAdmin/eghm@123456` 加密方式 `BCrypt(sha256(pwd))`
 * `ValidationUtil.redoCheck` 校验重复字段, 例如: `ValidationUtil.redoCheck(sysDictMapper, SysDict::getTitle, title, id, SysDict::getId, ErrorCode.DICT_REPEAT_ERROR, "数据字典名称重复 [{}] [{}]");`
-* `ApiVersion` 注解用于路由, 根据请求头中的版本号进行路由, 例如: `@ApiVersion("1.0.0")` 表示该接口仅支持版本号为 `1.0.0~99.99.99` 的请求
 
 ## 项目初次使用
 * 配置完 `application-*.yml` 的数据库、邮箱、Redis、MQ等基本信息后，直接启动 `ManageApplication` 即可初始化数据库脚本

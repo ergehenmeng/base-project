@@ -1,0 +1,31 @@
+package com.eghm.integration.payment.vo;
+
+
+import com.eghm.integration.payment.enums.TradeState;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+
+import java.time.LocalDateTime;
+
+/**
+ * @author 二哥很猛
+ */
+@Data
+public class PayOrderVO {
+
+    @Schema(description = "支付id: 微信openId")
+    private String payerId;
+
+    @Schema(description = "交易状态")
+    private TradeState tradeState;
+
+    @Schema(description = "支付金额")
+    private Integer amount;
+
+    @Schema(description = "支付成功时间")
+    private LocalDateTime successTime;
+
+    @Schema(description = "交易单号(微信或支付宝方生成)")
+    private String transactionId;
+
+}

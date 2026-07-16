@@ -1,0 +1,29 @@
+package com.eghm.platform.iam.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.eghm.platform.iam.entity.SysUserRole;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+
+/**
+ * @author 二哥很猛
+ */
+public interface SysUserRoleMapper extends BaseMapper<SysUserRole> {
+
+    /**
+     * 根据用户id查询角色id列表
+     *
+     * @param userId 角色id
+     * @return 角色id列表
+     */
+    List<Long> getByUserId(@Param("userId") Long userId);
+
+    /**
+     * 删除用户所有的角色
+     *
+     * @param userId 管理人员id
+     */
+    void deleteByUserId(@Param("userId") Long userId);
+
+}

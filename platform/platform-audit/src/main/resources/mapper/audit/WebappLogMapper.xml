@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eghm.platform.audit.mapper.WebappLogMapper">
+
+    <select id="getByPage" resultType="com.eghm.platform.audit.vo.WebappLogResponse" parameterType="com.eghm.platform.audit.dto.WebappQueryRequest">
+       select
+        r.nick_name,
+        t.url,
+        t.request_param,
+        t.error_msg,
+        t.version,
+        t.channel,
+        t.os_version,
+        t.device_brand,
+        t.device_model,
+        t.serial_number,
+        t.ip,
+        t.trace_id,
+        t.elapsed_time,
+        t.create_time
+       from webapp_log t
+       left join `member` r on t.member_id = r.id
+       <where>
+           <if test="param.queryName != null and param.queryName != ''">
+               and (r.nick_name like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
+                    or t.serial_number like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
+                    or t.url like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
+                    or t.ip like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
+                   )
+           </if>
+           <if test="param.channel != null and param.channel != ''">
+               and t.channel = #{param.channel}
+           </if>
+       </where>
+       order by t.id desc
+    </select>
+
+</mapper>

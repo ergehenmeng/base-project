@@ -1,0 +1,33 @@
+package com.eghm.foundation.core.validation;
+
+import cn.hutool.dfa.FoundWord;
+import cn.hutool.dfa.SensitiveUtil;
+import com.eghm.foundation.core.validation.annotation.WordChecker;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
+import lombok.extern.slf4j.Slf4j;
+
+import static com.eghm.foundation.core.utils.StringUtil.isBlank;
+
+/**
+ * 校验规则定义
+ *
+ * @author 二哥很猛
+ * @since 2018/8/14 11:04
+ */
+@Slf4j
+public class WordCheckerDefine implements ConstraintValidator<WordChecker, String> {
+
+    @Override
+    public boolean isValid(String value, ConstraintValidatorContext context) {
+        if (isBlank(value)) {
+            return true;
+        }
+        FoundWord sensitive = SensitiveUtil.getFoundFirstSensitive(value);
+        if (sensitive == null) {
+            return true;
+        }
+        log.warn("检测到敏感词：[{}]", sensitive.getFoundWord());
+        return false;
+    }
+}

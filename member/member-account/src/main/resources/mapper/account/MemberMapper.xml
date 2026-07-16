@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eghm.member.account.mapper.MemberMapper">
+
+    <select id="listPage" resultType="com.eghm.member.account.vo.MemberResponse" parameterType="com.eghm.member.account.dto.MemberQueryRequest">
+        select t.id, t.nick_name, t.mobile, t.email, t.state, t.score, t.invite_code, t.real_name, t.birthday, t.sex, t.channel, t.avatar, t.create_time
+        from `member` t where t.deleted = false
+        <if test="param.queryName != null and param.queryName != ''">
+            and (
+                t.nick_name like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%') or
+                t.mobile like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
+            )
+        </if>
+        <if test="param.mobile != null and param.mobile != '' ">
+            and exists (select 1 from member_invite_log s, `member` m where m.id = s.member_id  and  s.invite_member_id = t.id and m.mobile = #{param.mobile})
+        </if>
+        <if test="param.state != null">
+            and t.state = #{param.state}
+        </if>
+        <if test="param.sex!= null">
+            and t.sex = #{param.sex}
+        </if>
+        <if test="param.channel != null and param.channel != ''">
+            and t.channel = #{param.channel}
+        </if>
+        <if test="param.startDate != null ">
+            and t.create_date &gt;= #{param.startDate}
+        </if>
+        <if test="param.endDate != null ">
+            and t.create_date &lt; #{param.endDate}
+        </if>
+        order by t.id desc
+    </select>
+
+    <select id="channelStatistics" resultType="com.eghm.member.account.vo.PieDataVO">
+        select count(id) as value, `channel` as name
+        from `member` where deleted = false
+        <if test="startDate != null ">
+            and create_date &gt; #{startDate}
+        </if>
+        <if test="endDate != null ">
+            and create_date &lt;= #{endDate}
+        </if>
+        group by channel
+    </select>
+
+    <select id="sexStatistics" resultType="com.eghm.member.account.vo.PieDataVO">
+        select count(id) as value,
+        case when sex = 0 then '女' when `sex` = 1 then '男' else '未知' end as `name`
+        from `member` where deleted = false
+        <if test="startDate != null ">
+            and create_date &gt; #{startDate}
+        </if>
+        <if test="endDate != null ">
+            and create_date &lt;= #{endDate}
+        </if>
+        group by sex
+    </select>
+
+    <select id="dayRegister" resultType="com.eghm.member.account.vo.MemberRegisterVO" parameterType="com.eghm.member.account.dto.DateRequest">
+        select
+        <choose>
+            <when test="selectType == @com.eghm.foundation.core.enums.SelectType@YEAR">
+                create_month,
+            </when>
+            <otherwise>
+                create_date,
+            </otherwise>
+        </choose>
+        count(id) as registerNum
+        from `member` where deleted = false and create_time &gt;= #{startDate} and create_time &lt; #{endDate}
+        <choose>
+            <when test="selectType == @com.eghm.foundation.core.enums.SelectType@YEAR">
+                group by create_month
+            </when>
+            <otherwise>
+                group by create_date
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="getMobile" resultType="java.lang.String">
+        select distinct mobile from `member` where deleted = false and id in
+        <foreach collection="memberIds" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+
+    <update id="updateScore">
+        update `member` set score = score + #{score} where id = #{memberId} and score + #{score} &gt; 0
+    </update>
+
+</mapper>

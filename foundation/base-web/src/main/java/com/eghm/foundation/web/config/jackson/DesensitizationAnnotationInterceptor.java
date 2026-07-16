@@ -1,0 +1,23 @@
+package com.eghm.foundation.web.config.jackson;
+
+import com.eghm.foundation.core.annotation.Desensitization;
+import com.fasterxml.jackson.databind.introspect.Annotated;
+import com.fasterxml.jackson.databind.introspect.NopAnnotationIntrospector;
+
+/**
+ * 对返回前端的字段脱敏
+ *
+ * @author 二哥很猛
+ * @since 2023/12/27
+ */
+public class DesensitizationAnnotationInterceptor extends NopAnnotationIntrospector {
+
+    @Override
+    public Object findSerializer(Annotated am) {
+        Desensitization annotation = am.getAnnotation(Desensitization.class);
+        if (annotation != null) {
+            return new DesensitizationSerializer(annotation.value());
+        }
+        return super.findSerializer(am);
+    }
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eghm.member.engagement.mapper.MemberScoreLogMapper">
+
+    <select id="getByPage" resultType="com.eghm.member.engagement.vo.MemberScoreVO" parameterType="com.eghm.member.engagement.dto.MemberScoreQueryRequest">
+        select score, type, create_time, remark, surplus_score
+        from member_score_log
+        where member_id = #{param.memberId}
+        <if test="param.type != null">
+            and type = #{param.type}
+        </if>
+        order by id desc
+    </select>
+
+</mapper>

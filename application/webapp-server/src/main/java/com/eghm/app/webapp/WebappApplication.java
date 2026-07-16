@@ -1,0 +1,37 @@
+package com.eghm.app.webapp;
+
+import cn.hutool.core.net.NetUtil;
+import com.eghm.foundation.web.utility.LoggerUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.Banner;
+import org.springframework.boot.WebApplicationType;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.mail.MailSenderAutoConfiguration;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.scheduling.annotation.EnableAsync;
+
+/**
+ * 前后端分离
+ * 默认不激活邮件功能,如需激活则将下面 exclude = MailSenderAutoConfiguration.class 去掉, 同时在配置文件中填写正确的邮箱配置
+ *
+ * @author 二哥很猛
+ * @since 2019/8/9
+ */
+@Slf4j
+@EnableAsync
+@ComponentScan(basePackages = "com.eghm")
+@EnableAspectJAutoProxy(exposeProxy = true)
+@MapperScan(basePackages = "com.eghm.**.mapper")
+@SpringBootApplication(exclude = MailSenderAutoConfiguration.class)
+public class WebappApplication {
+
+    public static void main(String[] args) {
+        ConfigurableApplicationContext context = new SpringApplicationBuilder(WebappApplication.class).bannerMode(Banner.Mode.OFF).web(WebApplicationType.SERVLET).run(args);
+        LoggerUtil.print(String.format("Swagger文档: http://%s:%s/doc.html", NetUtil.getLocalhostStr(), context.getEnvironment().getProperty("server.port")));
+    }
+
+}

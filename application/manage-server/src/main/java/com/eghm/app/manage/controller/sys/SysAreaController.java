@@ -1,0 +1,45 @@
+package com.eghm.app.manage.controller.sys;
+
+import com.eghm.foundation.core.annotation.SkipPerm;
+import com.eghm.foundation.core.dto.ext.RespBody;
+import com.eghm.platform.config.service.CommonService;
+import com.eghm.platform.config.vo.SysAreaVO;
+import com.google.common.collect.Lists;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+/**
+ * @author 二哥很猛
+ * @since 2024/6/4
+ */
+@RestController
+@Tag(name = "省市县")
+@AllArgsConstructor
+@RequestMapping(value = "/manage/area", produces = MediaType.APPLICATION_JSON_VALUE)
+public class SysAreaController {
+
+    private final CommonService commonService;
+
+    @Operation(summary = "获取省市区列表")
+    @GetMapping("/list")
+    @SkipPerm
+    public RespBody<List<SysAreaVO>> list() {
+        List<SysAreaVO> voList = commonService.getTreeAreaList();
+        return RespBody.success(voList);
+    }
+
+    @Operation(summary = "获取省市列表")
+    @GetMapping("/provinceList")
+    @SkipPerm
+    public RespBody<List<SysAreaVO>> provinceList() {
+        List<SysAreaVO> voList = commonService.getTreeAreaList(Lists.newArrayList(1, 2));
+        return RespBody.success(voList);
+    }
+}

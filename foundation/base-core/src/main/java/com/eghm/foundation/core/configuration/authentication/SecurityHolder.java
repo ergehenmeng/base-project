@@ -1,0 +1,92 @@
+package com.eghm.foundation.core.configuration.authentication;
+
+import com.alibaba.ttl.TransmittableThreadLocal;
+import com.eghm.foundation.core.security.UserToken;
+import com.eghm.foundation.core.enums.ErrorCode;
+import com.eghm.foundation.core.enums.UserType;
+import com.eghm.foundation.core.exception.BusinessException;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+/**
+ * @author 二哥很猛
+ * @since 2022/11/4
+ */
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class SecurityHolder {
+
+    /**
+     * 异步也能获取到用户信息
+     */
+    private static final TransmittableThreadLocal<UserToken> LOCAL = new TransmittableThreadLocal<>();
+
+    /**
+     * 设置当前登录用户的信息
+     *
+     * @param userToken 用户信息
+     */
+    public static void setToken(UserToken userToken) {
+        LOCAL.set(userToken);
+    }
+
+    /**
+     * 获取当前登录用户的信息
+     *
+     * @return 用户信息, 为空则抛登录过期异常
+     */
+    public static UserToken getUserRequired() {
+        UserToken userToken = LOCAL.get();
+        if (userToken == null) {
+            throw new BusinessException(ErrorCode.LOGIN_TIMEOUT);
+        }
+        return userToken;
+    }
+
+    /**
+     * 获取当前用户id
+     *
+     * @return id
+     */
+    public static Long tryGetUserId() {
+        UserToken userToken = getUser();
+        if (userToken == null) {
+            return null;
+        }
+        return userToken.getId();
+    }
+
+    /**
+     * 获取当前登录用户的信息
+     *
+     * @return 用户信息 可能为空
+     */
+    public static UserToken getUser() {
+        return LOCAL.get();
+    }
+
+    /**
+     * 获取当前用户id
+     *
+     * @return id
+     */
+    public static Long getUserId() {
+        return getUserRequired().getId();
+    }
+
+    /**
+     * 获取用户类型
+     *
+     * @return userType
+     */
+    public static UserType getUserType() {
+        return getUserRequired().getUserType();
+    }
+
+    /**
+     * 移除当前用户信息
+     */
+    public static void remove() {
+        LOCAL.remove();
+    }
+}

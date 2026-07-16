@@ -1,0 +1,29 @@
+package com.eghm.integration.payment.enums;
+
+import lombok.Getter;
+
+/**
+ * 支付渠道
+ *
+ * @author 二哥很猛
+ * @since 2022/7/25
+ */
+@Getter
+public enum PayChannel {
+
+    /**
+     * 无需支付
+     */
+    NONE,
+
+    /**
+     * 支付宝
+     */
+    WECHAT,
+
+    /**
+     * 微信
+     */
+    ALIPAY,
+
+}
