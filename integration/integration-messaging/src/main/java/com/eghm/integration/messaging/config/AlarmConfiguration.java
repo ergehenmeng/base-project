@@ -5,7 +5,7 @@ import com.eghm.foundation.core.enums.AlarmType;
 import com.eghm.foundation.core.enums.ErrorCode;
 import com.eghm.foundation.core.exception.BusinessException;
 import com.eghm.foundation.core.service.JsonService;
-import com.eghm.foundation.web.service.AlarmService;
+import com.eghm.foundation.core.service.AlarmService;
 import com.eghm.integration.messaging.service.impl.DefaultAlarmServiceImpl;
 import com.eghm.integration.messaging.service.impl.DingTalkAlarmServiceImpl;
 import com.eghm.integration.messaging.service.impl.FeiShuAlarmServiceImpl;

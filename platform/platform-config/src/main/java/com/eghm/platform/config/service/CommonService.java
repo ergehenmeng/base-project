@@ -1,7 +1,6 @@
 package com.eghm.platform.config.service;
 
 import com.eghm.foundation.core.enums.ErrorCode;
-import com.eghm.foundation.core.service.PasswordDecryptor;
 import com.eghm.platform.config.vo.SysAreaVO;
 
 import java.util.List;
@@ -11,7 +10,7 @@ import java.util.function.Consumer;
  * @author 二哥很猛
  * @since 2022/7/23
  */
-public interface CommonService extends PasswordDecryptor {
+public interface CommonService {
 
     /**
      * 查询地址列表(树状结构)
@@ -36,14 +35,6 @@ public interface CommonService extends PasswordDecryptor {
      * @param consumer 后置处理 true:点赞 false:取消点赞
      */
     void praise(String key, String hashKey, Consumer<Boolean> consumer);
-
-    /**
-     * rsa 私钥解密
-     *
-     * @param rsa rsa加密后的字符串
-     * @return rsa 解密后的字符串
-     */
-    String rsaDecrypt(String rsa);
 
     /**
      * 保存用户的按钮权限

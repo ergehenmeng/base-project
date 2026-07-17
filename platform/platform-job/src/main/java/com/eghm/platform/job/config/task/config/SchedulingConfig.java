@@ -1,7 +1,7 @@
 package com.eghm.platform.job.config.task.config;
 
 import com.eghm.platform.job.annotation.EnableSchedulingTask;
-import com.eghm.foundation.web.service.AlarmService;
+import com.eghm.foundation.core.service.AlarmService;
 import com.eghm.foundation.core.lock.RedisLock;
 import com.eghm.platform.job.mapper.SysTaskMapper;
 import com.eghm.platform.job.service.SysTaskLogService;

@@ -7,14 +7,15 @@ import cn.hutool.extra.spring.SpringUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.business.operation.support.entity.SensitiveWord;
+import com.eghm.business.operation.support.mapper.SensitiveWordMapper;
+import com.eghm.business.operation.support.service.SensitiveWordService;
 import com.eghm.foundation.core.dto.ext.PagingQuery;
 import com.eghm.foundation.core.enums.ExchangeQueue;
-import com.eghm.business.operation.support.mapper.SensitiveWordMapper;
-import com.eghm.business.operation.support.entity.SensitiveWord;
-import com.eghm.integration.messaging.service.MessageService;
-import com.eghm.business.operation.support.service.SensitiveWordService;
 import com.eghm.foundation.web.utility.LoggerUtil;
 import com.eghm.foundation.web.utility.MybatisUtil;
+import com.eghm.integration.messaging.service.MessageService;
+import com.eghm.platform.config.service.SensitiveWordReloader;
 import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +32,7 @@ import static com.eghm.foundation.core.utils.StringUtil.isNotBlank;
 @Slf4j
 @AllArgsConstructor
 @Service("sensitiveWordService")
-public class SensitiveWordServiceImpl implements SensitiveWordService {
+public class SensitiveWordServiceImpl implements SensitiveWordService, SensitiveWordReloader {
 
     private final MessageService messageService;
 

@@ -1,6 +1,6 @@
 package com.eghm.platform.job.config.task.config;
 
-import com.eghm.foundation.web.service.AlarmService;
+import com.eghm.foundation.core.service.AlarmService;
 import com.eghm.foundation.core.constants.CommonConstant;
 import com.eghm.foundation.core.lock.RedisLock;
 import com.eghm.platform.job.entity.SysTask;

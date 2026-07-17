@@ -4,7 +4,7 @@ import cn.hutool.core.exceptions.ExceptionUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import cn.hutool.http.HtmlUtil;
 import com.eghm.foundation.cache.service.CacheService;
-import com.eghm.foundation.web.service.AlarmService;
+import com.eghm.foundation.core.service.AlarmService;
 import com.eghm.integration.messaging.service.EmailService;
 import com.eghm.integration.messaging.dto.VerifyEmailCode;
 import com.eghm.integration.messaging.dto.SendEmail;

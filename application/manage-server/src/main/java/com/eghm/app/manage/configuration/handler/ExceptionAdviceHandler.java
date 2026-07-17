@@ -1,7 +1,7 @@
 package com.eghm.app.manage.configuration.handler;
 
 import cn.hutool.core.exceptions.ExceptionUtil;
-import com.eghm.foundation.web.service.AlarmService;
+import com.eghm.foundation.core.service.AlarmService;
 import com.eghm.foundation.core.dto.ext.RespBody;
 import com.eghm.foundation.core.enums.ErrorCode;
 import com.eghm.foundation.core.exception.BusinessException;

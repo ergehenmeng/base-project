@@ -4,7 +4,7 @@ import com.eghm.platform.config.service.SysConfigApi;
 
 import cn.hutool.core.lang.UUID;
 import com.aliyun.oss.OSS;
-import com.eghm.foundation.web.service.AlarmService;
+import com.eghm.foundation.core.service.AlarmService;
 import com.eghm.integration.storage.service.FileService;
 import com.eghm.foundation.core.configuration.ApplicationProperties;
 import com.eghm.foundation.core.constants.ConfigConstant;

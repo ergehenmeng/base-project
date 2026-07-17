@@ -1,4 +1,4 @@
-package com.eghm.foundation.web.service.impl;
+package com.eghm.foundation.core.service.impl;
 
 import com.eghm.foundation.core.service.JsonService;
 import com.eghm.foundation.core.enums.ErrorCode;

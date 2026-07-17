@@ -1,15 +1,15 @@
 package com.eghm.app.webapp.listener;
 
 import com.eghm.foundation.cache.service.CacheService;
-import com.eghm.foundation.web.service.AlarmService;
-import com.eghm.foundation.core.service.JsonService;
 import com.eghm.foundation.core.constants.QueueConstant;
-import com.eghm.member.account.dto.LoginRecord;
-import com.eghm.platform.audit.entity.WebappLog;
+import com.eghm.foundation.core.service.JsonService;
+import com.eghm.foundation.core.service.AlarmService;
 import com.eghm.integration.messaging.mq.listener.AbstractListenerHandler;
+import com.eghm.member.account.dto.LoginRecord;
 import com.eghm.member.account.service.LoginService;
-import com.eghm.business.operation.support.service.SensitiveWordService;
+import com.eghm.platform.audit.entity.WebappLog;
 import com.eghm.platform.audit.service.WebappLogService;
+import com.eghm.platform.config.service.SensitiveWordReloader;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
@@ -30,13 +30,13 @@ public class WebappListenerHandler extends AbstractListenerHandler {
 
     private final WebappLogService webappLogService;
 
-    private final SensitiveWordService sensitiveWordService;
+    private final SensitiveWordReloader sensitiveWordReloader;
 
-    public WebappListenerHandler(JsonService jsonService, AlarmService alarmService, LoginService loginService, CacheService cacheService, WebappLogService webappLogService, SensitiveWordService sensitiveWordService) {
+    public WebappListenerHandler(JsonService jsonService, AlarmService alarmService, LoginService loginService, CacheService cacheService, WebappLogService webappLogService, SensitiveWordReloader sensitiveWordReloader) {
         super(jsonService, cacheService, alarmService);
         this.loginService = loginService;
         this.webappLogService = webappLogService;
-        this.sensitiveWordService = sensitiveWordService;
+        this.sensitiveWordReloader = sensitiveWordReloader;
     }
 
     /**
@@ -61,6 +61,6 @@ public class WebappListenerHandler extends AbstractListenerHandler {
     @RabbitListener(queues = QueueConstant.SENSITIVE_SYNC_QUEUE)
     public void sensitiveSync(String appName, Message message, Channel channel) throws IOException {
         log.info("接收到服务[{}]消息,开始同步敏感词", appName);
-        processMessageAck(appName, message, channel, s -> sensitiveWordService.reloadLexicon(false));
+        processMessageAck(appName, message, channel, s -> sensitiveWordReloader.reloadLexicon(false));
     }
 }

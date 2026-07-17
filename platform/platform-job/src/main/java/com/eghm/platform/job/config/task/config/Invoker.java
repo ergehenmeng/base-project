@@ -4,7 +4,7 @@ import cn.hutool.core.exceptions.ExceptionUtil;
 import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.extra.spring.SpringUtil;
-import com.eghm.foundation.web.service.AlarmService;
+import com.eghm.foundation.core.service.AlarmService;
 import com.eghm.foundation.web.config.log.LogTraceHolder;
 import com.eghm.foundation.core.constants.CommonConstant;
 import com.eghm.foundation.core.enums.ErrorCode;

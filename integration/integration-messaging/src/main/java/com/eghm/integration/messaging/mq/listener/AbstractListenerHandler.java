@@ -1,7 +1,7 @@
 package com.eghm.integration.messaging.mq.listener;
 
 import com.eghm.foundation.cache.service.CacheService;
-import com.eghm.foundation.web.service.AlarmService;
+import com.eghm.foundation.core.service.AlarmService;
 import com.eghm.foundation.core.service.JsonService;
 import com.eghm.foundation.core.constants.CacheConstant;
 import com.eghm.foundation.core.constants.CommonConstant;

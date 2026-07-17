@@ -2,7 +2,7 @@ package com.eghm.integration.messaging.service.impl;
 
 import cn.hutool.extra.spring.SpringUtil;
 import cn.hutool.http.HttpUtil;
-import com.eghm.foundation.web.service.AlarmService;
+import com.eghm.foundation.core.service.AlarmService;
 import com.eghm.foundation.core.service.JsonService;
 import com.eghm.foundation.core.configuration.ApplicationProperties;
 import com.eghm.foundation.web.config.log.LogTraceHolder;

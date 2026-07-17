@@ -1,7 +1,7 @@
 package com.eghm.foundation.web.utility;
 
 import cn.hutool.extra.spring.SpringUtil;
-import com.eghm.foundation.web.service.AlarmService;
+import com.eghm.foundation.core.service.AlarmService;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

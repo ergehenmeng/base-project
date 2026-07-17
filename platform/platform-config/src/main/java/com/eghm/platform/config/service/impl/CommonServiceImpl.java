@@ -4,15 +4,16 @@ import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.asymmetric.KeyType;
 import cn.hutool.crypto.asymmetric.RSA;
 import com.eghm.foundation.cache.service.CacheService;
-import com.eghm.platform.config.service.CommonService;
-import com.eghm.platform.config.service.ConfigCacheService;
 import com.eghm.foundation.core.configuration.ApplicationProperties;
 import com.eghm.foundation.core.constants.CacheConstant;
 import com.eghm.foundation.core.constants.CommonConstant;
 import com.eghm.foundation.core.enums.ErrorCode;
 import com.eghm.foundation.core.exception.BusinessException;
-import com.eghm.platform.config.mapper.SysAreaMapper;
+import com.eghm.foundation.core.service.PasswordDecryptor;
 import com.eghm.foundation.web.utility.TreeUtil;
+import com.eghm.platform.config.mapper.SysAreaMapper;
+import com.eghm.platform.config.service.CommonService;
+import com.eghm.platform.config.service.ConfigCacheService;
 import com.eghm.platform.config.vo.SysAreaVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +32,7 @@ import static com.eghm.foundation.core.utils.StringUtil.isBlank;
 @Slf4j
 @RequiredArgsConstructor
 @Service("commonService")
-public class CommonServiceImpl implements CommonService {
+public class CommonServiceImpl implements CommonService, PasswordDecryptor {
     
     private volatile RSA rsaInstance;
 
@@ -39,9 +40,9 @@ public class CommonServiceImpl implements CommonService {
 
     private final SysAreaMapper sysAreaMapper;
     
-    private final ApplicationProperties applicationProperties;
-
     private final ConfigCacheService configCacheService;
+    
+    private final ApplicationProperties applicationProperties;
 
     @Override
     public List<SysAreaVO> getTreeAreaList() {

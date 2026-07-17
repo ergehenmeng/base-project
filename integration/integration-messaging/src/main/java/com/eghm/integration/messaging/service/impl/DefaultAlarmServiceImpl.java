@@ -1,6 +1,6 @@
 package com.eghm.integration.messaging.service.impl;
 
-import com.eghm.foundation.web.service.AlarmService;
+import com.eghm.foundation.core.service.AlarmService;
 import lombok.extern.slf4j.Slf4j;
 
 /**

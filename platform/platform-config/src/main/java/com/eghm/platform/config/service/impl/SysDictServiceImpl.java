@@ -1,21 +1,22 @@
 package com.eghm.platform.config.service.impl;
 
 
-import com.eghm.platform.config.service.ConfigCacheService;
+import com.eghm.foundation.core.enums.ErrorCode;
+import com.eghm.foundation.core.exception.BusinessException;
+import com.eghm.foundation.core.service.DictOptionProvider;
+import com.eghm.foundation.web.utility.DataUtil;
+import com.eghm.foundation.web.utility.ValidationUtil;
 import com.eghm.platform.config.dto.DictAddRequest;
 import com.eghm.platform.config.dto.DictEditRequest;
 import com.eghm.platform.config.dto.DictItemAddRequest;
 import com.eghm.platform.config.dto.DictItemEditRequest;
 import com.eghm.platform.config.dto.DictQueryRequest;
-import com.eghm.foundation.core.enums.ErrorCode;
-import com.eghm.foundation.core.exception.BusinessException;
-import com.eghm.platform.config.mapper.SysDictItemMapper;
-import com.eghm.platform.config.mapper.SysDictMapper;
 import com.eghm.platform.config.entity.SysDict;
 import com.eghm.platform.config.entity.SysDictItem;
+import com.eghm.platform.config.mapper.SysDictItemMapper;
+import com.eghm.platform.config.mapper.SysDictMapper;
+import com.eghm.platform.config.service.ConfigCacheService;
 import com.eghm.platform.config.service.SysDictService;
-import com.eghm.foundation.web.utility.DataUtil;
-import com.eghm.foundation.web.utility.ValidationUtil;
 import com.eghm.platform.config.vo.DictResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +34,7 @@ import java.util.Objects;
 @Slf4j
 @AllArgsConstructor
 @Service("sysDictService")
-public class SysDictServiceImpl implements SysDictService {
+public class SysDictServiceImpl implements SysDictService, DictOptionProvider {
 
     private final SysDictMapper sysDictMapper;
 
@@ -104,5 +105,9 @@ public class SysDictServiceImpl implements SysDictService {
         }
         return null;
     }
-
+    
+    @Override
+    public String[] getOptions(String key) {
+        return this.getDictByNid(key).stream().map(SysDictItem::getShowValue).toArray(String[]::new);
+    }
 }

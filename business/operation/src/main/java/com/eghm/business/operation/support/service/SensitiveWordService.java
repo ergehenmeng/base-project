@@ -1,15 +1,14 @@
 package com.eghm.business.operation.support.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.foundation.core.dto.ext.PagingQuery;
 import com.eghm.business.operation.support.entity.SensitiveWord;
-import com.eghm.platform.config.service.SensitiveWordReloader;
+import com.eghm.foundation.core.dto.ext.PagingQuery;
 
 /**
  * @author wyb
  * @since 2021/12/4 11:02
  */
-public interface SensitiveWordService extends SensitiveWordReloader {
+public interface SensitiveWordService {
 
     /**
      * 分页查询敏感词信息
@@ -18,13 +17,6 @@ public interface SensitiveWordService extends SensitiveWordReloader {
      * @return 列表
      */
     Page<SensitiveWord> getByPage(PagingQuery query);
-
-    /**
-     * 重新加载敏感词
-     * @param sync 同步给其他服务 true:同步 false:不同步
-     */
-    @Override
-    void reloadLexicon(boolean sync);
 
     /**
      * 添加敏感词

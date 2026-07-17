@@ -1,9 +1,12 @@
 package com.eghm.platform.config.service;
 
-import com.eghm.platform.config.dto.*;
+import com.eghm.platform.config.dto.DictAddRequest;
+import com.eghm.platform.config.dto.DictEditRequest;
+import com.eghm.platform.config.dto.DictItemAddRequest;
+import com.eghm.platform.config.dto.DictItemEditRequest;
+import com.eghm.platform.config.dto.DictQueryRequest;
 import com.eghm.platform.config.entity.SysDictItem;
 import com.eghm.platform.config.vo.DictResponse;
-import com.eghm.foundation.core.service.DictOptionProvider;
 
 import java.util.List;
 
@@ -13,7 +16,7 @@ import java.util.List;
  * @author 二哥很猛
  * @since 2018/1/12 14:31
  */
-public interface SysDictService extends DictOptionProvider {
+public interface SysDictService {
 
     /**
      * 根据条件查询数据字典信息(不分页)
@@ -30,11 +33,6 @@ public interface SysDictService extends DictOptionProvider {
      * @return 属于该nid的列表
      */
     List<SysDictItem> getDictByNid(String nid);
-
-    @Override
-    default String[] getOptions(String key) {
-        return getDictByNid(key).stream().map(SysDictItem::getShowValue).toArray(String[]::new);
-    }
 
     /**
      * 添加数据字典

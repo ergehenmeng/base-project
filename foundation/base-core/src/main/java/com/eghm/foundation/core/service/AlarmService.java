@@ -1,4 +1,4 @@
-package com.eghm.foundation.web.service;
+package com.eghm.foundation.core.service;
 
 /**
  * @author 二哥很猛

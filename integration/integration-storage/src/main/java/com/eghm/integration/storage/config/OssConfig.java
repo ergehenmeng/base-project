@@ -9,7 +9,7 @@ import com.aliyun.oss.common.auth.CredentialsProviderFactory;
 import com.aliyun.oss.common.auth.EnvironmentVariableCredentialsProvider;
 import com.aliyun.oss.common.comm.SignVersion;
 import com.aliyuncs.exceptions.ClientException;
-import com.eghm.foundation.web.service.AlarmService;
+import com.eghm.foundation.core.service.AlarmService;
 import com.eghm.integration.storage.service.FileService;
 import com.eghm.integration.storage.service.impl.AliOssFileServiceImpl;
 import com.eghm.platform.config.service.SysConfigApi;
