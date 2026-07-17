@@ -15,6 +15,9 @@
         <if test="param.state != null">
             and t.state = #{param.state}
         </if>
+        <if test="param.deptCode != null and param.deptCode != ''">
+            and t.dept_code like concat(#{param.deptCode, typeHandler=LikeTypeHandler}, '%')
+        </if>
         <if test="param.userType != null">
             and t.user_type = #{param.userType}
         </if>

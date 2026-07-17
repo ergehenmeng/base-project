@@ -2,6 +2,7 @@ package com.eghm.app.manage.controller.sys;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.foundation.core.annotation.SkipPerm;
+import com.eghm.foundation.core.enums.UserType;
 import com.eghm.integration.storage.service.FileService;
 import com.eghm.foundation.core.configuration.authentication.SecurityHolder;
 import com.eghm.foundation.core.constants.CommonConstant;
@@ -59,6 +60,7 @@ public class UserController {
     @GetMapping("/listPage")
     @Operation(summary = "列表")
     public RespBody<PageData<UserResponse>> listPage(@ParameterObject UserQueryRequest request) {
+        request.setUserType(UserType.SYS_USER.getValue());
         Page<UserResponse> page = sysUserService.getByPage(request);
         return RespBody.success(PageData.convert(page));
     }

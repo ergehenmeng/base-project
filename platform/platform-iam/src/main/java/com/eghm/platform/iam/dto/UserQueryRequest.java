@@ -18,6 +18,9 @@ public class UserQueryRequest extends PagingQuery {
     @Schema(description = "锁定状态 0:锁定 1:正常")
     @OptionInt(value = {0, 1}, required = false)
     private Integer state;
+    
+    @Schema(description = "部门编码")
+    private String deptCode;
 
     @Schema(description = "用户类型 1:系统用户 2:商户管理员 3:商户普通用户", hidden = true)
     @Assign
