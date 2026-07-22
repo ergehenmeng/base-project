@@ -9,8 +9,8 @@ import lombok.Getter;
  * @author 殿小二
  * @since 2020/8/28
  */
-@AllArgsConstructor
 @Getter
+@AllArgsConstructor
 public enum EmailType {
 
     /**

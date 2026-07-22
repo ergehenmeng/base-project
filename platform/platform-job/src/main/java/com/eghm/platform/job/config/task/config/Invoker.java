@@ -33,9 +33,9 @@ public class Invoker implements Runnable {
 
     private final Method method;
 
-    private final ScheduleBean dispatch;
-
     private final RedisLock redisLock;
+    
+    private final ScheduleBean dispatch;
 
     private final AlarmService alarmService;
 

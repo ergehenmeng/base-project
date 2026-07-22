@@ -20,7 +20,9 @@ import java.util.List;
 public class DeliveryCacheService {
 
     private final BannerMapper bannerMapper;
+    
     private final SysNoticeMapper sysNoticeMapper;
+    
     private final NoticeTemplateMapper noticeTemplateMapper;
 
     @Cacheable(cacheNames = CacheConstant.BANNER, key = "#channel.name() + #p1", unless = "#result.size() == 0", cacheManager = "longCacheManager")

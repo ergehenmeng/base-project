@@ -1,14 +1,9 @@
 package com.eghm.integration.wechat.config;
 
-import com.eghm.foundation.core.configuration.ApplicationProperties;
-
 import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.api.impl.WxMaServiceImpl;
 import cn.binarywang.wx.miniapp.config.impl.WxMaDefaultConfigImpl;
-import com.github.binarywang.wxpay.config.WxPayConfig;
-import com.github.binarywang.wxpay.constant.WxPayConstants;
-import com.github.binarywang.wxpay.service.WxPayService;
-import com.github.binarywang.wxpay.service.impl.WxPayServiceImpl;
+import com.eghm.foundation.core.configuration.ApplicationProperties;
 import lombok.AllArgsConstructor;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.api.impl.WxMpServiceImpl;
@@ -25,14 +20,12 @@ import org.springframework.context.annotation.Configuration;
 @AllArgsConstructor
 public class WeChatConfig {
 
-    private final ApplicationProperties applicationProperties;
-
     /**
      * 微信公众号
      */
     @Bean
     @ConditionalOnProperty(prefix = "system.wechat.mp", name = "app-id")
-    public WxMpService wxMpService() {
+    public WxMpService wxMpService(ApplicationProperties applicationProperties) {
         ApplicationProperties.WeChatProperties weChatProperties = applicationProperties.getWechat();
         WxMpService service = new WxMpServiceImpl();
         WxMpMapConfigImpl config = new WxMpMapConfigImpl();
@@ -47,31 +40,13 @@ public class WeChatConfig {
      */
     @Bean
     @ConditionalOnProperty(prefix = "system.wechat.ma", name = "app-id")
-    public WxMaService wxMaService() {
+    public WxMaService wxMaService(ApplicationProperties applicationProperties) {
         WxMaService service = new WxMaServiceImpl();
         WxMaDefaultConfigImpl config = new WxMaDefaultConfigImpl();
         ApplicationProperties.WeChatProperties weChatProperties = applicationProperties.getWechat();
         config.setAppid(weChatProperties.getMa().getAppId());
         config.setSecret(weChatProperties.getMa().getAppSecret());
         service.setWxMaConfig(config);
-        return service;
-    }
-
-    /**
-     * 微信支付
-     */
-    @Bean
-    @ConditionalOnProperty(prefix = "system.wechat.pay", name = "api-v3-key")
-    public WxPayService wxPayService() {
-        WxPayService service = new WxPayServiceImpl();
-        WxPayConfig config = new WxPayConfig();
-        ApplicationProperties.WxPay pay = applicationProperties.getWechat().getPay();
-        config.setMchId(pay.getMchId());
-        config.setSignType(WxPayConstants.SignType.HMAC_SHA256);
-        config.setApiV3Key(pay.getApiV3Key());
-        config.setCertSerialNo(pay.getSerialNo());
-        config.setPrivateKeyPath(pay.getPrivateKeyPath());
-        service.setConfig(config);
         return service;
     }
 

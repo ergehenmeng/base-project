@@ -1,10 +1,13 @@
 package com.eghm.integration.payment.config;
 
-import com.eghm.foundation.core.configuration.ApplicationProperties;
-
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayConfig;
 import com.alipay.api.DefaultAlipayClient;
+import com.eghm.foundation.core.configuration.ApplicationProperties;
+import com.github.binarywang.wxpay.config.WxPayConfig;
+import com.github.binarywang.wxpay.constant.WxPayConstants;
+import com.github.binarywang.wxpay.service.WxPayService;
+import com.github.binarywang.wxpay.service.impl.WxPayServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -18,8 +21,8 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @AllArgsConstructor
-public class AliPayConfig {
-
+public class PayConfig {
+    
     @Bean
     @ConditionalOnProperty(prefix = "system.ali.pay", name = "app-id")
     public DefaultAlipayClient alipayClient(ApplicationProperties applicationProperties) throws AlipayApiException {
@@ -29,5 +32,20 @@ public class AliPayConfig {
         alipayConfig.setPrivateKey(pay.getPrivateKey());
         alipayConfig.setAlipayPublicKey(pay.getPublicKey());
         return new DefaultAlipayClient(alipayConfig);
+    }
+    
+    @Bean
+    @ConditionalOnProperty(prefix = "system.wechat.pay", name = "api-v3-key")
+    public WxPayService wxPayService(ApplicationProperties applicationProperties) {
+        WxPayService service = new WxPayServiceImpl();
+        WxPayConfig config = new WxPayConfig();
+        ApplicationProperties.WxPay pay = applicationProperties.getWechat().getPay();
+        config.setMchId(pay.getMchId());
+        config.setSignType(WxPayConstants.SignType.HMAC_SHA256);
+        config.setApiV3Key(pay.getApiV3Key());
+        config.setCertSerialNo(pay.getSerialNo());
+        config.setPrivateKeyPath(pay.getPrivateKeyPath());
+        service.setConfig(config);
+        return service;
     }
 }
