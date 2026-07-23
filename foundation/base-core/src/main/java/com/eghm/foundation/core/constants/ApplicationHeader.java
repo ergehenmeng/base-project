@@ -72,13 +72,4 @@ public class ApplicationHeader {
      */
     public static final String TIMESTAMP = "X-Timestamp";
     
-    /**
-     * API是否废弃
-     */
-    public static final String API_DEPRECATED = "Api-Deprecated";
-    
-    /**
-     * 废弃提示信息
-     */
-    public static final String API_DEPRECATED_MESSAGE = "Api-Deprecated-Message";
 }

@@ -176,9 +176,9 @@ Api-Deprecated-Message: 该版本将在 2026-12-31 下线，请升级到 2.0.0
 application:
   api-version:
     enabled: true
-    header-name: X-Api-Version
-    deprecated-header-name: X-Api-Deprecated
-    deprecated-message-header-name: X-Api-Deprecated-Message
+    header-name: Version
+    deprecated-header-name: Api-Deprecated
+    deprecated-message-header-name: Api-Deprecated-Message
     path-patterns:
       - "/api/**"
     exclude-path-patterns:
