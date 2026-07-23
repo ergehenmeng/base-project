@@ -45,9 +45,9 @@ public class WeChatController {
 
     private final WeChatMpService weChatMpService;
 
-    private final ApplicationProperties applicationProperties;
-
     private final WeChatMiniService weChatMiniService;
+    
+    private final ApplicationProperties applicationProperties;
 
     @PostMapping(value = "/shortUrl", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "小程序短链接")

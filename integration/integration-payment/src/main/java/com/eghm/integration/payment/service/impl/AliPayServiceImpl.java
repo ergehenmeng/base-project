@@ -51,18 +51,18 @@ import java.util.Map;
 @Service("aliPayService")
 public class AliPayServiceImpl implements PayService {
 
+    private final SysConfigApi sysConfigApi;
+
+    private DefaultAlipayClient defaultAlipayClient;
+    
+    private final ApplicationProperties applicationProperties;
+
+    private final List<CreatePayService> createPayServiceList;
+    
     /**
      * 退款成功
      */
     private static final String REFUND_SUCCESS = "REFUND_SUCCESS";
-
-    private final SysConfigApi sysConfigApi;
-
-    private final ApplicationProperties applicationProperties;
-
-    private DefaultAlipayClient defaultAlipayClient;
-
-    private final List<CreatePayService> createPayServiceList;
 
     @Autowired(required = false)
     public void setDefaultAlipayClient(DefaultAlipayClient defaultAlipayClient) {

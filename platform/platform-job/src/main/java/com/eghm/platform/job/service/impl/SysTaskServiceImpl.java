@@ -30,9 +30,9 @@ import java.time.temporal.ChronoUnit;
 @Service("sysTaskService")
 public class SysTaskServiceImpl implements SysTaskService {
 
-    private final SysTaskMapper sysTaskMapper;
-
     private TaskRegistrar taskRegistrar;
+    
+    private final SysTaskMapper sysTaskMapper;
 
     @Autowired(required = false)
     public void setTaskRegistrar(TaskRegistrar taskRegistrar) {

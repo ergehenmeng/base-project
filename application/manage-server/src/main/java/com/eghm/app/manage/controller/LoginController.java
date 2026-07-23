@@ -53,9 +53,9 @@ public class LoginController {
 
     private final SysUserService sysUserService;
 
-    private final ApplicationProperties applicationProperties;
-
     private final UserTokenService userTokenService;
+    
+    private final ApplicationProperties applicationProperties;
 
     /**
      * 账号密码登录时,如果未开启双因子验证,则直接登录成功, 如开启双因子验证, 在第一次登录后需绑定双因子, 后续登录需要输入双因子验证码才可登录

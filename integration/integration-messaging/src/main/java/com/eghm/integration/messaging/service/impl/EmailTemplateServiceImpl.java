@@ -24,9 +24,9 @@ import static com.eghm.foundation.core.utils.StringUtil.isNotBlank;
 @Service("emailTemplateService")
 public class EmailTemplateServiceImpl implements EmailTemplateService {
 
-    private final EmailTemplateCacheService emailTemplateCacheService;
-
     private final EmailTemplateMapper emailTemplateMapper;
+    
+    private final EmailTemplateCacheService emailTemplateCacheService;
 
     @Override
     public Page<EmailTemplate> getByPage(PagingQuery query) {

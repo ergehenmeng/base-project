@@ -27,9 +27,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/manage/task", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SysTaskController {
 
-    private final SysTaskService sysTaskService;
-
     private final TaskRegistrar taskRegistrar;
+    
+    private final SysTaskService sysTaskService;
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")

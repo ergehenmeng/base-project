@@ -38,9 +38,9 @@ public class SysDictServiceImpl implements SysDictService, DictOptionProvider {
 
     private final SysDictMapper sysDictMapper;
 
-    private final ConfigCacheService configCacheService;
-
     private final SysDictItemMapper sysDictItemMapper;
+    
+    private final ConfigCacheService configCacheService;
 
     @Override
     public List<DictResponse> getList(DictQueryRequest request) {

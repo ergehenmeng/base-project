@@ -35,9 +35,9 @@ public class AliJsApiCreatePayServiceImpl implements CreatePayService {
 
     private final SysConfigApi sysConfigApi;
 
-    private final ApplicationProperties applicationProperties;
-
     private DefaultAlipayClient defaultAlipayClient;
+    
+    private final ApplicationProperties applicationProperties;
 
     @Autowired(required = false)
     public void setDefaultAlipayClient(DefaultAlipayClient defaultAlipayClient) {
