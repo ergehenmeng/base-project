@@ -62,11 +62,6 @@ public class ApplicationProperties {
     private final AliProperties ali = new AliProperties();
 
     /**
-     * 需要进行xss校验的url
-     */
-    private final List<String> xssUrl = new ArrayList<>();
-
-    /**
      * 报警消息通知
      */
     private final Alarm alarm = new Alarm();
