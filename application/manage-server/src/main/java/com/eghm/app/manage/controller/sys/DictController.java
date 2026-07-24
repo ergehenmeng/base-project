@@ -88,10 +88,10 @@ public class DictController {
     @GetMapping("/itemList")
     @Operation(summary = "查询数据字典")
     @SkipPerm
-    @Parameter(name = "nidList", description = "字典编码(数组)", example = "a,b,c", required = true, array = @ArraySchema(schema = @Schema(type = "string")))
-    public RespBody<List<BaseDictResponse>> itemList(@RequestParam("nidList") List<String> nidList) {
+    @Parameter(name = "idList", description = "字典编码(数组)", example = "a,b,c", required = true, array = @ArraySchema(schema = @Schema(type = "string")))
+    public RespBody<List<BaseDictResponse>> itemList(@RequestParam("idList") List<String> idList) {
         List<BaseDictResponse> responseList = new ArrayList<>(8);
-        for (String nid : nidList) {
+        for (String nid : idList) {
             List<SysDictItem> dictList = sysDictService.getDictByNid(nid);
             List<BaseItemVO> itemList = DataUtil.copy(dictList, BaseItemVO.class);
             BaseDictResponse response = new BaseDictResponse();

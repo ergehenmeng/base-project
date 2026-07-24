@@ -13,7 +13,6 @@
 - 支持通过响应头提示客户端接口已经废弃。
 - `ApiVersionResolver` 和 `ApiVersionComparator` 均可由应用自行替换。
 - 使用 Spring Boot 自动配置，引入依赖后即可生效。
-- 不依赖项目内的 `base-core`、`base-web` 等基础模块。
 
 ## 环境要求
 

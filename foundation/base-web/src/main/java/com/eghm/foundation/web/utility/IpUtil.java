@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class IpUtil {
-
+    
     /**
      * 获取ip地址
      *
@@ -26,7 +26,7 @@ public class IpUtil {
         if (request == null) {
             return CommonConstant.UNKNOWN;
         }
-        String[] headers = new String[]{"X-Forwarded-For", "X-Real-IP", "Proxy-Client-IP", "WL-Proxy-Client-IP", "HTTP_CLIENT_IP", "HTTP_X_FORWARDED_FOR"};
+        String[] headers = new String[] {"X-Forwarded-For", "X-Real-IP", "Proxy-Client-IP", "WL-Proxy-Client-IP", "HTTP_CLIENT_IP", "HTTP_X_FORWARDED_FOR"};
         String ip;
         for (String header : headers) {
             ip = request.getHeader(header);
@@ -38,5 +38,5 @@ public class IpUtil {
         String proxyIp = NetUtil.getMultistageReverseProxyIp(ip);
         return "0:0:0:0:0:0:0:1".equals(proxyIp) ? "127.0.0.1" : proxyIp;
     }
-
+    
 }
