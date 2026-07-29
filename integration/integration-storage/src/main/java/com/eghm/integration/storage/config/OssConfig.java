@@ -37,8 +37,7 @@ public class OssConfig {
     @Bean
     @ConditionalOnProperty(prefix = "system", name = "upload-type", havingValue = "ali-oss")
     public FileService aliOssFileService(ApplicationProperties applicationProperties, AlarmService alarmService, SysConfigApi sysConfigApi) throws ClientException {
-        return new AliOssFileServiceImpl(this.createClient(applicationProperties), sysConfigApi, alarmService,
-                applicationProperties);
+        return new AliOssFileServiceImpl(this.createClient(applicationProperties), sysConfigApi, alarmService, applicationProperties);
     }
 
     /**

@@ -3,6 +3,7 @@ package com.eghm.app.manage.controller;
 import cn.hutool.core.img.ImgUtil;
 import cn.hutool.core.util.IdUtil;
 import com.eghm.foundation.core.configuration.ApplicationProperties;
+import com.eghm.foundation.core.constants.CommonConstant;
 import com.eghm.foundation.core.dto.ext.RespBody;
 import com.eghm.integration.wechat.dto.LinkUrlRequest;
 import com.eghm.integration.wechat.dto.QrCodeRequest;
@@ -99,7 +100,7 @@ public class WeChatController {
         SysUser sysUser = sysUserService.getByOpenId(authed.getOpenId());
         if (sysUser == null) {
             log.warn("微信扫码尚未绑定账号 [{}]", authed.getOpenId());
-            session.setAttribute("openId", authed.getOpenId());
+            session.setAttribute(CommonConstant.OPEN_ID, authed.getOpenId());
             response.setState(0);
             return RespBody.success(response);
         }

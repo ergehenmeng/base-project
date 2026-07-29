@@ -1,25 +1,20 @@
 package com.eghm.integration.storage.service.impl;
 
-import com.eghm.platform.config.service.SysConfigApi;
-
-import cn.hutool.core.util.IdUtil;
-import com.eghm.foundation.core.service.AlarmService;
-import com.eghm.integration.storage.service.FileService;
 import com.eghm.foundation.core.configuration.ApplicationProperties;
-import com.eghm.foundation.core.constants.CommonConstant;
 import com.eghm.foundation.core.constants.ConfigConstant;
-import com.eghm.integration.storage.dto.FilePath;
 import com.eghm.foundation.core.enums.ErrorCode;
 import com.eghm.foundation.core.exception.BusinessException;
+import com.eghm.foundation.core.service.AlarmService;
 import com.eghm.foundation.web.utility.CacheUtil;
-import com.eghm.foundation.core.utils.DateUtil;
+import com.eghm.integration.storage.dto.FilePath;
+import com.eghm.integration.storage.service.FileService;
+import com.eghm.platform.config.service.SysConfigApi;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
 
 import static com.eghm.foundation.core.constants.CommonConstant.DAY_MAX_UPLOAD;
 
@@ -77,7 +72,7 @@ public class SystemFileServiceImpl implements FileService {
      * @return 保存文件后的相对路径
      */
     private String doSaveFile(MultipartFile file, String folder) {
-        String filePath = this.getFilePath(file.getOriginalFilename(), folder);
+        String filePath = this.generateRelativePath(file, folder);
         try {
             file.transferTo(this.createFile(filePath));
         } catch (IOException e) {
@@ -101,21 +96,6 @@ public class SystemFileServiceImpl implements FileService {
             throw new BusinessException(ErrorCode.FILE_SAVE_ERROR);
         }
         return file;
-    }
-
-    /**
-     * 计算并生成最终的相对路径
-     *
-     * @param originalFileName 用户上传的文件名及后缀
-     * @param folderName       文件保存的父级文件夹名称
-     * @return /resource/image/20191229/3e1be532486249f4b0532a2e594ba187.png
-     */
-    private String getFilePath(String originalFileName, String folderName) {
-        if (originalFileName == null) {
-            originalFileName = "default.png";
-        }
-        String fileName = IdUtil.fastSimpleUUID() + originalFileName.substring(originalFileName.lastIndexOf("."));
-        return CommonConstant.ROOT_FOLDER + folderName + File.separator + DateUtil.formatShortLimit(LocalDate.now()) + File.separator + fileName;
     }
 
     /**

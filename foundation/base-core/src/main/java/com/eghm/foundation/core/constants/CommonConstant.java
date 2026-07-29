@@ -220,9 +220,4 @@ public class CommonConstant {
      */
     public static final String AVATAR_FOLDER = "avatar";
     
-    /**
-     * 默认版本号 1.0.0
-     */
-    public static final String DEFAULT_VERSION = "1.0.0";
-    
 }
