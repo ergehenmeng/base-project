@@ -5,9 +5,8 @@ import com.eghm.foundation.core.constants.ConfigConstant;
 import com.eghm.foundation.core.enums.ErrorCode;
 import com.eghm.foundation.core.exception.BusinessException;
 import com.eghm.foundation.core.service.AlarmService;
-import com.eghm.foundation.web.utility.CacheUtil;
 import com.eghm.integration.storage.dto.FilePath;
-import com.eghm.integration.storage.service.FileService;
+import com.eghm.integration.storage.service.StorageService;
 import com.eghm.platform.config.service.SysConfigApi;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,8 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-
-import static com.eghm.foundation.core.constants.CommonConstant.DAY_MAX_UPLOAD;
 
 /**
  * 保存文件路径格式=根路径+公共路径+文件分类路径+日期+文件名+后缀 <br>
@@ -30,7 +27,7 @@ import static com.eghm.foundation.core.constants.CommonConstant.DAY_MAX_UPLOAD;
  */
 @Slf4j
 @AllArgsConstructor
-public class SystemFileServiceImpl implements FileService {
+public class LocalStorageServiceImpl implements StorageService {
 
     private final SysConfigApi sysConfigApi;
 
@@ -50,17 +47,7 @@ public class SystemFileServiceImpl implements FileService {
 
     @Override
     public FilePath saveFile(String key, MultipartFile file, String folder, long maxSize) {
-        this.checkSize(file, maxSize);
-        Long present = CacheUtil.UPLOAD_LIMIT_CACHE.getIfPresent(key);
-        long size = file.getSize() + (present == null ? 0 : present);
-        if (size > DAY_MAX_UPLOAD.toBytes()) {
-            log.warn("系统单日上传文件超出限制, 用户:[{}] 累计上传:[{}]kb ", key, size / 1024);
-            alarmService.sendMsg(String.format("系统单日上传文件超出限制,请注意监控, 用户:%s 今日累计上传:%s", key, (size / 1024 / 1024) + "M"));
-        }
-        String path = this.doSaveFile(file, folder);
-        FilePath build = new FilePath(path, this.getFileHost(), file.getSize());
-        CacheUtil.UPLOAD_LIMIT_CACHE.put(key, size);
-        return build;
+        return this.checkAndSaveFile(key, file, folder, maxSize, alarmService);
     }
 
     /**
@@ -70,7 +57,8 @@ public class SystemFileServiceImpl implements FileService {
      * @param folder 文件保存的文件夹名称
      * @return 保存文件后的相对路径
      */
-    private String doSaveFile(MultipartFile file, String folder) {
+    @Override
+    public FilePath doSaveFile(MultipartFile file, String folder) {
         String filePath = this.generateRelativePath(file, folder);
         try {
             file.transferTo(this.createFile(filePath));
@@ -78,7 +66,7 @@ public class SystemFileServiceImpl implements FileService {
             log.warn("上传文件保存失败", e);
             throw new BusinessException(ErrorCode.FILE_SAVE_ERROR);
         }
-        return filePath.replace(File.separator, "/");
+        return new FilePath(filePath, this.getFileHost(), file.getSize());
     }
 
     /**

@@ -3,7 +3,7 @@ package com.eghm.app.manage.controller.sys;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.foundation.core.annotation.SkipPerm;
 import com.eghm.foundation.core.enums.UserType;
-import com.eghm.integration.storage.service.FileService;
+import com.eghm.integration.storage.service.StorageService;
 import com.eghm.foundation.core.configuration.authentication.SecurityHolder;
 import com.eghm.foundation.core.constants.CommonConstant;
 import com.eghm.foundation.core.dto.IdDTO;
@@ -51,7 +51,7 @@ import java.util.List;
 @RequestMapping(value = "/manage/user", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserController {
 
-    private final FileService fileService;
+    private final StorageService storageService;
 
     private final SysUserService sysUserService;
 
@@ -139,7 +139,7 @@ public class UserController {
     @SkipPerm
     public RespBody<FilePath> updateAvatar(@RequestParam("file") MultipartFile file) {
         FileUtil.checkFileType(file, "png", "jpg", "jpeg");
-        FilePath filePath = fileService.saveFile(CommonConstant.MANAGE + SecurityHolder.getUserId(), file, CommonConstant.AVATAR_FOLDER);
+        FilePath filePath = storageService.saveFile(CommonConstant.MANAGE + SecurityHolder.getUserId(), file, CommonConstant.AVATAR_FOLDER);
         sysUserService.updateAvatar(SecurityHolder.getUserId(), filePath.host() + filePath.path());
         return RespBody.success(filePath);
     }

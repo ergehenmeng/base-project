@@ -218,8 +218,14 @@ public class ApplicationProperties {
     @Data
     public static class PayProperties {
         
+        /**
+         * 支付宝支付配置
+         */
         private final AliPay ali = new AliPay();
         
+        /**
+         * 微信支付配置
+         */
         private final WxPay wx = new WxPay();
         
         @Data

@@ -1,7 +1,7 @@
 package com.eghm.app.webapp.controller;
 
 import com.eghm.foundation.core.annotation.SkipLogger;
-import com.eghm.integration.storage.service.FileService;
+import com.eghm.integration.storage.service.StorageService;
 import com.eghm.foundation.core.constants.CommonConstant;
 import com.eghm.foundation.core.configuration.authentication.ApiHolder;
 import com.eghm.integration.storage.dto.FilePath;
@@ -34,7 +34,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping(value = "/webapp/file", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UploadController {
 
-    private final FileService fileService;
+    private final StorageService storageService;
 
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Parameter(name = "file", description = "file流", required = true, in = ParameterIn.DEFAULT, schema = @Schema(name = "file", format = "binary"))
@@ -42,7 +42,7 @@ public class UploadController {
     @SkipLogger
     @AccessToken
     public RespBody<FilePath> upload(@RequestParam("file") MultipartFile file) {
-        FilePath filePath = fileService.saveFile(CommonConstant.WEBAPP + ApiHolder.getMemberId(), file);
+        FilePath filePath = storageService.saveFile(CommonConstant.WEBAPP + ApiHolder.getMemberId(), file);
         return RespBody.success(filePath);
     }
 }

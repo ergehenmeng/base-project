@@ -10,34 +10,34 @@ import com.aliyun.oss.common.auth.EnvironmentVariableCredentialsProvider;
 import com.aliyun.oss.common.comm.SignVersion;
 import com.aliyuncs.exceptions.ClientException;
 import com.eghm.foundation.core.service.AlarmService;
-import com.eghm.integration.storage.service.FileService;
-import com.eghm.integration.storage.service.impl.AliOssFileServiceImpl;
+import com.eghm.integration.storage.service.StorageService;
+import com.eghm.integration.storage.service.impl.AliOssStorageServiceImpl;
 import com.eghm.platform.config.service.SysConfigApi;
-import com.eghm.integration.storage.service.impl.SystemFileServiceImpl;
+import com.eghm.integration.storage.service.impl.LocalStorageServiceImpl;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * oss 配置 阿里 + 本地
+ * 文件存储配置 阿里 + 本地
  *
  * @author 二哥很猛
  * @since 2024/5/24
  */
 
 @Configuration
-public class OssConfig {
+public class StorageConfig {
 
     @Bean
     @ConditionalOnProperty(prefix = "application.storage", name = "type", havingValue = "local", matchIfMissing = true)
-    public FileService systemFileService(ApplicationProperties applicationProperties, SysConfigApi sysConfigApi, AlarmService alarmService) {
-        return new SystemFileServiceImpl(sysConfigApi, alarmService, applicationProperties);
+    public StorageService systemFileService(ApplicationProperties applicationProperties, SysConfigApi sysConfigApi, AlarmService alarmService) {
+        return new LocalStorageServiceImpl(sysConfigApi, alarmService, applicationProperties);
     }
 
     @Bean
     @ConditionalOnProperty(prefix = "application.storage", name = "type", havingValue = "ali-oss")
-    public FileService aliOssFileService(ApplicationProperties applicationProperties, AlarmService alarmService, SysConfigApi sysConfigApi) throws ClientException {
-        return new AliOssFileServiceImpl(this.createClient(applicationProperties), sysConfigApi, alarmService, applicationProperties);
+    public StorageService aliOssFileService(ApplicationProperties applicationProperties, AlarmService alarmService, SysConfigApi sysConfigApi) throws ClientException {
+        return new AliOssStorageServiceImpl(this.createClient(applicationProperties), sysConfigApi, alarmService, applicationProperties);
     }
 
     /**
