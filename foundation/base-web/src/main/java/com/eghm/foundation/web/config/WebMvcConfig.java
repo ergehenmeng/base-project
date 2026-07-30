@@ -90,7 +90,7 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, Validati
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resource/**").addResourceLocations("file:///" + applicationProperties.getUploadPath() + CommonConstant.ROOT_FOLDER);
+        registry.addResourceHandler("/resource/**").addResourceLocations("file:///" + applicationProperties.getStorage().getLocal().getAbsolutePath() + CommonConstant.ROOT_FOLDER);
     }
 
     @Override

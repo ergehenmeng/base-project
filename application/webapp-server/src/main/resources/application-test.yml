@@ -42,7 +42,11 @@ spring:
           max-interval: 30000
 application:
   # 全局文件上传路径
-  upload-path: D://file
+  storage:
+    type: local
+    local:
+      absolute-path: /usr/local/file
+      folder: image
   wechat:
     ma:
       version: trial

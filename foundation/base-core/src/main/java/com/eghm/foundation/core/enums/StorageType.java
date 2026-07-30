@@ -6,12 +6,12 @@ package com.eghm.foundation.core.enums;
  * @author 二哥很猛
  * @since 2024/5/24
  */
-public enum UploadType {
+public enum StorageType {
 
     /**
      * 系统存储
      */
-    SYSTEM,
+    LOCAL,
 
     /**
      * 阿里oss

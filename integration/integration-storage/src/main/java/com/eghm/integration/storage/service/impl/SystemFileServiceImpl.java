@@ -21,7 +21,7 @@ import static com.eghm.foundation.core.constants.CommonConstant.DAY_MAX_UPLOAD;
 /**
  * 保存文件路径格式=根路径+公共路径+文件分类路径+日期+文件名+后缀 <br>
  * <p>说明</p>
- * 根路径由{@link ApplicationProperties#getUploadPath()}决定 <br>
+ * 根路径由{@link ApplicationProperties#getStorage().getLocal().getAbsolutePath()}决定 <br>
  * 公共路径默认/resource/ 方便nginx或服务做静态资源拦截映射 <br>
  * 日期默认: yyyy/MM/dd
  *
@@ -40,7 +40,7 @@ public class SystemFileServiceImpl implements FileService {
 
     @Override
     public FilePath saveFile(String key, MultipartFile file) {
-        return this.saveFile(key, file, applicationProperties.getUploadFolder(), sysConfigApi.getLong(ConfigConstant.SINGLE_MAX_FILE_SIZE));
+        return this.saveFile(key, file, applicationProperties.getStorage().getFolder(), sysConfigApi.getLong(ConfigConstant.SINGLE_MAX_FILE_SIZE));
     }
 
     @Override
@@ -104,7 +104,7 @@ public class SystemFileServiceImpl implements FileService {
      * @return D:/file/data/
      */
     private String getFullPath(String filePath) {
-        return applicationProperties.getUploadPath() + filePath;
+        return applicationProperties.getStorage().getLocal().getAbsolutePath() + filePath;
     }
 
     private String getFileHost() {

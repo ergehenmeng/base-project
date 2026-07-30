@@ -5,7 +5,7 @@ import com.eghm.foundation.core.enums.Env;
 import com.eghm.foundation.core.enums.LoginType;
 import com.eghm.foundation.core.enums.SmsChannel;
 import com.eghm.foundation.core.enums.TokenType;
-import com.eghm.foundation.core.enums.UploadType;
+import com.eghm.foundation.core.enums.StorageType;
 import com.eghm.foundation.core.enums.WeChatVersion;
 import com.google.code.kaptcha.text.impl.DefaultTextCreator;
 import lombok.Data;
@@ -27,21 +27,6 @@ public class ApplicationProperties {
     static final String PREFIX = "application";
 
     /**
-     * 上传文件的绝对路径 (必填)
-     */
-    private String uploadPath;
-
-    /**
-     * 上传文件时父文件夹名称
-     */
-    private String uploadFolder = "image";
-
-    /**
-     * 上传文件方式
-     */
-    private UploadType uploadType = UploadType.SYSTEM;
-
-    /**
      * 系统运行环境(默认准生产环境)
      */
     private Env env = Env.PROD;
@@ -57,19 +42,24 @@ public class ApplicationProperties {
     private final WeChatProperties wechat = new WeChatProperties();
 
     /**
-     * 支付宝配置
+     * 支付配置
      */
-    private final AliProperties ali = new AliProperties();
+    private final PayProperties pay = new PayProperties();
+    
+    /**
+     * 文件存储设置
+     */
+    private final StorageProperties storage = new StorageProperties();
 
     /**
      * 报警消息通知
      */
-    private final Alarm alarm = new Alarm();
+    private final AlarmProperties alarm = new AlarmProperties();
 
     /**
      * 短信配置
      */
-    private final Sms sms = new Sms();
+    private final SmsProperties sms = new SmsProperties();
 
     /**
      * 私钥(用于密码解密)
@@ -80,9 +70,78 @@ public class ApplicationProperties {
      * 公钥(用于密码解密)
      */
     private String publicKey;
+    
+    @Data
+    public static class StorageProperties {
+        
+        /**
+         * 上传文件方式
+         */
+        private StorageType type = StorageType.LOCAL;
+        
+        /**
+         * 默认上传文件夹名称 即根路径下的文件夹名称
+         */
+        private String folder = "image";
+        
+        /**
+         * 本地存储配置
+         */
+        private final LocalStorage local = new LocalStorage();
+        
+        /**
+         * 阿里oss存储
+         */
+        private final AliStorage ali = new AliStorage();
+        
+        @Data
+        public static class LocalStorage {
+            
+            /**
+             * 上传文件的绝对路径 (必填)
+             */
+            private String absolutePath;
+
+        }
+        
+        @Data
+        public static class AliStorage {
+            
+            /**
+             * oss域名
+             */
+            private String endpoint;
+            
+            /**
+             * Bucket所在地域
+             */
+            private String regionName;
+            
+            /**
+             * bucket名称
+             */
+            private String bucketName;
+            
+            /**
+             * accessKeyId
+             */
+            private String keyId;
+            
+            /**
+             * accessKeySecret
+             */
+            private String keySecret;
+            
+            /**
+             * 访问域名
+             */
+            private String accessDomain;
+            
+        }
+    }
 
     @Data
-    public static class Sms {
+    public static class SmsProperties {
 
         /**
          * 短信渠道-不配置默认只打印日志
@@ -157,136 +216,60 @@ public class ApplicationProperties {
     }
 
     @Data
-    public static class AliProperties {
-
-        /**
-         * 支付宝配置
-         */
-        private final AliPay pay = new AliPay();
-
-        /**
-         * 阿里oss
-         */
-        private final AliOss oss = new AliOss();
-
-    }
-
-    @Data
-    public static class AliOss {
-
-        /**
-         * oss域名
-         */
-        private String endpoint;
-
-        /**
-         * Bucket所在地域
-         */
-        private String regionName;
-
-        /**
-         * bucket名称
-         */
-        private String bucketName;
-
-        /**
-         * accessKeyId
-         */
-        private String keyId;
-
-        /**
-         * accessKeySecret
-         */
-        private String keySecret;
-
-        /**
-         * 访问域名
-         */
-        private String accessDomain;
-
-    }
-
-    @Data
-    public static class AliPay {
-
-        /**
-         * 支付appId
-         */
-        private String appId;
-
-        /**
-         * 私钥
-         */
-        private String privateKey;
-
-        /**
-         * 公钥 (非正式模式)
-         */
-        private String publicKey;
-
-        /**
-         * AES密钥（可选）
-         */
-        private String encryptKey;
-    }
-
-    @Data
-    public static class WxMp {
-
-        /**
-         * 公众号appId
-         */
-        private String appId;
-
-        /**
-         * 公众号appSecret
-         */
-        private String appSecret;
-
-    }
-
-    @Data
-    public static class WxPay {
-
-        /**
-         * 商户号
-         */
-        private String mchId;
-
-        /**
-         * 商户私钥证书 api_client_key.pem (classpath)
-         */
-        private String privateKeyPath;
-
-        /**
-         * 商户证书序列号
-         */
-        private String serialNo;
-
-        /**
-         * apiV3 秘钥
-         */
-        private String apiV3Key;
-    }
-
-    @Data
-    public static class WxMa {
-
-        /**
-         * 小程序appId
-         */
-        private String appId;
-
-        /**
-         * 小程序appId
-         */
-        private String appSecret;
-
-        /**
-         * 小程序版本, 默认:正式版
-         */
-        private WeChatVersion version = WeChatVersion.RELEASE;
-
+    public static class PayProperties {
+        
+        private final AliPay ali = new AliPay();
+        
+        private final WxPay wx = new WxPay();
+        
+        @Data
+        public static class AliPay {
+            
+            /**
+             * 支付appId
+             */
+            private String appId;
+            
+            /**
+             * 私钥
+             */
+            private String privateKey;
+            
+            /**
+             * 公钥 (非正式模式)
+             */
+            private String publicKey;
+            
+            /**
+             * AES密钥（可选）
+             */
+            private String encryptKey;
+        }
+        
+        @Data
+        public static class WxPay {
+            
+            /**
+             * 商户号
+             */
+            private String mchId;
+            
+            /**
+             * 商户私钥证书 api_client_key.pem (classpath)
+             */
+            private String privateKeyPath;
+            
+            /**
+             * 商户证书序列号
+             */
+            private String serialNo;
+            
+            /**
+             * apiV3 秘钥
+             */
+            private String apiV3Key;
+        }
+        
     }
 
     @Data
@@ -301,16 +284,46 @@ public class ApplicationProperties {
          * 小程序配置
          */
         private final WxMa ma = new WxMa();
-
-        /**
-         * 微信支付配置
-         */
-        private final WxPay pay = new WxPay();
+        
+        @Data
+        public static class WxMp {
+            
+            /**
+             * 公众号appId
+             */
+            private String appId;
+            
+            /**
+             * 公众号appSecret
+             */
+            private String appSecret;
+            
+        }
+        
+        @Data
+        public static class WxMa {
+            
+            /**
+             * 小程序appId
+             */
+            private String appId;
+            
+            /**
+             * 小程序appId
+             */
+            private String appSecret;
+            
+            /**
+             * 小程序版本, 默认:正式版
+             */
+            private WeChatVersion version = WeChatVersion.RELEASE;
+            
+        }
 
     }
 
     @Data
-    public static class Alarm {
+    public static class AlarmProperties {
 
         /**
          * 消息通知类型

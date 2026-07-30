@@ -207,7 +207,7 @@ public class AliPayServiceImpl implements PayService {
 
     @Override
     public void verifyNotify(Map<String, String> param) {
-        ApplicationProperties.AliPay pay = applicationProperties.getAli().getPay();
+        ApplicationProperties.PayProperties.AliPay pay = applicationProperties.getPay().getAli();
         boolean flag = false;
         try {
             flag = AlipaySignature.rsaCheckV1(param, pay.getPublicKey(), "UTF-8", "RSA2");

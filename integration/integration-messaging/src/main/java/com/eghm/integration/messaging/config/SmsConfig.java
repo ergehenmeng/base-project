@@ -28,13 +28,13 @@ import org.springframework.context.annotation.Configuration;
 public class SmsConfig {
 
     @Bean
-    @ConditionalOnProperty(prefix = "system.sms", name = "channel", matchIfMissing = true)
+    @ConditionalOnProperty(prefix = "application.sms", name = "channel", matchIfMissing = true)
     public SendSmsService defaultSmsService() {
         return new DefaultSmsServiceImpl();
     }
 
     @Bean
-    @ConditionalOnProperty(prefix = "system.sms", name = "channel", havingValue = "ali")
+    @ConditionalOnProperty(prefix = "application.sms", name = "channel", havingValue = "ali")
     public SendSmsService aliSmsService(JsonService jsonService, ApplicationProperties applicationProperties) throws Exception {
         Config config = new Config()
                 .setAccessKeyId(applicationProperties.getSms().getKeyId())
@@ -44,10 +44,10 @@ public class SmsConfig {
     }
 
     @Bean
-    @ConditionalOnProperty(prefix = "system.sms", name = "channel", havingValue = "tencent")
+    @ConditionalOnProperty(prefix = "application.sms", name = "channel", havingValue = "tencent")
     public SendSmsService tencentSmsService(JsonService jsonService, ApplicationProperties applicationProperties) {
-        ApplicationProperties.Sms sms = applicationProperties.getSms();
-        Credential credential = new Credential(sms.getKeyId(), sms.getSecretKey());
+        ApplicationProperties.SmsProperties smsProperties = applicationProperties.getSms();
+        Credential credential = new Credential(smsProperties.getKeyId(), smsProperties.getSecretKey());
         return new TencentSmsServiceImpl(new SmsClient(credential, "ap-shanghai"), jsonService, applicationProperties);
     }
 

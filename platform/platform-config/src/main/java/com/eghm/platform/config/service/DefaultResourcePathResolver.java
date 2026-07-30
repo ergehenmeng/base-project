@@ -18,7 +18,7 @@ public class DefaultResourcePathResolver implements ResourcePathResolver {
     public String resolve(String path) {
         String fileAddress = sysConfigApi.getString(ConfigConstant.FILE_SERVER_HOST);
         if (path.startsWith(fileAddress)) {
-            return "file://" + applicationProperties.getUploadPath() + path.replace(fileAddress, "");
+            return "file://" + applicationProperties.getStorage().getLocal().getAbsolutePath() + path.replace(fileAddress, "");
         }
         return path;
     }

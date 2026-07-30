@@ -24,7 +24,7 @@ public class WeChatConfig {
      * 微信公众号
      */
     @Bean
-    @ConditionalOnProperty(prefix = "system.wechat.mp", name = "app-id")
+    @ConditionalOnProperty(prefix = "application.wechat.mp", name = "app-id")
     public WxMpService wxMpService(ApplicationProperties applicationProperties) {
         ApplicationProperties.WeChatProperties weChatProperties = applicationProperties.getWechat();
         WxMpService service = new WxMpServiceImpl();
@@ -39,7 +39,7 @@ public class WeChatConfig {
      * 微信小程序
      */
     @Bean
-    @ConditionalOnProperty(prefix = "system.wechat.ma", name = "app-id")
+    @ConditionalOnProperty(prefix = "application.wechat.ma", name = "app-id")
     public WxMaService wxMaService(ApplicationProperties applicationProperties) {
         WxMaService service = new WxMaServiceImpl();
         WxMaDefaultConfigImpl config = new WxMaDefaultConfigImpl();

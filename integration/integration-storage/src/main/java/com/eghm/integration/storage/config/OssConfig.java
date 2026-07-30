@@ -29,13 +29,13 @@ import org.springframework.context.annotation.Configuration;
 public class OssConfig {
 
     @Bean
-    @ConditionalOnProperty(prefix = "system", name = "upload-type", havingValue = "system", matchIfMissing = true)
+    @ConditionalOnProperty(prefix = "application.storage", name = "type", havingValue = "local", matchIfMissing = true)
     public FileService systemFileService(ApplicationProperties applicationProperties, SysConfigApi sysConfigApi, AlarmService alarmService) {
         return new SystemFileServiceImpl(sysConfigApi, alarmService, applicationProperties);
     }
 
     @Bean
-    @ConditionalOnProperty(prefix = "system", name = "upload-type", havingValue = "ali-oss")
+    @ConditionalOnProperty(prefix = "application.storage", name = "type", havingValue = "ali-oss")
     public FileService aliOssFileService(ApplicationProperties applicationProperties, AlarmService alarmService, SysConfigApi sysConfigApi) throws ClientException {
         return new AliOssFileServiceImpl(this.createClient(applicationProperties), sysConfigApi, alarmService, applicationProperties);
     }
@@ -48,7 +48,7 @@ public class OssConfig {
      * @throws ClientException e
      */
     private OSS createClient(ApplicationProperties applicationProperties) throws ClientException {
-        ApplicationProperties.AliOss oss = applicationProperties.getAli().getOss();
+        ApplicationProperties.StorageProperties.AliStorage oss = applicationProperties.getStorage().getAli();
         EnvironmentVariableCredentialsProvider credentialsProvider = CredentialsProviderFactory.newEnvironmentVariableCredentialsProvider();
         ClientBuilderConfiguration clientBuilderConfiguration = new ClientBuilderConfiguration();
         clientBuilderConfiguration.setSignatureVersion(SignVersion.V4);

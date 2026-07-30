@@ -2,9 +2,9 @@ package com.eghm.integration.messaging.service.impl;
 
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.crypto.SecureUtil;
-import com.eghm.foundation.core.service.JsonService;
 import com.eghm.foundation.core.configuration.ApplicationProperties;
 import com.eghm.foundation.core.enums.AlarmType;
+import com.eghm.foundation.core.service.JsonService;
 import lombok.extern.slf4j.Slf4j;
 
 import java.nio.charset.StandardCharsets;
@@ -34,13 +34,13 @@ public class DingTalkAlarmServiceImpl extends AbstractAlarmService {
     
     @Override
     protected String createRequestUrl() {
-        ApplicationProperties.Alarm alarm = applicationProperties.getAlarm();
+        ApplicationProperties.AlarmProperties alarmProperties = applicationProperties.getAlarm();
         Map<String, Object> paramMap = new HashMap<>(4);
-        paramMap.put("access_token", alarm.getWebHook());
-        if (isNotBlank(alarm.getSecret())) {
+        paramMap.put("access_token", alarmProperties.getWebHook());
+        if (isNotBlank(alarmProperties.getSecret())) {
             long timestamp = System.currentTimeMillis();
-            String unSign = timestamp + "\n" + alarm.getSecret();
-            String sign = SecureUtil.hmacSha256(alarm.getSecret()).digestBase64(unSign, true);
+            String unSign = timestamp + "\n" + alarmProperties.getSecret();
+            String sign = SecureUtil.hmacSha256(alarmProperties.getSecret()).digestBase64(unSign, true);
             paramMap.put("timestamp", timestamp);
             paramMap.put("sign", sign);
         }

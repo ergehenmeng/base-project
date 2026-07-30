@@ -57,7 +57,7 @@ public class AliJsApiCreatePayServiceImpl implements CreatePayService {
         model.setTotalAmount(DecimalUtil.centToYuan(dto.getAmount()));
         model.setSubject(dto.getDescription());
         model.setProductCode(TradeType.JSAPI_PAY.getCode());
-        model.setOpAppId(applicationProperties.getAli().getPay().getAppId());
+        model.setOpAppId(applicationProperties.getPay().getAli().getAppId());
         model.setBuyerOpenId(dto.getBuyerId());
         int expireTime = sysConfigApi.getInt(ConfigConstant.ORDER_EXPIRE_TIME);
         model.setTimeExpire(DateUtil.format(LocalDateTime.now().plusSeconds(expireTime)));

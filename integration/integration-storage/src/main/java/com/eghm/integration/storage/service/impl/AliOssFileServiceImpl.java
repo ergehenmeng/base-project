@@ -38,7 +38,7 @@ public class AliOssFileServiceImpl implements FileService {
 
     @Override
     public FilePath saveFile(String key, MultipartFile file) {
-        return this.saveFile(key, file, applicationProperties.getUploadFolder(), sysConfigApi.getLong(ConfigConstant.SINGLE_MAX_FILE_SIZE));
+        return this.saveFile(key, file, applicationProperties.getStorage().getFolder(), sysConfigApi.getLong(ConfigConstant.SINGLE_MAX_FILE_SIZE));
     }
 
     @Override
@@ -70,12 +70,12 @@ public class AliOssFileServiceImpl implements FileService {
     private FilePath doUploadFile(MultipartFile file, String folder) {
         String filePath = this.generateRelativePath(file, folder);
         try (InputStream inputStream = file.getInputStream()) {
-            ossClient.putObject(applicationProperties.getAli().getOss().getBucketName(), filePath, inputStream);
+            ossClient.putObject(applicationProperties.getStorage().getAli().getBucketName(), filePath, inputStream);
         } catch (Exception e) {
             log.error("ALI_OSS文件上传失败, 文件名:[{}]", filePath, e);
             throw new BusinessException(ErrorCode.FILE_SAVE_ERROR);
         }
-        return new FilePath(filePath.replace(File.separator, "/"), applicationProperties.getAli().getOss().getAccessDomain(), file.getSize());
+        return new FilePath(filePath.replace(File.separator, "/"), applicationProperties.getStorage().getAli().getAccessDomain(), file.getSize());
     }
 
 }

@@ -24,9 +24,9 @@ import org.springframework.context.annotation.Configuration;
 public class PayConfig {
     
     @Bean
-    @ConditionalOnProperty(prefix = "system.ali.pay", name = "app-id")
+    @ConditionalOnProperty(prefix = "application.pay.ali", name = "app-id")
     public DefaultAlipayClient alipayClient(ApplicationProperties applicationProperties) throws AlipayApiException {
-        ApplicationProperties.AliPay pay = applicationProperties.getAli().getPay();
+        ApplicationProperties.PayProperties.AliPay pay = applicationProperties.getPay().getAli();
         AlipayConfig alipayConfig = new AlipayConfig();
         alipayConfig.setAppId(pay.getAppId());
         alipayConfig.setPrivateKey(pay.getPrivateKey());
@@ -35,11 +35,11 @@ public class PayConfig {
     }
     
     @Bean
-    @ConditionalOnProperty(prefix = "system.wechat.pay", name = "api-v3-key")
+    @ConditionalOnProperty(prefix = "application.pay.wx", name = "api-v3-key")
     public WxPayService wxPayService(ApplicationProperties applicationProperties) {
         WxPayService service = new WxPayServiceImpl();
         WxPayConfig config = new WxPayConfig();
-        ApplicationProperties.WxPay pay = applicationProperties.getWechat().getPay();
+        ApplicationProperties.PayProperties.WxPay pay = applicationProperties.getPay().getWx();
         config.setMchId(pay.getMchId());
         config.setSignType(WxPayConstants.SignType.HMAC_SHA256);
         config.setApiV3Key(pay.getApiV3Key());
