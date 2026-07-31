@@ -94,6 +94,11 @@ public class ApplicationProperties {
          */
         private final AliStorage ali = new AliStorage();
         
+        /**
+         * minIO存储
+         */
+        private final MinioStorage minio = new MinioStorage();
+        
         @Data
         public static class LocalStorage {
             
@@ -136,6 +141,31 @@ public class ApplicationProperties {
              * 访问域名
              */
             private String accessDomain;
+            
+        }
+        
+        @Data
+        public static class MinioStorage {
+            
+            /**
+             * 域名
+             */
+            private String endpoint;
+            
+            /**
+             * bucket名称
+             */
+            private String bucketName;
+            
+            /**
+             * accessKey
+             */
+            private String accessKey;
+            
+            /**
+             * secretKey
+             */
+            private String secretKey;
             
         }
     }

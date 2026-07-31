@@ -50,16 +50,8 @@ public class LocalStorageServiceImpl implements StorageService {
         return this.checkAndSaveFile(key, file, folder, maxSize, alarmService);
     }
 
-    /**
-     * 保存上传的文件
-     *
-     * @param file   文件
-     * @param folder 文件保存的文件夹名称
-     * @return 保存文件后的相对路径
-     */
     @Override
-    public FilePath doSaveFile(MultipartFile file, String folder) {
-        String filePath = this.generateRelativePath(file, folder);
+    public FilePath doSaveFile(MultipartFile file, String filePath) {
         try {
             file.transferTo(this.createFile(filePath));
         } catch (IOException e) {

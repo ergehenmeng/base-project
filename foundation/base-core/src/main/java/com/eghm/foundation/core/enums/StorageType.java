@@ -16,5 +16,10 @@ public enum StorageType {
     /**
      * 阿里oss
      */
-    ALI_OSS
+    ALI_OSS,
+    
+    /**
+     * minIo
+     */
+    MINIO
 }

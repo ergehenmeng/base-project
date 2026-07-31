@@ -67,7 +67,8 @@ public interface StorageService {
         if (size > DAY_MAX_UPLOAD.toBytes()) {
             alarmService.sendMsg(String.format("ALI_OSS单日上传文件超出限制,请注意监控, 用户:%s 今日累计上传:%s", key, (size / 1024 / 1024) + "M"));
         }
-        FilePath filePath = this.doSaveFile(file, folder);
+        String path = this.generateRelativePath(file, folder);
+        FilePath filePath = this.doSaveFile(file, path);
         CacheUtil.UPLOAD_LIMIT_CACHE.put(key, size);
         return filePath;
     }
@@ -76,10 +77,10 @@ public interface StorageService {
      * 保存上传的文件
      *
      * @param file 文件
-     * @param folder 文件保存的文件夹名称
+     * @param filePath 文件保存的文件相对路径
      * @return 文件保存的相对路径及访问地址
      */
-    FilePath doSaveFile(MultipartFile file, String folder);
+    FilePath doSaveFile(MultipartFile file, String filePath);
     
     /**
      * 校验文件大小
