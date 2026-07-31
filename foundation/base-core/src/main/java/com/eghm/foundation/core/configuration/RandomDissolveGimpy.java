@@ -23,7 +23,7 @@ public class RandomDissolveGimpy extends Configurable implements GimpyEngine {
         Graphics2D graph = (Graphics2D) distortedImage.getGraphics();
         SecureRandom random = new SecureRandom();
         DissolveFilter dissolveFilter = new DissolveFilter();
-        dissolveFilter.setDensity(random.nextFloat(0.6F, 0.8F));
+        dissolveFilter.setDensity(random.nextFloat(0.7F, 0.9F));
         MarbleFilter marbleFilter = new MarbleFilter();
         marbleFilter.setXScale(random.nextFloat(1.0F, 1.2F));
         marbleFilter.setYScale(random.nextFloat(1.0F, 1.2F));

@@ -1,14 +1,15 @@
 package com.eghm.foundation.web.config;
 
-import com.eghm.foundation.core.configuration.ApplicationProperties;
-import com.eghm.foundation.core.configuration.RandomDissolveGimpy;
 import com.alibaba.ttl.threadpool.TtlExecutors;
-import com.eghm.foundation.web.config.jackson.DesensitizationAnnotationInterceptor;
-import com.eghm.foundation.web.config.log.LogTraceFilter;
+import com.eghm.foundation.core.configuration.ApplicationProperties;
+import com.eghm.foundation.core.configuration.ImageBackgroundProducer;
+import com.eghm.foundation.core.configuration.RandomDissolveGimpy;
 import com.eghm.foundation.core.constants.CommonConstant;
 import com.eghm.foundation.core.convertor.DateAnnotationFormatterBinderFactory;
 import com.eghm.foundation.core.convertor.EnumBinderConverterFactory;
 import com.eghm.foundation.core.convertor.YuanToCentAnnotationFormatterBinderFactory;
+import com.eghm.foundation.web.config.jackson.DesensitizationAnnotationInterceptor;
+import com.eghm.foundation.web.config.log.LogTraceFilter;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.AnnotationIntrospector;
 import com.fasterxml.jackson.databind.BeanDescription;
@@ -80,9 +81,10 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, Validati
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_LENGTH, "4");
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_SIZE, "35");
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_SPACE, "4");
-        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_STRING, "abcdefhkmnprstwxy2345678ABCEFGHGKMNPRSTWXY");
+        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_STRING, "abcdehkmnpswxy2345678ABCEFGHGKMNPRSTWXY");
         properties.setProperty(Constants.KAPTCHA_OBSCURIFICATOR_IMPL, RandomDissolveGimpy.class.getName());
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_IMPL, applicationProperties.getManage().getCaptchaType().getName());
+        properties.setProperty(Constants.KAPTCHA_BACKGROUND_IMPL, ImageBackgroundProducer.class.getName());
         Config config = new Config(properties);
         captcha.setConfig(config);
         return captcha;

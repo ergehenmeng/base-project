@@ -211,7 +211,7 @@ public class ApplicationProperties {
         /**
          * 验证码类型
          */
-        private Class<? extends DefaultTextCreator> captchaType = MathCaptchaProducer.class;
+        private Class<? extends DefaultTextCreator> captchaType = TextCaptchaProducer.class;
 
         /**
          * 登录方式 1:密码登录 2:短信登录 4:二维码登录(未实现)<br>
