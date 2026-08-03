@@ -65,7 +65,7 @@ public interface StorageService {
         Long present = CacheUtil.UPLOAD_LIMIT_CACHE.getIfPresent(key);
         long size = file.getSize() + (present == null ? 0 : present);
         if (size > DAY_MAX_UPLOAD.toBytes()) {
-            alarmService.sendMsg(String.format("ALI_OSS单日上传文件超出限制,请注意监控, 用户:%s 今日累计上传:%s", key, (size / 1024 / 1024) + "M"));
+            alarmService.sendMsg(String.format("单日上传文件超出限制,请注意监控, 用户:%s 今日累计上传:%s", key, (size / 1024 / 1024) + "M"));
         }
         String path = this.generateRelativePath(file, folder);
         FilePath filePath = this.doSaveFile(file, path);
