@@ -65,7 +65,6 @@ application:
     type: local
     local:
       absolute-path: D://file
-      folder: image
   # 管理后台配置
   manage:
     login-types:

@@ -46,7 +46,6 @@ application:
     type: local
     local:
       absolute-path: /usr/local/file
-      folder: image
   wechat:
     ma:
       version: trial

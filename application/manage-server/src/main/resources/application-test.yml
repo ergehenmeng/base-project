@@ -49,7 +49,6 @@ application:
     type: local
     local:
       absolute-path: /usr/local/file
-      folder: image
   # 微信小程序 公众号 微信支付配置
   wechat:
     ma:

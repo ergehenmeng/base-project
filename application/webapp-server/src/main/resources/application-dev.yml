@@ -46,7 +46,6 @@ application:
     type: local
     local:
       absolute-path: D://file
-      folder: image
   wechat:
     ma:
       version: develop
