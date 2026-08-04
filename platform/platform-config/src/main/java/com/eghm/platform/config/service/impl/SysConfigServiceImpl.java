@@ -2,7 +2,7 @@ package com.eghm.platform.config.service.impl;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.platform.config.config.config.ConfigRegistry;
+import com.eghm.platform.config.config.ConfigRegistry;
 import com.eghm.platform.config.dto.ConfigEditRequest;
 import com.eghm.platform.config.dto.ConfigQueryRequest;
 import com.eghm.foundation.core.enums.ErrorCode;

@@ -1,4 +1,4 @@
-package com.eghm.platform.config.config.config;
+package com.eghm.platform.config.config;
 
 /**
  * @author 二哥很猛

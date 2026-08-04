@@ -1,6 +1,6 @@
-package com.eghm.platform.config.config.config.impl;
+package com.eghm.platform.config.config.impl;
 
-import com.eghm.platform.config.config.config.ConfigHandler;
+import com.eghm.platform.config.config.ConfigHandler;
 import com.eghm.foundation.core.constants.ConfigConstant;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.impl.DefaultKaptcha;

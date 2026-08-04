@@ -1,4 +1,4 @@
-package com.eghm.platform.config.config.config;
+package com.eghm.platform.config.config;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Configuration;
