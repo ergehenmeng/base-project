@@ -23,6 +23,9 @@ public class FlywayConfig {
     
     private final FlywayProperties flywayProperties;
     
+    /**
+     * @param dataSource DynamicRoutingDataSource 是一个动态路由数据源，用于根据路由键选择不同的数据库连接 默认是 mysql 数据库连接
+     */
     @Bean(initMethod = "migrate")
     public Flyway flyway(DataSource dataSource) {
         if (!flywayProperties.isEnabled()) {
