@@ -1,6 +1,5 @@
 package com.eghm.foundation.data.config;
 
-import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.eghm.foundation.data.config.data.permission.DataScopeInterceptor;
@@ -22,7 +21,7 @@ public class MybatisConfig {
     @Bean
     public MybatisPlusInterceptor interceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-        PaginationInnerInterceptor innerInterceptor = new PaginationInnerInterceptor(DbType.MYSQL);
+        PaginationInnerInterceptor innerInterceptor = new PaginationInnerInterceptor();
         innerInterceptor.setMaxLimit(100L);
         interceptor.addInnerInterceptor(innerInterceptor);
         return interceptor;
