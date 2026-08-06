@@ -32,8 +32,8 @@ import static com.eghm.foundation.core.utils.StringUtil.isNotBlank;
  * @since 2023-12-29
  */
 @Slf4j
+@Service
 @AllArgsConstructor
-@Service("newsConfigService")
 public class NewsConfigServiceImpl implements NewsConfigService {
 
     private final NewsConfigMapper newsConfigMapper;

@@ -20,8 +20,8 @@ import static com.eghm.foundation.core.utils.StringUtil.isNotBlank;
  * @author 殿小二
  * @since 2020/8/28
  */
+@Service
 @AllArgsConstructor
-@Service("emailTemplateService")
 public class EmailTemplateServiceImpl implements EmailTemplateService {
 
     private final EmailTemplateMapper emailTemplateMapper;

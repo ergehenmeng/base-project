@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
  * @author 二哥很猛
  * @since 2019/12/6 16:38
  */
+@Service
 @AllArgsConstructor
-@Service("webappLogService")
 public class WebappLogServiceImpl implements WebappLogService {
 
     private final WebappLogMapper webappLogMapper;

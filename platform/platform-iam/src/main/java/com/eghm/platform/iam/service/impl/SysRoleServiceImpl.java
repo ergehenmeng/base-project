@@ -33,8 +33,8 @@ import java.util.List;
  * @since 2018/11/26 15:33
  */
 @Slf4j
+@Service
 @AllArgsConstructor
-@Service("sysRoleService")
 public class SysRoleServiceImpl implements SysRoleService {
 
     private final SysRoleMapper sysRoleMapper;

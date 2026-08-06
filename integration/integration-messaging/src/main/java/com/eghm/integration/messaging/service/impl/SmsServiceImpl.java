@@ -28,8 +28,8 @@ import static com.eghm.foundation.core.constants.CommonConstant.SMS_CODE_EXPIRE;
  * @since 2019/8/16 18:46
  */
 @Slf4j
+@Service
 @AllArgsConstructor
-@Service("smsService")
 public class SmsServiceImpl implements SmsService {
 
     private final SysConfigApi sysConfigApi;

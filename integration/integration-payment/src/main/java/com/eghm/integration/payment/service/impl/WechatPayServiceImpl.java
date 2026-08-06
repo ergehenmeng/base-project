@@ -39,8 +39,8 @@ import java.util.Optional;
  * @author 二哥很猛
  */
 @Slf4j
+@Service
 @RequiredArgsConstructor
-@Service("wechatPayService")
 public class WechatPayServiceImpl implements PayService {
 
     private WxPayService wxPayService;

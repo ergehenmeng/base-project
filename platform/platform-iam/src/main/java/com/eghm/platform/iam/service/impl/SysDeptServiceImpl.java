@@ -30,8 +30,8 @@ import static com.eghm.foundation.core.constants.CommonConstant.STEP_100;
  * @since 2018/12/13 16:49
  */
 @Slf4j
+@Service
 @AllArgsConstructor
-@Service("sysDeptService")
 public class SysDeptServiceImpl implements SysDeptService {
 
     private final SysDeptMapper sysDeptMapper;

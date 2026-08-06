@@ -17,8 +17,8 @@ import org.springframework.stereotype.Service;
  * @since 2019/1/14 13:52
  */
 @Slf4j
+@Service
 @RequiredArgsConstructor
-@Service("clearCacheService")
 public class ClearCacheServiceImpl implements ClearCacheService {
 
     private Configuration configuration;

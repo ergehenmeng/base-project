@@ -20,8 +20,8 @@ import java.util.List;
  * @since 2019/1/14 14:34
  */
 @Slf4j
+@Service
 @AllArgsConstructor
-@Service("sysCacheService")
 public class SysCacheServiceImpl implements SysCacheService {
 
     private final SysCacheMapper sysCacheMapper;

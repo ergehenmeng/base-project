@@ -27,8 +27,8 @@ import org.springframework.stereotype.Service;
  */
 
 @Slf4j
+@Service
 @AllArgsConstructor
-@Service("commentReportService")
 public class CommentReportServiceImpl implements CommentReportService {
 
     private final CommentMapper commentMapper;

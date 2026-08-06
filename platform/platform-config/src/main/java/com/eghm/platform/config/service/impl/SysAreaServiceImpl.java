@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
  * @author 二哥很猛
  * @since 2019/2/13 10:25
  */
+@Service
 @AllArgsConstructor
-@Service("sysAreaService")
 public class SysAreaServiceImpl implements SysAreaService {
 
     private final ConfigCacheService configCacheService;

@@ -26,8 +26,8 @@ import org.springframework.transaction.annotation.Transactional;
  * @author 二哥很猛
  * @since 2023-06-13
  */
+@Service
 @AllArgsConstructor
-@Service("payRequestLogService")
 public class PayRequestLogServiceImpl implements PayRequestLogService {
 
     private final JsonService jsonService;

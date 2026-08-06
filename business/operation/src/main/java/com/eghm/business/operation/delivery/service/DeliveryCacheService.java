@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service("deliveryCacheService")
+@Service
 @RequiredArgsConstructor
 public class DeliveryCacheService {
 

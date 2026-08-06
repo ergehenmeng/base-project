@@ -15,8 +15,8 @@ import org.springframework.stereotype.Service;
  * @author 二哥很猛
  * @since 2019/1/15 17:55
  */
+@Service
 @AllArgsConstructor
-@Service("manageLogService")
 public class ManageLogServiceImpl implements ManageLogService {
 
     private final ManageLogMapper manageLogMapper;

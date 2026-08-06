@@ -30,8 +30,8 @@ import static com.eghm.foundation.core.utils.StringUtil.isBlank;
  * @since 2022/7/23
  */
 @Slf4j
+@Service
 @RequiredArgsConstructor
-@Service("commonService")
 public class CommonServiceImpl implements CommonService, PasswordDecryptor {
     
     private volatile RSA rsaInstance;

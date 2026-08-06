@@ -41,8 +41,8 @@ import static com.eghm.foundation.core.constants.CacheConstant.DEFAULT_EXPIRE;
  * @since 2018/11/21 16:28
  */
 @Slf4j
+@Service
 @AllArgsConstructor
-@Service("cacheService")
 public class CacheServiceImpl implements CacheService {
 
     private final RedisLock redisLock;

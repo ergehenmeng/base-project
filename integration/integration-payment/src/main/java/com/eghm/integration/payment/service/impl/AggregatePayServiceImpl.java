@@ -22,8 +22,8 @@ import java.util.List;
  * @since 2022/7/23
  */
 @Slf4j
+@Service
 @AllArgsConstructor
-@Service("aggregatePayService")
 public class AggregatePayServiceImpl implements AggregatePayService {
 
     private final List<PayService> serviceList;

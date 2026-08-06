@@ -49,8 +49,8 @@ import static com.eghm.foundation.core.utils.StringUtil.isNotBlank;
  */
 
 @Slf4j
+@Service
 @AllArgsConstructor
-@Service("commentService")
 public class CommentServiceImpl implements CommentService {
 
     private final NewsService newsService;

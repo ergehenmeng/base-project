@@ -29,8 +29,8 @@ import java.util.List;
  * @since 2019/8/22 14:38
  */
 @Slf4j
+@Service
 @AllArgsConstructor
-@Service("versionService")
 public class AppVersionServiceImpl implements AppVersionService {
 
     private final AlarmService alarmService;

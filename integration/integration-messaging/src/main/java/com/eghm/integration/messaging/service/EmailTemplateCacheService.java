@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-@Service("emailTemplateCacheService")
+@Service
 @RequiredArgsConstructor
 public class EmailTemplateCacheService {
 

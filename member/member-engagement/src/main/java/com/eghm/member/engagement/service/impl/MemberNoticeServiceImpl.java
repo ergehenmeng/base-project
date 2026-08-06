@@ -33,8 +33,8 @@ import java.util.List;
  * @since 2020/9/11
  */
 @Slf4j
+@Service
 @RequiredArgsConstructor
-@Service("memberNoticeService")
 public class MemberNoticeServiceImpl implements MemberNoticeService {
 
     private final JsonService jsonService;

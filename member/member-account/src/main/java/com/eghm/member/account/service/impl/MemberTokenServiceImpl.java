@@ -22,8 +22,8 @@ import org.springframework.stereotype.Service;
  * @since 2018/8/14 17:36
  */
 @Slf4j
+@Service
 @AllArgsConstructor
-@Service("tokenService")
 public class MemberTokenServiceImpl implements MemberTokenService {
 
     private final JsonService jsonService;

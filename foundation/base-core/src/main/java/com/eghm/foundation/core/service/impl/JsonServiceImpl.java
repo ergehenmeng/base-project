@@ -22,8 +22,8 @@ import static com.eghm.foundation.core.utils.StringUtil.isBlank;
  * @since 2020/8/28
  */
 @Slf4j
+@Service
 @AllArgsConstructor
-@Service("jsonService")
 public class JsonServiceImpl implements JsonService {
 
     private final ObjectMapper objectMapper;

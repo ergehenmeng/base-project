@@ -31,8 +31,8 @@ import java.io.File;
  * @since 2019/7/10 17:00
  */
 @Slf4j
+@Service
 @RequiredArgsConstructor
-@Service("emailService")
 public class EmailServiceImpl implements EmailService {
     
     private JavaMailSender javaMailSender;

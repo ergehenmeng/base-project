@@ -32,8 +32,8 @@ import java.util.Objects;
  * @since 2018/1/12 14:31
  */
 @Slf4j
+@Service
 @AllArgsConstructor
-@Service("sysDictService")
 public class SysDictServiceImpl implements SysDictService, DictOptionProvider {
 
     private final SysDictMapper sysDictMapper;

@@ -16,8 +16,8 @@ import org.springframework.stereotype.Service;
  * @author 二哥很猛
  * @since 2018/11/27 17:11
  */
+@Service
 @AllArgsConstructor
-@Service("imageLogService")
 public class ImageLogServiceImpl implements ImageLogService {
 
     private final ImageLogMapper imageLogMapper;

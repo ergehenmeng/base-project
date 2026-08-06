@@ -20,8 +20,8 @@ import org.springframework.stereotype.Service;
  * @since 2021/12/4 下午4:30
  */
 @Slf4j
+@Service
 @RequiredArgsConstructor
-@Service("weChatMpService")
 public class WeChatMpServiceImpl implements WeChatMpService {
 
     private WxMpService wxMpService;

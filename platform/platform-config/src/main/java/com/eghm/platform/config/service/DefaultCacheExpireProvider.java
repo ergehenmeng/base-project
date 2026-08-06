@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import static com.eghm.foundation.core.constants.CacheConstant.DEFAULT_EXPIRE;
 
-@Service("cacheExpireProvider")
+@Service
 @RequiredArgsConstructor
 public class DefaultCacheExpireProvider implements CacheExpireProvider {
 

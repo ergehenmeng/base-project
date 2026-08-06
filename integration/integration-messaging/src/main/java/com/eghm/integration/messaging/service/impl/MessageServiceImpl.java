@@ -16,8 +16,8 @@ import org.springframework.stereotype.Service;
  * @author 二哥很猛 2022/6/10 15:55
  */
 @Slf4j
+@Service
 @RequiredArgsConstructor
-@Service("messageService")
 public class MessageServiceImpl implements MessageService {
 
     private final CacheService cacheService;

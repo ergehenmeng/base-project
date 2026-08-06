@@ -95,8 +95,8 @@ import static com.eghm.foundation.core.utils.StringUtil.isNotBlank;
  * @since 2019/8/19 15:50
  */
 @Slf4j
+@Service
 @AllArgsConstructor
-@Service("memberService")
 public class MemberServiceImpl implements MemberService {
 
     private final Encoder encoder;

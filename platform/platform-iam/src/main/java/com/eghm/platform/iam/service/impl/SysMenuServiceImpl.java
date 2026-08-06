@@ -35,8 +35,8 @@ import java.util.Objects;
  * @since 2018/1/26 16:15
  */
 @Slf4j
+@Service
 @AllArgsConstructor
-@Service("sysMenuService")
 public class SysMenuServiceImpl implements SysMenuService {
 
     /**

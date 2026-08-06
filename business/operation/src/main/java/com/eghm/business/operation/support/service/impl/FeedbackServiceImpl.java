@@ -1,17 +1,17 @@
 package com.eghm.business.operation.support.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.integration.messaging.dto.SendNotice;
 import com.eghm.business.operation.support.dto.FeedbackAddDTO;
 import com.eghm.business.operation.support.dto.FeedbackDisposeRequest;
 import com.eghm.business.operation.support.dto.FeedbackQueryRequest;
-import com.eghm.foundation.core.enums.MessageType;
-import com.eghm.business.operation.support.mapper.FeedbackLogMapper;
 import com.eghm.business.operation.support.entity.FeedbackLog;
+import com.eghm.business.operation.support.mapper.FeedbackLogMapper;
 import com.eghm.business.operation.support.service.FeedbackNotifier;
 import com.eghm.business.operation.support.service.FeedbackService;
-import com.eghm.foundation.web.utility.DataUtil;
 import com.eghm.business.operation.support.vo.FeedbackResponse;
+import com.eghm.foundation.core.enums.MessageType;
+import com.eghm.foundation.web.utility.DataUtil;
+import com.eghm.integration.messaging.dto.SendNotice;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +24,8 @@ import static com.eghm.foundation.core.utils.StringUtil.maxLength;
  * @author 二哥很猛
  * @since 2019/8/28 10:46
  */
+@Service
 @AllArgsConstructor
-@Service("feedbackService")
 public class FeedbackServiceImpl implements FeedbackService {
 
     private final FeedbackLogMapper feedbackLogMapper;

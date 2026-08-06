@@ -2,7 +2,6 @@ package com.eghm.platform.config.service;
 
 import com.eghm.foundation.core.enums.ErrorCode;
 import com.eghm.foundation.core.exception.ParameterException;
-import com.eghm.platform.config.service.SysConfigService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.BooleanUtils;
@@ -17,8 +16,8 @@ import org.springframework.stereotype.Service;
  * @since 2018/9/12 14:36
  */
 @Slf4j
+@Service
 @AllArgsConstructor
-@Service("sysConfigApi")
 public class SysConfigApi {
 
     private final ConfigCacheService configCacheService;

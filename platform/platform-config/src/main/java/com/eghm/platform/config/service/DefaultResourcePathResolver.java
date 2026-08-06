@@ -6,7 +6,7 @@ import com.eghm.foundation.core.service.ResourcePathResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-@Service("resourcePathResolver")
+@Service
 @RequiredArgsConstructor
 public class DefaultResourcePathResolver implements ResourcePathResolver {
 

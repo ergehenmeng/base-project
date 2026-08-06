@@ -27,8 +27,8 @@ import java.time.LocalDate;
  * @since 2023/10/20
  */
 @Slf4j
+@Service
 @AllArgsConstructor
-@Service("authConfigService")
 public class AuthConfigServiceImpl implements AuthConfigService {
 
     private final EmailService emailService;

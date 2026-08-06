@@ -20,8 +20,8 @@ import java.util.Map;
  * @since 2019/7/10 15:50
  */
 @Slf4j
+@Service
 @AllArgsConstructor
-@Service("freemarkerTemplate")
 public class FreemarkerTemplate implements TemplateEngine {
 
     private static final String DEFAULT_TITLE = "freemarker_title";

@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  * @since 2020/1/7 19:57
  */
 @Slf4j
-@Service("onceJobService")
+@Service
 public class OnceJobService {
 
     @CronMark

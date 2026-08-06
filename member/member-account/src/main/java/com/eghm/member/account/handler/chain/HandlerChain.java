@@ -21,7 +21,7 @@ import java.util.Map;
  * @since 2018/12/19 17:47
  */
 @Slf4j
-@Service("handlerChain")
+@Service
 public class HandlerChain implements CommandLineRunner {
 
     /**

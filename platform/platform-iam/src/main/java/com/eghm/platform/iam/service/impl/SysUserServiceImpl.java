@@ -63,8 +63,8 @@ import static com.eghm.foundation.core.constants.CommonConstant.MAX_ERROR_NUM;
  * @since 2018/11/26 10:24
  */
 @Slf4j
+@Service
 @AllArgsConstructor
-@Service("sysUserService")
 public class SysUserServiceImpl implements SysUserService {
 
     private final Encoder encoder;

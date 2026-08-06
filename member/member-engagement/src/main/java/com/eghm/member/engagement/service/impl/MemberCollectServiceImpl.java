@@ -46,8 +46,8 @@ import static com.eghm.foundation.core.enums.CollectType.NEWS;
  * @since 2024-01-11
  */
 @Slf4j
+@Service
 @AllArgsConstructor
-@Service("memberCollectService")
 public class MemberCollectServiceImpl implements MemberCollectService {
 
     private final NewsService newsService;

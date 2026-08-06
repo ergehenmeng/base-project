@@ -19,8 +19,8 @@ import static com.eghm.foundation.core.utils.StringUtil.isNotBlank;
  * @author 殿小二
  * @since 2020/9/12
  */
+@Service
 @AllArgsConstructor
-@Service("noticeTemplateService")
 public class NoticeTemplateServiceImpl implements NoticeTemplateService {
 
     private final DeliveryCacheService deliveryCacheService;

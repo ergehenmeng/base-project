@@ -14,8 +14,8 @@ import java.util.List;
  * @author 殿小二
  * @since 2020/9/14
  */
+@Service
 @AllArgsConstructor
-@Service("memberInviteLogService")
 public class MemberInviteLogServiceImpl implements MemberInviteLogService {
 
     private final MemberInviteLogMapper memberInviteLogMapper;

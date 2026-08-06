@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-@Service("authConfigCacheService")
+@Service
 @RequiredArgsConstructor
 public class AuthConfigCacheService {
 

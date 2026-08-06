@@ -30,8 +30,8 @@ import static com.eghm.foundation.core.utils.StringUtil.isNotBlank;
  * @since 2020/11/4 19:12
  */
 @Slf4j
+@Service
 @AllArgsConstructor
-@Service("sensitiveWordService")
 public class SensitiveWordServiceImpl implements SensitiveWordService, SensitiveWordReloader {
 
     private final MessageService messageService;

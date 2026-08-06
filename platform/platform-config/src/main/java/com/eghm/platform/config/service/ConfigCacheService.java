@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service("configCacheService")
+@Service
 @RequiredArgsConstructor
 public class ConfigCacheService {
 
