@@ -3,16 +3,16 @@ package com.eghm.app.webapp.configuration.interceptor;
 import cn.hutool.core.codec.Base64;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.digest.HMac;
-import com.eghm.platform.iam.service.AuthConfigCacheService;
-import com.eghm.foundation.web.config.interceptor.InterceptorAdapter;
+import com.eghm.app.webapp.annotation.ApiSign;
 import com.eghm.foundation.core.configuration.authentication.ApiHolder;
 import com.eghm.foundation.core.constants.CommonConstant;
 import com.eghm.foundation.core.dto.ext.RequestMessage;
 import com.eghm.foundation.core.enums.ErrorCode;
 import com.eghm.foundation.core.exception.BusinessException;
+import com.eghm.foundation.web.config.interceptor.InterceptorAdapter;
 import com.eghm.foundation.web.utility.WebUtil;
+import com.eghm.platform.iam.service.AuthConfigCacheService;
 import com.eghm.platform.iam.vo.AuthConfigVO;
-import com.eghm.app.webapp.annotation.ApiSign;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
@@ -25,7 +25,7 @@ import java.time.LocalDate;
 import static com.eghm.foundation.core.utils.StringUtil.isBlank;
 
 /**
- *  原签名方式为 MD5 + RSA, 但由于MD5太过于简单, RSA需要把私钥给第三方,不符合RSA规范, 又不想让第三方提供公钥, 因此采用HMAC-SHA256签名
+ * 第三方接口使用HMAC-SHA256进行请求签名校验。
  *
  * @author 二哥很猛
  * @since 2023/10/20
@@ -48,10 +48,16 @@ public class ApiSignInterceptor implements InterceptorAdapter {
             WebUtil.printJson(response, ErrorCode.SIGNATURE_ERROR);
             return false;
         }
-        long timestamp = Long.parseLong(message.getTimestamp());
-        long interval = Math.abs(System.currentTimeMillis() - timestamp);
-        if (interval > CommonConstant.MAX_SYSTEM_TIME_DIFF) {
-            log.warn("签名信息已过期 [{}] [{}]", timestamp, interval);
+        long timestamp;
+        try {
+            timestamp = Long.parseLong(message.getTimestamp());
+        } catch (NumberFormatException e) {
+            log.warn("签名时间戳格式非法 [{}]", message.getAppId());
+            WebUtil.printJson(response, ErrorCode.SIGNATURE_ERROR);
+            return false;
+        }
+        if (Math.abs(System.currentTimeMillis() - timestamp) > CommonConstant.MAX_SYSTEM_TIME_DIFF) {
+            log.warn("签名信息已过期 [{}]", timestamp);
             WebUtil.printJson(response, ErrorCode.SIGNATURE_EXPIRE);
             return false;
         }
@@ -66,26 +72,38 @@ public class ApiSignInterceptor implements InterceptorAdapter {
             WebUtil.printJson(response, ErrorCode.SIGNATURE_TIMESTAMP_ERROR);
             return false;
         }
-        rsaSignVerify(config.getAppId(), config.getAppSecret(), message.getTimestamp(), message.getNonce(), message.getRequestParam(), message.getSignature());
+        verifySignature(config.getAppId(), config.getAppSecret(), message.getTimestamp(), message.getNonce(), message.getRequestParam(), message.getSignature());
         return true;
     }
 
     /**
      * 校验签名信息
      *
-     * @param appSecret  秘钥
-     * @param requestBody 请求参数
+     * @param appId       应用标识
+     * @param appSecret   签名秘钥
      * @param timestamp   时间戳
      * @param nonce       随机数
+     * @param requestParam 规范化请求参数
      * @param signature   签名信息
      */
-    private static void rsaSignVerify(String appId, String appSecret, String requestBody, String timestamp, String nonce, String signature) {
-        String strToSign = appId + timestamp + nonce + Base64.encode(requestBody.getBytes(StandardCharsets.UTF_8));
-        HMac mac = SecureUtil.hmacSha256(appSecret.getBytes(StandardCharsets.UTF_8));
-        String hex = mac.digestHex(strToSign);
-        if (!hex.equals(signature)) {
-            log.warn("签名信息验证失败 [{}] [{}] [{}] [{}] [{}] [{}]", appId, appSecret, timestamp, nonce, requestBody, signature);
+    private static void verifySignature(String appId, String appSecret, String timestamp, String nonce, String requestParam, String signature) {
+        if (requestParam == null) {
             throw new BusinessException(ErrorCode.SIGNATURE_VERIFY_ERROR);
         }
+        String expectedSignature = generateSignature(appId, appSecret, timestamp, nonce, requestParam);
+        if (!expectedSignature.equals(signature)) {
+            log.warn("签名信息验证失败 [{}] [{}] [{}]", appId, timestamp, nonce);
+            throw new BusinessException(ErrorCode.SIGNATURE_VERIFY_ERROR);
+        }
+    }
+
+    /**
+     * 生成签名, 供验签逻辑和测试向量复用。
+     */
+    static String generateSignature(String appId, String appSecret, String timestamp, String nonce, String requestParam) {
+        String data = Base64.encode(requestParam.getBytes(StandardCharsets.UTF_8));
+        String strToSign = appId + timestamp + nonce + data;
+        HMac mac = SecureUtil.hmacSha256(appSecret.getBytes(StandardCharsets.UTF_8));
+        return mac.digestHex(strToSign, StandardCharsets.UTF_8);
     }
 }

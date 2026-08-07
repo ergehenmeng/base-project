@@ -60,7 +60,7 @@ public class ByteHttpRequestFilter extends AbstractIgnoreFilter {
                 return super.getInputStream();
             } else {
                 if (this.body == null) {
-                    this.body = this.filterBody(IoUtil.read(super.getInputStream(), StandardCharsets.UTF_8)).getBytes();
+                    this.body = this.filterBody(IoUtil.read(super.getInputStream(), StandardCharsets.UTF_8)).getBytes(StandardCharsets.UTF_8);
                 }
                 final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(this.body);
                 return new ServletInputStream() {
