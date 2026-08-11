@@ -1,5 +1,7 @@
 package com.eghm.app.manage.controller;
 
+import com.eghm.foundation.cache.service.CacheService;
+import com.eghm.foundation.core.constants.CacheConstant;
 import com.eghm.foundation.core.constants.CommonConstant;
 import com.google.code.kaptcha.Producer;
 import io.swagger.v3.oas.annotations.Operation;
@@ -7,7 +9,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 图形验证码controller
@@ -34,6 +36,8 @@ public class CaptchaController {
 
     private final Producer producer;
 
+    private final CacheService cacheService;
+
     @GetMapping("/captcha")
     @Operation(summary = "获取图形验证码")
     public void captcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -44,9 +48,10 @@ public class CaptchaController {
             authImage = splits[0];
             authCode = splits[1];
         }
-        HttpSession session = request.getSession();
-        session.setAttribute(CommonConstant.CAPTCHA_KEY, authCode);
-        log.info("图形验证码[{}]", authCode);
+        String sessionId = request.getSession().getId();
+        String captchaKey = CacheConstant.CAPTCHA_KEY_PREFIX + sessionId;
+        cacheService.setValue(captchaKey, authCode, CommonConstant.CAPTCHA_EXPIRE_SECONDS, TimeUnit.SECONDS);
+        log.info("图形验证码[{}], sessionId:[{}]", authCode, sessionId);
         BufferedImage bi = producer.createImage(authImage);
         response.setDateHeader("Expires", 0);
         response.setHeader("Pragma", "no-cache");

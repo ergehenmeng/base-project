@@ -1,17 +1,19 @@
 package com.eghm.app.webapp.controller;
 
-import com.eghm.foundation.core.constants.CommonConstant;
+import com.eghm.foundation.cache.service.CacheService;
 import com.eghm.foundation.core.configuration.authentication.ApiHolder;
+import com.eghm.foundation.core.constants.CacheConstant;
 import com.eghm.foundation.core.dto.ext.RespBody;
+import com.eghm.foundation.core.enums.ErrorCode;
+import com.eghm.foundation.web.utility.IpUtil;
 import com.eghm.member.account.dto.AccountRegisterDTO;
 import com.eghm.member.account.dto.MobileRegisterDTO;
 import com.eghm.member.account.dto.RegisterSmsDTO;
-import com.eghm.foundation.core.enums.ErrorCode;
 import com.eghm.member.account.service.MemberService;
-import com.eghm.foundation.web.utility.IpUtil;
 import com.eghm.member.account.vo.LoginTokenVO;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -19,8 +21,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * 注册相关接口
@@ -33,6 +33,8 @@ import jakarta.servlet.http.HttpServletRequest;
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/register", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RegisterController {
+    
+    private final CacheService cacheService;
 
     private final MemberService memberService;
 
@@ -55,10 +57,12 @@ public class RegisterController {
     @PostMapping(value = "/account", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "账号密码登录①")
     public RespBody<LoginTokenVO> account(@RequestBody @Validated AccountRegisterDTO request, HttpServletRequest servletRequest) {
-        Object value = servletRequest.getSession().getAttribute(CommonConstant.CAPTCHA_KEY);
+        String sessionId = servletRequest.getSession().getId();
+        String captchaKey = CacheConstant.CAPTCHA_KEY_PREFIX + sessionId;
+        String captchaValue = cacheService.getValue(captchaKey);
         // 验证码使用后即为无效
-        servletRequest.getSession().removeAttribute(CommonConstant.CAPTCHA_KEY);
-        if (value == null || !request.getVerifyCode().equalsIgnoreCase(value.toString())) {
+        cacheService.delete(captchaKey);
+        if (!request.getVerifyCode().equalsIgnoreCase(captchaValue)) {
             return RespBody.error(ErrorCode.IMAGE_CODE_ERROR);
         }
         request.setChannel(ApiHolder.getChannel());

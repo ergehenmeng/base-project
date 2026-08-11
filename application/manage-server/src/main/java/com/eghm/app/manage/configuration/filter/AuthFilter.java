@@ -1,22 +1,20 @@
 package com.eghm.app.manage.configuration.filter;
 
-import com.eghm.platform.iam.service.UserTokenService;
 import com.eghm.foundation.core.configuration.ApplicationProperties;
 import com.eghm.foundation.core.configuration.authentication.SecurityHolder;
-import com.eghm.foundation.core.security.UserToken;
 import com.eghm.foundation.core.enums.ErrorCode;
+import com.eghm.foundation.core.security.UserToken;
 import com.eghm.foundation.web.utility.WebUtil;
+import com.eghm.platform.iam.service.UserTokenService;
 import com.google.common.collect.Lists;
 import jakarta.annotation.Nonnull;
-import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.util.AntPathMatcher;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.List;
@@ -31,7 +29,7 @@ import static com.eghm.foundation.core.constants.ApplicationHeader.TOKEN;
  * @since 2022/11/4
  */
 @AllArgsConstructor
-public class AuthFilter implements Filter {
+public class AuthFilter extends OncePerRequestFilter {
 
     private final UserTokenService userTokenService;
 
@@ -40,31 +38,26 @@ public class AuthFilter implements Filter {
     private final AntPathMatcher matcher = new AntPathMatcher();
 
     private final List<String> exclude = Lists.newArrayListWithCapacity(4);
-
+    
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest httpRequest = (HttpServletRequest) request;
-        if (this.shouldNotFilter(exclude, httpRequest)) {
-            chain.doFilter(request, response);
-        } else {
-            String header = httpRequest.getHeader(TOKEN);
-            String prefix = manageProperties.getToken().getTokenPrefix();
-            if (header != null && header.startsWith(prefix)) {
-                Optional<UserToken> optional = userTokenService.parseToken(header.replace(prefix, ""));
-                if (optional.isPresent()) {
-                    try {
-                        SecurityHolder.setToken(optional.get());
-                        chain.doFilter(request, response);
-                    } finally {
-                        SecurityHolder.remove();
-                    }
-                    return;
+    protected void doFilterInternal(HttpServletRequest request, @Nonnull HttpServletResponse response, @Nonnull FilterChain chain) throws ServletException, IOException {
+        String header = request.getHeader(TOKEN);
+        String prefix = manageProperties.getToken().getTokenPrefix();
+        if (header != null && header.startsWith(prefix)) {
+            Optional<UserToken> optional = userTokenService.parseToken(header.replace(prefix, ""));
+            if (optional.isPresent()) {
+                try {
+                    SecurityHolder.setToken(optional.get());
+                    chain.doFilter(request, response);
+                } finally {
+                    SecurityHolder.remove();
                 }
+                return;
             }
-            WebUtil.printJson((HttpServletResponse) response, ErrorCode.LOGIN_TIMEOUT);
         }
+        WebUtil.printJson(response, ErrorCode.LOGIN_TIMEOUT);
     }
-
+    
     /**
      * 排除不需要拦截的地址
      *
@@ -73,15 +66,9 @@ public class AuthFilter implements Filter {
     public void exclude(@Nonnull String... matchUrl) {
         exclude.addAll(Lists.newArrayList(matchUrl));
     }
-
-    /**
-     * 根据给定的url列表, 确认请求url是否在指定url列表中
-     *
-     * @param urlList url列表
-     * @param request 请求request
-     * @return boolean  true:在urlList, false:不在
-     */
-    private boolean shouldNotFilter(List<String> urlList, HttpServletRequest request) {
-        return urlList.stream().anyMatch(url -> matcher.match(url, request.getRequestURI()));
+    
+    @Override
+    protected boolean shouldNotFilter(@Nonnull HttpServletRequest request) {
+        return exclude.stream().anyMatch(url -> matcher.match(url, request.getRequestURI()));
     }
 }

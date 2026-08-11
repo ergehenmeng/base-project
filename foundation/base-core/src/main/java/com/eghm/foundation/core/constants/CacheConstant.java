@@ -216,4 +216,9 @@ public class CacheConstant {
      * 缓存分隔符
      */
     public static final String SEPARATOR = ":";
+    
+    /**
+     * 验证码Redis Key前缀 (格式: captcha:{sessionId})
+     */
+    public static final String CAPTCHA_KEY_PREFIX = "captcha:";
 }

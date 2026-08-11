@@ -1,26 +1,26 @@
 package com.eghm.app.manage.controller;
 
-import com.eghm.foundation.core.annotation.SkipPerm;
 import com.eghm.foundation.cache.service.CacheService;
-import com.eghm.platform.iam.service.UserTokenService;
+import com.eghm.foundation.core.annotation.SkipPerm;
 import com.eghm.foundation.core.configuration.ApplicationProperties;
 import com.eghm.foundation.core.configuration.authentication.SecurityHolder;
 import com.eghm.foundation.core.constants.CacheConstant;
 import com.eghm.foundation.core.constants.CommonConstant;
 import com.eghm.foundation.core.dto.ext.RespBody;
+import com.eghm.foundation.core.enums.Env;
+import com.eghm.foundation.core.enums.ErrorCode;
+import com.eghm.foundation.core.enums.LoginType;
+import com.eghm.foundation.core.exception.BusinessException;
 import com.eghm.foundation.core.security.UserToken;
+import com.eghm.foundation.web.utility.CacheUtil;
+import com.eghm.foundation.web.utility.IpUtil;
 import com.eghm.platform.iam.dto.LoginRequest;
 import com.eghm.platform.iam.dto.SmsLoginRequest;
 import com.eghm.platform.iam.dto.SmsVerifyRequest;
 import com.eghm.platform.iam.dto.TotpBindRequest;
 import com.eghm.platform.iam.dto.TotpCheckRequest;
-import com.eghm.foundation.core.enums.Env;
-import com.eghm.foundation.core.enums.ErrorCode;
-import com.eghm.foundation.core.enums.LoginType;
-import com.eghm.foundation.core.exception.BusinessException;
 import com.eghm.platform.iam.service.SysUserService;
-import com.eghm.foundation.web.utility.CacheUtil;
-import com.eghm.foundation.web.utility.IpUtil;
+import com.eghm.platform.iam.service.UserTokenService;
 import com.eghm.platform.iam.vo.LoginMenuResponse;
 import com.eghm.platform.iam.vo.LoginResponse;
 import com.eghm.platform.iam.vo.TotpLoginResponse;
@@ -162,10 +162,12 @@ public class LoginController {
         if (env == Env.DEV || env == Env.TEST) {
             return false;
         }
-        Object value = servletRequest.getSession().getAttribute(CommonConstant.CAPTCHA_KEY);
-        // 防止验证码多次使用
-        servletRequest.getSession().removeAttribute(CommonConstant.CAPTCHA_KEY);
-        return value == null || !code.equalsIgnoreCase(value.toString());
+        String sessionId = servletRequest.getSession().getId();
+        String captchaKey = CacheConstant.CAPTCHA_KEY_PREFIX + sessionId;
+        String captchaValue = cacheService.getValue(captchaKey);
+        // 验证码使用后即为无效
+        cacheService.delete(captchaKey);
+        return !code.equalsIgnoreCase(captchaValue);
     }
 
 }

@@ -206,9 +206,9 @@ public class CommonConstant {
     public static final DataSize DAY_MAX_UPLOAD = DataSize.ofMegabytes(128);
 
     /**
-     * 验证码
+     * 验证码过期时间(秒) - 5分钟
      */
-    public static final String CAPTCHA_KEY = "captcha_key";
+    public static final long CAPTCHA_EXPIRE_SECONDS = 300;
 
     /**
      * openId session_key
