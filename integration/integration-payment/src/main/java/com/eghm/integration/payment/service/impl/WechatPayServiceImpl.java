@@ -39,7 +39,7 @@ import java.util.Optional;
  * @author 二哥很猛
  */
 @Slf4j
-@Service
+@Service("wechatPayService")
 @RequiredArgsConstructor
 public class WechatPayServiceImpl implements PayService {
 

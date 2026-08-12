@@ -47,7 +47,7 @@ import java.util.Map;
  * @since 2022/7/24
  */
 @Slf4j
-@Service
+@Service("aliPayService")
 @RequiredArgsConstructor
 public class AliPayServiceImpl implements PayService {
 
