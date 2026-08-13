@@ -2,15 +2,15 @@ package com.eghm.app.manage.configuration.interceptor;
 
 import cn.hutool.core.collection.CollUtil;
 import com.eghm.foundation.core.annotation.SkipPerm;
-import com.eghm.platform.config.service.CommonService;
-import com.eghm.foundation.web.config.interceptor.InterceptorAdapter;
 import com.eghm.foundation.core.configuration.authentication.SecurityHolder;
-import com.eghm.foundation.core.security.UserToken;
 import com.eghm.foundation.core.enums.ErrorCode;
-import com.eghm.platform.iam.event.PermissionRefreshEvent;
-import com.eghm.platform.iam.entity.SysMenu;
-import com.eghm.platform.iam.service.SysMenuService;
+import com.eghm.foundation.core.security.UserToken;
+import com.eghm.foundation.web.config.interceptor.InterceptorAdapter;
 import com.eghm.foundation.web.utility.WebUtil;
+import com.eghm.platform.config.service.CommonService;
+import com.eghm.platform.iam.entity.SysMenu;
+import com.eghm.platform.iam.event.PermissionRefreshEvent;
+import com.eghm.platform.iam.service.SysMenuService;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,12 +22,13 @@ import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
-import static com.eghm.foundation.web.utility.CacheUtil.PERMISSION_CACHE;
 import static com.eghm.foundation.core.utils.StringUtil.isNotBlank;
+import static com.eghm.foundation.web.utility.CacheUtil.PERMISSION_CACHE;
 
 /**
  * @author 二哥很猛
@@ -37,7 +38,7 @@ import static com.eghm.foundation.core.utils.StringUtil.isNotBlank;
 @AllArgsConstructor
 public class PermInterceptor implements InterceptorAdapter {
 
-    private static volatile Map<String, List<String>> PERM_MAP = new ConcurrentHashMap<>(256);
+    private static volatile Map<String, List<String>> PERM_MAP = Collections.unmodifiableMap(new HashMap<>());
 
     private final CommonService commonService;
 
@@ -65,7 +66,7 @@ public class PermInterceptor implements InterceptorAdapter {
      */
     private void refreshPermission() {
         List<SysMenu> selectList = sysMenuService.getButtonList();
-        Map<String, List<String>> permMap = new ConcurrentHashMap<>(256);
+        Map<String, List<String>> permMap = new HashMap<>(256);
         for (SysMenu menu : selectList) {
             if (isNotBlank(menu.getSubPath())) {
                 for (String subUrl : StringUtils.tokenizeToStringArray(menu.getSubPath(), DELIMITERS)) {
@@ -75,7 +76,7 @@ public class PermInterceptor implements InterceptorAdapter {
                 }
             }
         }
-        PERM_MAP = permMap;
+        PERM_MAP = Collections.unmodifiableMap(permMap);
     }
 
     @Override
