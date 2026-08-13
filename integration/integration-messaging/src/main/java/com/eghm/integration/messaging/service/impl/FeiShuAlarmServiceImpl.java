@@ -24,7 +24,7 @@ public class FeiShuAlarmServiceImpl extends AbstractAlarmService {
     }
 
     @Override
-    protected AlarmChannel getAlarmChannel() {
+    protected AlarmChannel getChannel() {
         return AlarmChannel.FEI_SHU;
     }
     

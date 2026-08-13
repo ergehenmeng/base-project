@@ -42,16 +42,16 @@ public abstract class AbstractAlarmService implements AlarmService {
     @Async
     @Override
     public void sendMsg(String content) {
-        boolean tryAcquire = RateLimiterUtil.tryAcquire(this.getAlarmChannel().name(), ALARM_LIMIT_FOR_PERIOD, ALARM_REFRESH_PERIOD);
+        boolean tryAcquire = RateLimiterUtil.tryAcquire(this.getChannel().name(), ALARM_LIMIT_FOR_PERIOD, ALARM_REFRESH_PERIOD);
         if (tryAcquire) {
             String response = HttpUtil.post(this.createRequestUrl(), this.createTextMsg(content));
             this.logResponse(response);
         } else {
-            log.warn("报警消息发送被限流, 类型: [{}], 内容: [{}]", this.getAlarmChannel().name(), content);
+            log.warn("报警消息发送被限流, 类型: [{}], 内容: [{}]", this.getChannel().name(), content);
         }
     }
 
-    protected abstract AlarmChannel getAlarmChannel();
+    protected abstract AlarmChannel getChannel();
 
     /**
      * 创建消息内容

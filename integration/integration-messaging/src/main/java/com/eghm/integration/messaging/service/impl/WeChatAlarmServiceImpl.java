@@ -22,7 +22,7 @@ public class WeChatAlarmServiceImpl extends AbstractAlarmService {
     }
 
     @Override
-    protected AlarmChannel getAlarmChannel() {
+    protected AlarmChannel getChannel() {
         return AlarmChannel.ENTERPRISE_WECHAT;
     }
 

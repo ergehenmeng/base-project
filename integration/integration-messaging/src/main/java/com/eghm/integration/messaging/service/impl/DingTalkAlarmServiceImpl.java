@@ -28,7 +28,7 @@ public class DingTalkAlarmServiceImpl extends AbstractAlarmService {
     }
 
     @Override
-    protected AlarmChannel getAlarmChannel() {
+    protected AlarmChannel getChannel() {
         return AlarmChannel.DING_TALK;
     }
     
