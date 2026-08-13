@@ -1,14 +1,16 @@
 package com.eghm.app.webapp.configuration.handler;
 
 
-import com.eghm.foundation.web.config.log.LogTraceHolder;
+import cn.hutool.core.exceptions.ExceptionUtil;
 import com.eghm.foundation.core.configuration.authentication.ApiHolder;
 import com.eghm.foundation.core.dto.ext.RequestMessage;
 import com.eghm.foundation.core.enums.ExchangeQueue;
-import com.eghm.platform.audit.entity.WebappLog;
-import com.eghm.integration.messaging.service.MessageService;
+import com.eghm.foundation.web.config.log.LogTraceHolder;
 import com.eghm.foundation.web.utility.DataUtil;
 import com.eghm.foundation.web.utility.IpUtil;
+import com.eghm.integration.messaging.service.MessageService;
+import com.eghm.platform.audit.entity.WebappLog;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -19,8 +21,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
-import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * api请求响应日志记录
@@ -53,23 +53,43 @@ public class WebappLogAspect {
         String ip = IpUtil.getIpAddress(request);
         String uri = request.getRequestURI();
         RequestMessage message = ApiHolder.get();
-        long elapsedTime = 0L;
+        long start = System.currentTimeMillis();
         try {
-            long start = System.currentTimeMillis();
             Object proceed = joinPoint.proceed();
-            elapsedTime = System.currentTimeMillis() - start;
+            this.logRecord(message, ip, uri, System.currentTimeMillis() - start, null);
+            return proceed;
+        } catch (Throwable e) {
+            this.logRecord(message, ip, uri, System.currentTimeMillis() - start, e);
+            throw e;
+        } finally {
+            log.info("请求地址:[{}], 请求ip:[{}], 会员ID:[{}], 请求参数:[{}], 耗时:[{}ms], 软件版本:[{}], 客户端:[{}], 系统版本:[{}], 设备厂商:[{}], 设备型号:[{}]",
+                    uri, ip, message.getMemberId(), message.getRequestParam(), System.currentTimeMillis() - start, message.getVersion(),
+                    message.getChannel(), message.getOsVersion(), message.getDeviceBrand(), message.getDeviceModel());
+        }
+    }
+
+    /**
+     * 记录日志
+     *
+     * @param message 请求消息
+     * @param ip 请求IP
+     * @param uri 请求接口
+     * @param elapsedTime 耗时
+     */
+    private void logRecord(RequestMessage message, String ip, String uri, long elapsedTime, Throwable throwable) {
+        try {
             WebappLog webappLog = DataUtil.copy(message, WebappLog.class);
             webappLog.setElapsedTime(elapsedTime);
             webappLog.setIp(ip);
             webappLog.setUrl(uri);
             webappLog.setTraceId(LogTraceHolder.getTraceId());
             webappLog.setRequestParam(message.getRequestParam());
+            if (throwable != null) {
+                webappLog.setErrorMsg(ExceptionUtil.stacktraceToString(throwable));
+            }
             messageService.send(ExchangeQueue.WEBAPP_LOG, webappLog);
-            return proceed;
-        } finally {
-            log.info("请求地址:[{}], 请求ip:[{}], 会员ID:[{}], 请求参数:[{}], 耗时:[{}ms], 软件版本:[{}], 客户端:[{}], 系统版本:[{}], 设备厂商:[{}], 设备型号:[{}]",
-                    uri, ip, message.getMemberId(), message.getRequestParam(), elapsedTime, message.getVersion(),
-                    message.getChannel(), message.getOsVersion(), message.getDeviceBrand(), message.getDeviceModel());
+        } catch (Exception e) {
+            log.error("系统日志保存异常 [{}]", uri, e);
         }
     }
 
