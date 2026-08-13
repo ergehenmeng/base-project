@@ -1,8 +1,8 @@
 package com.eghm.business.operation.delivery.dto;
 
-import com.eghm.foundation.core.configuration.gson.LocalDateTimeAdapter;
 import com.eghm.foundation.core.dto.ext.PagingQuery;
-import com.google.gson.annotations.JsonAdapter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -28,7 +28,7 @@ public class BannerQueryRequest extends PagingQuery {
 
     @Schema(description = "播放时间(在该时间段播放) yyyy-MM-dd HH:mm")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-    @JsonAdapter(LocalDateTimeAdapter.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime middleTime;
 
     @Schema(description = "状态 true:正常 false:禁用")

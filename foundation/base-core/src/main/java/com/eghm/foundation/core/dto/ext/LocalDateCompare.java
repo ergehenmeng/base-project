@@ -1,7 +1,7 @@
 package com.eghm.foundation.core.dto.ext;
 
-import com.eghm.foundation.core.configuration.gson.LocalDateAdapter;
-import com.google.gson.annotations.JsonAdapter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -16,10 +16,10 @@ import java.time.LocalDate;
 public class LocalDateCompare {
 
     @Schema(description = "开始日期", hidden = true)
-    @JsonAdapter(LocalDateAdapter.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate startDate;
 
     @Schema(description = "截止日期", hidden = true)
-    @JsonAdapter(LocalDateAdapter.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate endDate;
 }

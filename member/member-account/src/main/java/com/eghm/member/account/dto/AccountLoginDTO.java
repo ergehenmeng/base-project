@@ -2,8 +2,8 @@ package com.eghm.member.account.dto;
 
 import com.eghm.foundation.core.annotation.Assign;
 import com.eghm.foundation.core.convertor.RsaPasswordDeserializer;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.google.gson.annotations.Expose;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -22,8 +22,8 @@ public class AccountLoginDTO {
 
     @Schema(description = "密码(rsa加密)", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "密码不能为空")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @JsonDeserialize(using = RsaPasswordDeserializer.class)
-    @Expose(serialize = false)
     private String pwd;
 
     @Schema(description = "ip", hidden = true)

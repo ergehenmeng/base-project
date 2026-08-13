@@ -1,10 +1,10 @@
 package com.eghm.member.account.dto;
 
 import com.eghm.foundation.core.annotation.DateFormatter;
-import com.eghm.foundation.core.configuration.gson.LocalDateAdapter;
 import com.eghm.foundation.core.dto.ext.AbstractDateComparator;
 import com.eghm.foundation.core.enums.SelectType;
-import com.google.gson.annotations.JsonAdapter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -24,13 +24,13 @@ public class DateRequest extends AbstractDateComparator {
     @Schema(description = "开始日期 yyyy-MM-dd", requiredMode = Schema.RequiredMode.REQUIRED)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "开始日期不能为空")
-    @JsonAdapter(LocalDateAdapter.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate startDate;
 
     @Schema(description = "截止日期 yyyy-MM-dd", requiredMode = Schema.RequiredMode.REQUIRED)
     @DateFormatter(pattern = "yyyy-MM-dd", offset = 1)
     @NotNull(message = "截止日期不能为空")
-    @JsonAdapter(LocalDateAdapter.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate endDate;
 
     @Schema(description = "查询类型 week:周 month:月 year:年 custom:自定义")

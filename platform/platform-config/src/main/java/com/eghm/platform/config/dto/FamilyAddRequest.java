@@ -1,8 +1,8 @@
 package com.eghm.platform.config.dto;
 
-import com.eghm.foundation.core.configuration.gson.LocalDateAdapter;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.google.gson.annotations.JsonAdapter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -29,7 +29,7 @@ public class FamilyAddRequest {
 
     @Schema(description = "出生日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @JsonAdapter(LocalDateAdapter.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate birthday;
 
     @Schema(description = "状态 false:未绝户 true:已绝户", requiredMode = Schema.RequiredMode.REQUIRED)

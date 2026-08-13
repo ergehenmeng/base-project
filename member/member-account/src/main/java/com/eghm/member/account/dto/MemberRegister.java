@@ -1,6 +1,6 @@
 package com.eghm.member.account.dto;
 
-import com.google.gson.annotations.Expose;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -33,7 +33,7 @@ public class MemberRegister {
     private String email;
 
     @Schema(description = "密码")
-    @Expose(serialize = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String pwd;
 
     @Schema(description = "注册渠道")

@@ -2,7 +2,7 @@ package com.eghm.business.operation.support.dto;
 
 import com.eghm.foundation.core.validation.annotation.OptionInt;
 import com.eghm.foundation.core.validation.annotation.WordChecker;
-import com.google.gson.annotations.Expose;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -31,7 +31,7 @@ public class HelpAddRequest {
     @Schema(description = "答", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "\"答\"不能为空")
     @WordChecker(message = "\"答\"存在敏感词")
-    @Expose(serialize = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String answer;
 
 }

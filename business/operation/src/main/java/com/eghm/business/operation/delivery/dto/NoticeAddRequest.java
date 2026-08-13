@@ -1,6 +1,7 @@
 package com.eghm.business.operation.delivery.dto;
 
 import com.eghm.foundation.core.validation.annotation.WordChecker;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.Expose;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
@@ -30,7 +31,7 @@ public class NoticeAddRequest {
     @Schema(description = "公告内容(富文本)", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "公告内容不能为空")
     @WordChecker(message = "公告内容存在敏感词")
-    @Expose(serialize = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String content;
 
 }

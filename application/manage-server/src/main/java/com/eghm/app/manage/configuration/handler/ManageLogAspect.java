@@ -2,13 +2,13 @@ package com.eghm.app.manage.configuration.handler;
 
 import cn.hutool.core.exceptions.ExceptionUtil;
 import com.eghm.foundation.core.configuration.authentication.SecurityHolder;
-import com.eghm.foundation.core.security.UserToken;
 import com.eghm.foundation.core.enums.ExchangeQueue;
-import com.eghm.platform.audit.entity.ManageLog;
-import com.eghm.integration.messaging.service.MessageService;
+import com.eghm.foundation.core.security.UserToken;
+import com.eghm.foundation.core.service.JsonService;
 import com.eghm.foundation.web.utility.IpUtil;
 import com.eghm.foundation.web.utility.WebUtil;
-import com.google.gson.Gson;
+import com.eghm.integration.messaging.service.MessageService;
+import com.eghm.platform.audit.entity.ManageLog;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,15 +33,12 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 @Slf4j(topic = "request_response")
 public class ManageLogAspect {
 
-    private final Gson gson;
+    private final JsonService jsonService;
 
     private final MessageService messageService;
 
     /**
-     * 操作日志,如果仅仅想请求或者响应某些参数不想入库可以在响应字段上添加
-     * {@link com.google.gson.annotations.Expose} serialize = false
-     * 此处用gson进行序列化的原因是因为post请求采用 RequestBody, Spring内部采用jackson解析,
-     * 如果要要忽略某几个字段的话使用jackson的注解, 字段映射为空,业务上无法进行处理
+     * 操作日志,如果请求参数不想入库可以在响应字段上添加 @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
      *
      * @param joinPoint 切入点
      * @return aop方法调用结果对象
@@ -55,11 +52,8 @@ public class ManageLogAspect {
         }
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
         UserToken user = SecurityHolder.getUser();
-        if (user == null) {
-            return joinPoint.proceed();
-        }
         ManageLog sy = new ManageLog();
-        sy.setUserId(user.getId());
+        sy.setUserId(user == null ? null : user.getId());
         sy.setIp(IpUtil.getIpAddress(request));
         sy.setUrl(request.getRequestURI());
         Object[] args = joinPoint.getArgs();
@@ -94,7 +88,7 @@ public class ManageLogAspect {
     private void logRecord(Object proceed, ManageLog sy, String uri) {
         try {
             if (proceed != null) {
-                sy.setResponse(gson.toJson(proceed));
+                sy.setResponse(jsonService.toJson(proceed));
             }
             messageService.send(ExchangeQueue.MANAGE_LOG, sy);
         } catch (Exception e) {
@@ -118,7 +112,7 @@ public class ManageLogAspect {
             if (WebUtil.isAutoInject(object.getClass())) {
                 continue;
             }
-            builder.append(gson.toJson(object));
+            builder.append(jsonService.toJson(object));
         }
         return builder.toString();
     }

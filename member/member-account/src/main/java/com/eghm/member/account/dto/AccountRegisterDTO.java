@@ -3,8 +3,8 @@ package com.eghm.member.account.dto;
 import com.eghm.foundation.core.annotation.Assign;
 import com.eghm.foundation.core.convertor.RsaPasswordDeserializer;
 import com.eghm.foundation.core.validation.annotation.Password;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.google.gson.annotations.Expose;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -27,7 +27,7 @@ public class AccountRegisterDTO {
     @Schema(description = "密码(8~20英文,字母和@#&_)rsa加密", requiredMode = Schema.RequiredMode.REQUIRED)
     @Password
     @JsonDeserialize(using = RsaPasswordDeserializer.class)
-    @Expose(serialize = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Schema(description = "验证码", requiredMode = Schema.RequiredMode.REQUIRED)

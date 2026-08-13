@@ -1,10 +1,10 @@
 package com.eghm.integration.messaging.dto;
 
 import com.eghm.foundation.core.annotation.DateFormatter;
-import com.eghm.foundation.core.configuration.gson.LocalDateAdapter;
 import com.eghm.foundation.core.dto.ext.PagingQuery;
 import com.eghm.foundation.core.enums.TemplateType;
-import com.google.gson.annotations.JsonAdapter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -24,12 +24,12 @@ public class SmsLogQueryRequest extends PagingQuery {
 
     @Schema(description = "开始日期 yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonAdapter(LocalDateAdapter.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate startDate;
 
     @Schema(description = "开始日期 yyyy-MM-dd")
     @DateFormatter(pattern = "yyyy-MM-dd", offset = 1)
-    @JsonAdapter(LocalDateAdapter.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate endDate;
 
     @Schema(description = "短信发送状态 0:发送中 1:发送成功 2:发送失败")

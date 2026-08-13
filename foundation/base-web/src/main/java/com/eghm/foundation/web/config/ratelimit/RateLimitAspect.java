@@ -4,7 +4,6 @@ import com.eghm.foundation.core.annotation.RateLimiter;
 import com.eghm.foundation.core.configuration.authentication.ApiHolder;
 import com.eghm.foundation.core.configuration.authentication.SecurityHolder;
 import com.eghm.foundation.core.constants.CommonConstant;
-import com.eghm.foundation.core.enums.ErrorCode;
 import com.eghm.foundation.core.exception.BusinessException;
 import com.eghm.foundation.web.utility.IpUtil;
 import com.eghm.foundation.web.utility.RateLimiterUtil;
@@ -44,7 +43,7 @@ public class RateLimitAspect {
     private void acquirePermit(String key, RateLimiter rateLimiter) {
         if (!RateLimiterUtil.tryAcquire(key, rateLimiter.limit(), Duration.ofSeconds(rateLimiter.period()))) {
             log.warn("触发限流 key=[{}] limit=[{}/{}s] scope=[{}]", key, rateLimiter.limit(), rateLimiter.period(), rateLimiter.scope());
-            throw new BusinessException(ErrorCode.TOO_MANY_REQUESTS);
+            throw new BusinessException(rateLimiter.error());
         }
     }
 

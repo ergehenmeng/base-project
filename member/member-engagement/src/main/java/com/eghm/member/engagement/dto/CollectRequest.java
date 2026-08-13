@@ -1,11 +1,11 @@
 package com.eghm.member.engagement.dto;
 
 import com.eghm.foundation.core.annotation.DateFormatter;
-import com.eghm.foundation.core.configuration.gson.LocalDateAdapter;
 import com.eghm.foundation.core.dto.ext.AbstractDateComparator;
 import com.eghm.foundation.core.enums.CollectType;
 import com.eghm.foundation.core.enums.SelectType;
-import com.google.gson.annotations.JsonAdapter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -26,13 +26,13 @@ public class CollectRequest extends AbstractDateComparator {
     @Schema(description = "开始日期 yyyy-MM-dd", requiredMode = Schema.RequiredMode.REQUIRED)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "开始日期不能为空")
-    @JsonAdapter(LocalDateAdapter.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate startDate;
 
     @Schema(description = "截止日期 yyyy-MM-dd", requiredMode = Schema.RequiredMode.REQUIRED)
     @DateFormatter(pattern = "yyyy-MM-dd", offset = 1)
     @NotNull(message = "截止日期不能为空")
-    @JsonAdapter(LocalDateAdapter.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate endDate;
 
     @Schema(description = "收藏类型(1:景区 2:民宿 3:零售门店 4:零售商品 5: 线路商品 6:餐饮门店 7:资讯 8:旅行社)", requiredMode = Schema.RequiredMode.REQUIRED)

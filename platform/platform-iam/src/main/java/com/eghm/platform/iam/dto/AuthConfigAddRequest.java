@@ -1,8 +1,8 @@
 package com.eghm.platform.iam.dto;
 
-import com.eghm.foundation.core.configuration.gson.LocalDateAdapter;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.google.gson.annotations.JsonAdapter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -25,7 +25,7 @@ public class AuthConfigAddRequest {
 
     @Schema(description = "过期时间(默认一年)")
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @JsonAdapter(LocalDateAdapter.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate expireDate;
 
     @Schema(description = "邮箱", requiredMode = Schema.RequiredMode.REQUIRED)

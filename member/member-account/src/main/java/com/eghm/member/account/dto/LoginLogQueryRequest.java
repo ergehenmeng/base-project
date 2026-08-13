@@ -1,9 +1,9 @@
 package com.eghm.member.account.dto;
 
 import com.eghm.foundation.core.annotation.DateFormatter;
-import com.eghm.foundation.core.configuration.gson.LocalDateAdapter;
 import com.eghm.foundation.core.dto.ext.PagingQuery;
-import com.google.gson.annotations.JsonAdapter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -29,11 +29,11 @@ public class LoginLogQueryRequest extends PagingQuery {
 
     @Schema(description = "开始日期")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonAdapter(LocalDateAdapter.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate startDate;
 
     @Schema(description = "结束日期")
     @DateFormatter(pattern = "yyyy-MM-dd", offset = 1)
-    @JsonAdapter(LocalDateAdapter.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate endDate;
 }

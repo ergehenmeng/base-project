@@ -1,5 +1,7 @@
 package com.eghm.foundation.core.annotation;
 
+import com.eghm.foundation.core.enums.ErrorCode;
+
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -36,6 +38,11 @@ public @interface RateLimiter {
      * 限流维度,默认按 IP
      */
     Scope scope() default Scope.IP;
+    
+    /**
+     * @return 限流错误异常
+     */
+    ErrorCode error() default ErrorCode.TOO_MANY_REQUESTS;
 
     /**
      * 限流维度
