@@ -1,6 +1,7 @@
 package com.eghm.app.manage.controller;
 
 import com.eghm.foundation.cache.service.CacheService;
+import com.eghm.foundation.core.annotation.RateLimiter;
 import com.eghm.foundation.core.annotation.SkipPerm;
 import com.eghm.foundation.core.configuration.ApplicationProperties;
 import com.eghm.foundation.core.configuration.authentication.SecurityHolder;
@@ -60,6 +61,7 @@ public class LoginController {
     /**
      * 账号密码登录时,如果未开启双因子验证,则直接登录成功, 如开启双因子验证, 在第一次登录后需绑定双因子, 后续登录需要输入双因子验证码才可登录
      */
+    @RateLimiter(value = "login", limit = 20, scope = RateLimiter.Scope.IP)
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "管理后台登陆❶")
     public RespBody<TotpLoginResponse> login(@Validated @RequestBody LoginRequest request, HttpServletRequest servletRequest) {
