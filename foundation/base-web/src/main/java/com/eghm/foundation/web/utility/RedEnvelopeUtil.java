@@ -2,12 +2,12 @@ package com.eghm.foundation.web.utility;
 
 import com.eghm.foundation.core.enums.ErrorCode;
 import com.eghm.foundation.core.exception.BusinessException;
-import com.google.common.collect.Lists;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,7 +55,7 @@ public class RedEnvelopeUtil {
      * @return 金额
      */
     private static List<Integer> generateRandom(int amount, int num) {
-        List<Integer> result = Lists.newArrayListWithExpectedSize(num);
+        List<Integer> result = new ArrayList<>();
         int surplus = amount;
         SecureRandom random = new SecureRandom();
         for (int i = 0; i < num; i++) {
@@ -79,7 +79,7 @@ public class RedEnvelopeUtil {
      * @return 金额
      */
     private static List<Integer> generateMin(int num) {
-        List<Integer> result = Lists.newArrayListWithExpectedSize(num);
+        List<Integer> result = new ArrayList<>();
         for (int i = 0; i < num; i++) {
             result.add(MIN_AMOUNT);
         }

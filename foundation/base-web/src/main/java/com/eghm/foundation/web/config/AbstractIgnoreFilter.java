@@ -1,10 +1,10 @@
 package com.eghm.foundation.web.config;
 
-import com.google.common.collect.Lists;
 import jakarta.annotation.Nonnull;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,7 +16,7 @@ public abstract class AbstractIgnoreFilter extends OncePerRequestFilter {
     /**
      * 排除忽略的地址或者模糊匹配的url
      */
-    private final List<String> exclude = Lists.newArrayListWithCapacity(4);
+    private final List<String> exclude = new ArrayList<>(8);
 
     /**
      * 匹配器
@@ -34,7 +34,7 @@ public abstract class AbstractIgnoreFilter extends OncePerRequestFilter {
      * @param matchUrl 不需要拦截的地址
      */
     public void exclude(@Nonnull String... matchUrl) {
-        exclude.addAll(Lists.newArrayList(matchUrl));
+        exclude.addAll(List.of(matchUrl));
     }
 
 }

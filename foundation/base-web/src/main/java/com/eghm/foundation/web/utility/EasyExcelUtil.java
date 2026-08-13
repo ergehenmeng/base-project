@@ -1,6 +1,5 @@
 package com.eghm.foundation.web.utility;
 
-import com.eghm.foundation.core.utils.ResourceUtil;
 import cn.hutool.core.net.URLEncodeUtil;
 import cn.hutool.http.Header;
 import com.alibaba.excel.EasyExcelFactory;
@@ -16,12 +15,17 @@ import com.alibaba.excel.write.metadata.holder.WriteSheetHolder;
 import com.alibaba.excel.write.metadata.holder.WriteWorkbookHolder;
 import com.eghm.foundation.core.annotation.ExcelSpinner;
 import com.eghm.foundation.core.excel.ExcelSpinnerResolver;
-import com.google.common.collect.Lists;
+import com.eghm.foundation.core.utils.ResourceUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.DataValidation;
+import org.apache.poi.ss.usermodel.DataValidationConstraint;
+import org.apache.poi.ss.usermodel.DataValidationHelper;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddressList;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -29,6 +33,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -181,7 +186,7 @@ public class EasyExcelUtil {
         public ReadExcelListener(Consumer<List<T>> consumer, int batchSize) {
             this.consumer = consumer;
             this.batchSize = batchSize;
-            this.batchList = Lists.newArrayListWithExpectedSize(batchSize);
+            this.batchList = new ArrayList<>(batchSize);
         }
 
         @Override

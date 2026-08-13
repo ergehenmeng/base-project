@@ -1,8 +1,7 @@
 package com.eghm.foundation.cache.service.impl;
 
-import com.eghm.foundation.cache.service.CacheService;
 import com.eghm.foundation.cache.service.CacheExpireProvider;
-import com.eghm.foundation.core.service.JsonService;
+import com.eghm.foundation.cache.service.CacheService;
 import com.eghm.foundation.core.constants.CacheConstant;
 import com.eghm.foundation.core.constants.CommonConstant;
 import com.eghm.foundation.core.constants.LockConstant;
@@ -10,8 +9,8 @@ import com.eghm.foundation.core.enums.ErrorCode;
 import com.eghm.foundation.core.exception.BusinessException;
 import com.eghm.foundation.core.exception.ParameterException;
 import com.eghm.foundation.core.lock.RedisLock;
+import com.eghm.foundation.core.service.JsonService;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.connection.BitFieldSubCommands;
@@ -246,7 +245,7 @@ public class CacheServiceImpl implements CacheService {
     public <T> List<T> getList(String key, Class<T> cls) {
         String value = this.getValue(key);
         if (value == null) {
-            return Lists.newArrayList();
+            return Collections.emptyList();
         }
         return jsonService.fromJsonList(value, cls);
     }

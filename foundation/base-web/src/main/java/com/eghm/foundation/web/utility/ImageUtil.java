@@ -2,7 +2,6 @@ package com.eghm.foundation.web.utility;
 
 import cn.hutool.core.codec.Base64;
 import cn.hutool.core.img.Img;
-import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.imageio.ImageIO;
@@ -129,7 +128,7 @@ public class ImageUtil {
     }
 
     public static void main(String[] args) throws IOException {
-        List<String> list = Lists.newArrayList();
+        List<String> list = new ArrayList<>();
         String str = "http://img.duoziwang.com/2019/05/08211345616446.jpg";
         list.add(str);
         list.add(str);

@@ -1,9 +1,8 @@
 package com.eghm.foundation.web.utility;
 
-import com.eghm.foundation.core.utils.DateUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.foundation.core.dto.ext.PageData;
-import com.google.common.collect.Lists;
+import com.eghm.foundation.core.utils.DateUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +38,7 @@ public class DataUtil {
      */
     public static <S, T> PageData<T> copy(Page<S> page, Function<S, T> transfer) {
         PageData<T> paging = new PageData<>();
-        List<T> formatList = Lists.newArrayList();
+        List<T> formatList = new ArrayList<>();
         page.getRecords().forEach(s -> formatList.add(transfer.apply(s)));
         paging.setRows(formatList);
         paging.setTotal((int) page.getTotal());
@@ -59,7 +58,7 @@ public class DataUtil {
      */
     public static <S, T> PageData<T> copy(Page<S> page, Class<T> cls) {
         PageData<T> paging = new PageData<>();
-        List<T> formatList = Lists.newArrayList();
+        List<T> formatList = new ArrayList<>();
         page.getRecords().forEach(s -> formatList.add(copy(s, cls)));
         paging.setRows(formatList);
         paging.setTotal((int) page.getTotal());
@@ -78,7 +77,7 @@ public class DataUtil {
      * @return 结果数据列表
      */
     public static <S, T> List<T> copy(Collection<S> sourceList, Function<S, T> transfer) {
-        List<T> resultList = Lists.newArrayList();
+        List<T> resultList = new ArrayList<>();
         sourceList.forEach(s -> resultList.add(transfer.apply(s)));
         return resultList;
     }
