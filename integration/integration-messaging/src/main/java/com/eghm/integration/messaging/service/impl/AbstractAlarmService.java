@@ -7,7 +7,7 @@ import com.eghm.foundation.core.service.JsonService;
 import com.eghm.foundation.core.configuration.ApplicationProperties;
 import com.eghm.foundation.web.config.log.LogTraceHolder;
 import com.eghm.integration.messaging.dto.AlarmMsg;
-import com.eghm.foundation.core.enums.AlarmType;
+import com.eghm.foundation.core.enums.AlarmChannel;
 import com.eghm.foundation.core.utils.DateUtil;
 import com.eghm.foundation.web.utility.RateLimiterUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -42,16 +42,16 @@ public abstract class AbstractAlarmService implements AlarmService {
     @Async
     @Override
     public void sendMsg(String content) {
-        boolean tryAcquire = RateLimiterUtil.tryAcquire(this.getAlarmType().name(), ALARM_LIMIT_FOR_PERIOD, ALARM_REFRESH_PERIOD);
+        boolean tryAcquire = RateLimiterUtil.tryAcquire(this.getAlarmChannel().name(), ALARM_LIMIT_FOR_PERIOD, ALARM_REFRESH_PERIOD);
         if (tryAcquire) {
             String response = HttpUtil.post(this.createRequestUrl(), this.createTextMsg(content));
             this.logResponse(response);
         } else {
-            log.warn("报警消息发送被限流, 类型: [{}], 内容: [{}]", this.getAlarmType().name(), content);
+            log.warn("报警消息发送被限流, 类型: [{}], 内容: [{}]", this.getAlarmChannel().name(), content);
         }
     }
 
-    protected abstract AlarmType getAlarmType();
+    protected abstract AlarmChannel getAlarmChannel();
 
     /**
      * 创建消息内容

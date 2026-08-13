@@ -3,7 +3,7 @@ package com.eghm.integration.messaging.service.impl;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.crypto.SecureUtil;
 import com.eghm.foundation.core.configuration.ApplicationProperties;
-import com.eghm.foundation.core.enums.AlarmType;
+import com.eghm.foundation.core.enums.AlarmChannel;
 import com.eghm.foundation.core.service.JsonService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,8 +28,8 @@ public class DingTalkAlarmServiceImpl extends AbstractAlarmService {
     }
 
     @Override
-    protected AlarmType getAlarmType() {
-        return AlarmType.DING_TALK;
+    protected AlarmChannel getAlarmChannel() {
+        return AlarmChannel.DING_TALK;
     }
     
     @Override

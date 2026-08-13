@@ -4,7 +4,7 @@ import cn.hutool.crypto.SecureUtil;
 import com.eghm.foundation.core.service.JsonService;
 import com.eghm.foundation.core.configuration.ApplicationProperties;
 import com.eghm.integration.messaging.dto.FeiShuMsg;
-import com.eghm.foundation.core.enums.AlarmType;
+import com.eghm.foundation.core.enums.AlarmChannel;
 import lombok.extern.slf4j.Slf4j;
 
 import static com.eghm.foundation.core.utils.StringUtil.isNotBlank;
@@ -24,8 +24,8 @@ public class FeiShuAlarmServiceImpl extends AbstractAlarmService {
     }
 
     @Override
-    protected AlarmType getAlarmType() {
-        return AlarmType.FEI_SHU;
+    protected AlarmChannel getAlarmChannel() {
+        return AlarmChannel.FEI_SHU;
     }
     
     @Override

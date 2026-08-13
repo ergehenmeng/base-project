@@ -8,7 +8,7 @@ import lombok.Getter;
  */
 
 @Getter
-public enum AlarmType {
+public enum AlarmChannel {
 
     /**
      * 默认

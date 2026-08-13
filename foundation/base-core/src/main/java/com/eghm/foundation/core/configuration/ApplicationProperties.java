@@ -1,6 +1,6 @@
 package com.eghm.foundation.core.configuration;
 
-import com.eghm.foundation.core.enums.AlarmType;
+import com.eghm.foundation.core.enums.AlarmChannel;
 import com.eghm.foundation.core.enums.Env;
 import com.eghm.foundation.core.enums.LoginType;
 import com.eghm.foundation.core.enums.SmsChannel;
@@ -362,9 +362,9 @@ public class ApplicationProperties {
     public static class AlarmProperties {
 
         /**
-         * 消息通知类型
+         * 消息通知渠道
          */
-        private AlarmType type;
+        private AlarmChannel channel;
 
         /**
          * 钉钉消息通知AccessToken或者飞书、企业微信的通知webHook地址

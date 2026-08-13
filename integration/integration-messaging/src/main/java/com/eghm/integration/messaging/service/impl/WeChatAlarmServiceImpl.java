@@ -2,7 +2,7 @@ package com.eghm.integration.messaging.service.impl;
 
 import com.eghm.foundation.core.service.JsonService;
 import com.eghm.foundation.core.configuration.ApplicationProperties;
-import com.eghm.foundation.core.enums.AlarmType;
+import com.eghm.foundation.core.enums.AlarmChannel;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -22,8 +22,8 @@ public class WeChatAlarmServiceImpl extends AbstractAlarmService {
     }
 
     @Override
-    protected AlarmType getAlarmType() {
-        return AlarmType.ENTERPRISE_WECHAT;
+    protected AlarmChannel getAlarmChannel() {
+        return AlarmChannel.ENTERPRISE_WECHAT;
     }
 
     @Override
