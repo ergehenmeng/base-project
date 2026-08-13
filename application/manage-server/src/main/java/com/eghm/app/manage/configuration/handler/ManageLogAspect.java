@@ -1,5 +1,6 @@
 package com.eghm.app.manage.configuration.handler;
 
+import cn.hutool.core.exceptions.ExceptionUtil;
 import com.eghm.foundation.core.configuration.authentication.SecurityHolder;
 import com.eghm.foundation.core.security.UserToken;
 import com.eghm.foundation.core.enums.ExchangeQueue;
@@ -66,24 +67,31 @@ public class ManageLogAspect {
             sy.setRequest(this.formatRequest(args));
         }
         long start = System.currentTimeMillis();
-        Object proceed = joinPoint.proceed();
-        sy.setBusinessTime(System.currentTimeMillis() - start);
-        if (HttpMethod.GET.name().equals(request.getMethod())) {
-            log.info("请求地址:[{}], 请求参数:[{}], 请求ip:[{}], 用户id:[{}], 耗时:[{}]ms", sy.getUrl(), sy.getRequest(), sy.getIp(), sy.getUserId(), sy.getBusinessTime());
-        } else {
-            this.logError(proceed, sy, request.getRequestURI());
+        try {
+            Object proceed = joinPoint.proceed();
+            sy.setBusinessTime(System.currentTimeMillis() - start);
+            if (HttpMethod.GET.name().equals(request.getMethod())) {
+                log.info("请求地址:[{}], 请求参数:[{}], 请求ip:[{}], 用户id:[{}], 耗时:[{}]ms", sy.getUrl(), sy.getRequest(), sy.getIp(), sy.getUserId(), sy.getBusinessTime());
+            } else {
+                this.logRecord(proceed, sy, request.getRequestURI());
+            }
+            return proceed;
+        } catch (Throwable e) {
+            sy.setBusinessTime(System.currentTimeMillis() - start);
+            sy.setResponse(ExceptionUtil.stacktraceToString(e));
+            this.logRecord(null, sy, request.getRequestURI());
+            throw e;
         }
-        return proceed;
     }
     
     /**
-     * 记录错误日志
+     * 记录成功日志
      *
      * @param proceed 返回值
      * @param sy 日志信息
      * @param uri 请求接口
      */
-    private void logError(Object proceed, ManageLog sy, String uri) {
+    private void logRecord(Object proceed, ManageLog sy, String uri) {
         try {
             if (proceed != null) {
                 sy.setResponse(gson.toJson(proceed));
