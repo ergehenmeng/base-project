@@ -4,25 +4,24 @@ import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.business.operation.delivery.service.SysNoticeService;
+import com.eghm.business.operation.delivery.vo.NoticeVO;
+import com.eghm.business.operation.news.service.NewsService;
+import com.eghm.business.operation.news.vo.NewsVO;
 import com.eghm.foundation.cache.service.CacheService;
+import com.eghm.foundation.core.configuration.authentication.ApiHolder;
 import com.eghm.foundation.core.constants.CacheConstant;
 import com.eghm.foundation.core.constants.CommonConstant;
-import com.eghm.member.engagement.dto.CollectQueryDTO;
-import com.eghm.member.engagement.dto.CollectRequest;
-import com.eghm.foundation.core.configuration.authentication.ApiHolder;
 import com.eghm.foundation.core.enums.CollectType;
 import com.eghm.foundation.core.enums.SelectType;
-import com.eghm.member.engagement.mapper.MemberCollectMapper;
-import com.eghm.business.operation.news.service.NewsService;
-import com.eghm.business.operation.delivery.service.SysNoticeService;
-import com.eghm.member.engagement.entity.MemberCollect;
-import com.eghm.member.engagement.service.MemberCollectService;
 import com.eghm.foundation.web.utility.DataUtil;
-import com.eghm.member.engagement.vo.MemberCollectVO;
-import com.eghm.business.operation.news.vo.NewsVO;
+import com.eghm.member.engagement.dto.CollectQueryDTO;
+import com.eghm.member.engagement.dto.CollectRequest;
+import com.eghm.member.engagement.entity.MemberCollect;
+import com.eghm.member.engagement.mapper.MemberCollectMapper;
+import com.eghm.member.engagement.service.MemberCollectService;
 import com.eghm.member.engagement.vo.CollectStatisticsVO;
-import com.eghm.business.operation.delivery.vo.NoticeVO;
-import com.google.common.collect.Maps;
+import com.eghm.member.engagement.vo.MemberCollectVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -156,7 +155,7 @@ public class MemberCollectServiceImpl implements MemberCollectService {
      */
     private Map<Long, NewsVO> getNewsMap(List<Long> newsIds) {
         if (CollUtil.isEmpty(newsIds)) {
-            return Maps.newLinkedHashMapWithExpectedSize(4);
+            return Map.of();
         }
         List<NewsVO> voList = newsService.getList(newsIds);
         return voList.stream().collect(Collectors.toMap(NewsVO::getId, Function.identity()));
@@ -170,7 +169,7 @@ public class MemberCollectServiceImpl implements MemberCollectService {
      */
     private Map<Long, NoticeVO> getNoticeMap(List<Long> noticeIds) {
         if (CollUtil.isEmpty(noticeIds)) {
-            return Maps.newLinkedHashMapWithExpectedSize(4);
+            return Map.of();
         }
         List<NoticeVO> voList = sysNoticeService.getList(noticeIds);
         return voList.stream().collect(Collectors.toMap(NoticeVO::getId, Function.identity()));

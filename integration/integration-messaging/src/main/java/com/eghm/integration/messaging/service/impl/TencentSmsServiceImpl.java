@@ -1,10 +1,9 @@
 package com.eghm.integration.messaging.service.impl;
 
-import com.eghm.foundation.core.service.JsonService;
-import com.eghm.integration.messaging.service.SendSmsService;
 import com.eghm.foundation.core.configuration.ApplicationProperties;
 import com.eghm.foundation.core.enums.TemplateType;
-import com.google.common.collect.Lists;
+import com.eghm.foundation.core.service.JsonService;
+import com.eghm.integration.messaging.service.SendSmsService;
 import com.tencentcloudapi.common.exception.TencentCloudSDKException;
 import com.tencentcloudapi.sms.v20210111.SmsClient;
 import com.tencentcloudapi.sms.v20210111.models.SendSmsRequest;
@@ -33,7 +32,7 @@ public class TencentSmsServiceImpl implements SendSmsService {
 
     @Override
     public int sendSms(String mobile, TemplateType templateType, String... params) {
-        return this.sendSms(Lists.newArrayList(mobile), templateType, params);
+        return this.sendSms(List.of(mobile), templateType, params);
     }
 
     @Override

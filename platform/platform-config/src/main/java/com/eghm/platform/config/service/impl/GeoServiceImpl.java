@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.eghm.platform.config.service.GeoService;
 import com.eghm.foundation.core.constants.CacheConstant;
 import com.eghm.foundation.core.constants.CommonConstant;
-import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
 import org.springframework.data.geo.Circle;
 import org.springframework.data.geo.Distance;
@@ -68,9 +67,9 @@ public class GeoServiceImpl implements GeoService {
         GeoResults<RedisGeoCommands.GeoLocation<String>> geoResults = operations.radius(key, new Circle(new Point(longitude, latitude), new Distance(radius, Metrics.METERS)),
                 RedisGeoCommands.GeoRadiusCommandArgs.newGeoRadiusArgs().includeDistance().sortAscending().limit(limit));
         if (geoResults == null || CollUtil.isEmpty(geoResults)) {
-            return Maps.newLinkedHashMapWithExpectedSize(1);
+            return new LinkedHashMap<>(1);
         }
-        LinkedHashMap<String, Double> hashMap = Maps.newLinkedHashMapWithExpectedSize(limit);
+        LinkedHashMap<String, Double> hashMap = new LinkedHashMap<>(limit);
         geoResults.forEach(result -> hashMap.put(result.getContent().getName(), result.getDistance().getValue()));
         return hashMap;
     }

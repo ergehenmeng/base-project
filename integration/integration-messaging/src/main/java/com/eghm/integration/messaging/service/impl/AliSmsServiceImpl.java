@@ -4,12 +4,11 @@ import cn.hutool.core.collection.CollUtil;
 import com.aliyun.dysmsapi20170525.Client;
 import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
 import com.aliyun.dysmsapi20170525.models.SendSmsResponse;
-import com.eghm.foundation.core.service.JsonService;
-import com.eghm.integration.messaging.service.SendSmsService;
 import com.eghm.foundation.core.configuration.ApplicationProperties;
 import com.eghm.foundation.core.constants.CommonConstant;
 import com.eghm.foundation.core.enums.TemplateType;
-import com.google.common.collect.Lists;
+import com.eghm.foundation.core.service.JsonService;
+import com.eghm.integration.messaging.service.SendSmsService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,7 +36,7 @@ public class AliSmsServiceImpl implements SendSmsService {
 
     @Override
     public int sendSms(String mobile, TemplateType templateType, String... params) {
-        return this.sendSms(Lists.newArrayList(mobile), templateType, params);
+        return this.sendSms(List.of(mobile), templateType, params);
     }
 
     @Override

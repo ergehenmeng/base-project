@@ -4,29 +4,28 @@ import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.foundation.cache.service.CacheService;
-import com.eghm.platform.config.service.CommonService;
-import com.eghm.platform.config.service.SysConfigApi;
-import com.eghm.foundation.core.configuration.authentication.ApiHolder;
-import com.eghm.foundation.core.constants.CacheConstant;
-import com.eghm.foundation.core.constants.ConfigConstant;
 import com.eghm.business.operation.interaction.dto.CommentDTO;
 import com.eghm.business.operation.interaction.dto.CommentQueryDTO;
 import com.eghm.business.operation.interaction.dto.CommentQueryRequest;
-import com.eghm.foundation.core.enums.ErrorCode;
-import com.eghm.foundation.core.enums.ObjectType;
-import com.eghm.foundation.core.exception.BusinessException;
-import com.eghm.business.operation.interaction.mapper.CommentMapper;
-import com.eghm.business.operation.news.service.NewsService;
 import com.eghm.business.operation.interaction.entity.Comment;
-import com.eghm.business.operation.news.entity.News;
+import com.eghm.business.operation.interaction.mapper.CommentMapper;
 import com.eghm.business.operation.interaction.service.CommentService;
-import com.eghm.foundation.web.utility.DataUtil;
-import com.eghm.business.operation.news.vo.NewsVO;
 import com.eghm.business.operation.interaction.vo.CommentResponse;
 import com.eghm.business.operation.interaction.vo.CommentSecondVO;
 import com.eghm.business.operation.interaction.vo.CommentVO;
-import com.google.common.collect.Maps;
+import com.eghm.business.operation.news.entity.News;
+import com.eghm.business.operation.news.service.NewsService;
+import com.eghm.business.operation.news.vo.NewsVO;
+import com.eghm.foundation.cache.service.CacheService;
+import com.eghm.foundation.core.configuration.authentication.ApiHolder;
+import com.eghm.foundation.core.constants.CacheConstant;
+import com.eghm.foundation.core.constants.ConfigConstant;
+import com.eghm.foundation.core.enums.ErrorCode;
+import com.eghm.foundation.core.enums.ObjectType;
+import com.eghm.foundation.core.exception.BusinessException;
+import com.eghm.foundation.web.utility.DataUtil;
+import com.eghm.platform.config.service.CommonService;
+import com.eghm.platform.config.service.SysConfigApi;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -196,7 +195,7 @@ public class CommentServiceImpl implements CommentService {
      */
     private Map<Long, String> getNewsMap(List<Long> newsIds) {
         if (CollUtil.isEmpty(newsIds)) {
-            return Maps.newLinkedHashMapWithExpectedSize(1);
+            return Map.of();
         }
         List<NewsVO> voList = newsService.getList(newsIds);
         return voList.stream().collect(Collectors.toMap(NewsVO::getId, NewsVO::getTitle));
