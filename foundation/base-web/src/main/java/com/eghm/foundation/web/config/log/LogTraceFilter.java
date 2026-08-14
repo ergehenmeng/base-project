@@ -1,6 +1,7 @@
 package com.eghm.foundation.web.config.log;
 
 import com.eghm.foundation.core.utils.StringUtil;
+import com.eghm.foundation.web.utility.IpUtil;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -22,7 +23,7 @@ public class LogTraceFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response, @Nonnull FilterChain filterChain) throws ServletException, IOException {
         try {
-            LogTraceHolder.putTraceId(StringUtil.randomHex(16));
+            LogTraceHolder.putAll(StringUtil.randomHex(16), IpUtil.getIpAddress(request));
             filterChain.doFilter(request, response);
         } finally {
             LogTraceHolder.clear();

@@ -1,16 +1,23 @@
 package com.eghm.integration.messaging.config.rabbit;
 
+import com.eghm.foundation.core.enums.ExchangeQueue;
 import com.eghm.foundation.core.service.AlarmService;
 import com.eghm.foundation.web.config.log.LogTraceHolder;
-import com.eghm.foundation.core.constants.CommonConstant;
-import com.eghm.foundation.core.enums.ExchangeQueue;
 import com.eghm.foundation.web.utility.LoggerUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.core.*;
+import org.springframework.amqp.core.AmqpAdmin;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.Exchange;
+import org.springframework.amqp.core.ExchangeBuilder;
+import org.springframework.amqp.core.MessageProperties;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.QueueBuilder;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.Map;
 
 /**
  * RabbitMQ 消息队列初始化配置
@@ -48,7 +55,8 @@ public class RabbitInitConfig implements InitializingBean {
         }
         rabbitTemplate.setBeforePublishPostProcessors(message -> {
             MessageProperties properties = message.getMessageProperties();
-            properties.setHeader(CommonConstant.TRACE_ID, LogTraceHolder.getTraceId());
+            Map<String, String> context = LogTraceHolder.getContext();
+            context.forEach(properties::setHeader);
             return message;
         });
         rabbitTemplate.setReturnsCallback(returned -> {

@@ -109,6 +109,11 @@ public class CommonConstant {
      * 日志id
      */
     public static final String TRACE_ID = "traceId";
+    
+    /**
+     * 客户端ip 日志
+     */
+    public static final String CLIENT_IP = "clientIp";
 
     /**
      * 异步下单最大请求次数

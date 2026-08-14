@@ -1,11 +1,12 @@
 package com.eghm.platform.job.config.task.config;
 
 import cn.hutool.core.exceptions.ExceptionUtil;
-import com.eghm.foundation.core.service.AlarmService;
-import com.eghm.foundation.web.config.log.LogTraceHolder;
+import cn.hutool.core.net.NetUtil;
 import com.eghm.foundation.core.constants.CommonConstant;
 import com.eghm.foundation.core.lock.RedisLock;
+import com.eghm.foundation.core.service.AlarmService;
 import com.eghm.foundation.core.utils.StringUtil;
+import com.eghm.foundation.web.config.log.LogTraceHolder;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -32,7 +33,7 @@ public class ScheduledLockAspect {
         // 类名@方法名
         String lockKey = joinPoint.getSignature().getDeclaringType().getName() + CommonConstant.SPECIAL_SPLIT + joinPoint.getSignature().getName();
         return redisLock.lock(lockKey, CommonConstant.SCHEDULED_MAX_LOCK_TIME, () -> {
-            LogTraceHolder.putTraceId(StringUtil.randomHex(16));
+            LogTraceHolder.putAll(StringUtil.randomHex(16), NetUtil.getLocalhostStr());
             try {
                 return joinPoint.proceed();
             } catch (Throwable e) {

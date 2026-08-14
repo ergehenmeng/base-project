@@ -57,7 +57,7 @@ public class Invoker implements Runnable {
 
     @Override
     public void run() {
-        LogTraceHolder.putTraceId(StringUtil.randomHex(16));
+        LogTraceHolder.putAll(StringUtil.randomHex(16), NetUtil.getLocalhostStr());
         SysTaskLog.SysTaskLogBuilder builder = SysTaskLog.builder();
         String key = dispatch.getBeanName() + CommonConstant.SPECIAL_SPLIT + dispatch.getMethodName();
         LocalDateTime start = LocalDateTime.now();

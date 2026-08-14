@@ -7,7 +7,6 @@ import com.eghm.foundation.core.dto.ext.RequestMessage;
 import com.eghm.foundation.core.enums.ExchangeQueue;
 import com.eghm.foundation.web.config.log.LogTraceHolder;
 import com.eghm.foundation.web.utility.DataUtil;
-import com.eghm.foundation.web.utility.IpUtil;
 import com.eghm.integration.messaging.service.MessageService;
 import com.eghm.platform.audit.entity.WebappLog;
 import jakarta.servlet.http.HttpServletRequest;
@@ -50,20 +49,19 @@ public class WebappLogAspect {
             return joinPoint.proceed();
         }
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
-        String ip = IpUtil.getIpAddress(request);
         String uri = request.getRequestURI();
         RequestMessage message = ApiHolder.get();
         long start = System.currentTimeMillis();
         try {
             Object proceed = joinPoint.proceed();
-            this.logRecord(message, ip, uri, System.currentTimeMillis() - start, null);
+            this.logRecord(message, uri, System.currentTimeMillis() - start, null);
             return proceed;
         } catch (Throwable e) {
-            this.logRecord(message, ip, uri, System.currentTimeMillis() - start, e);
+            this.logRecord(message, uri, System.currentTimeMillis() - start, e);
             throw e;
         } finally {
             log.info("请求地址:[{}], 请求ip:[{}], 会员ID:[{}], 请求参数:[{}], 耗时:[{}ms], 软件版本:[{}], 客户端:[{}], 系统版本:[{}], 设备厂商:[{}], 设备型号:[{}]",
-                    uri, ip, message.getMemberId(), message.getRequestParam(), System.currentTimeMillis() - start, message.getVersion(),
+                    uri, LogTraceHolder.getClientIp(), message.getMemberId(), message.getRequestParam(), System.currentTimeMillis() - start, message.getVersion(),
                     message.getChannel(), message.getOsVersion(), message.getDeviceBrand(), message.getDeviceModel());
         }
     }
@@ -72,15 +70,14 @@ public class WebappLogAspect {
      * 记录日志
      *
      * @param message 请求消息
-     * @param ip 请求IP
      * @param uri 请求接口
      * @param elapsedTime 耗时
      */
-    private void logRecord(RequestMessage message, String ip, String uri, long elapsedTime, Throwable throwable) {
+    private void logRecord(RequestMessage message, String uri, long elapsedTime, Throwable throwable) {
         try {
             WebappLog webappLog = DataUtil.copy(message, WebappLog.class);
             webappLog.setElapsedTime(elapsedTime);
-            webappLog.setIp(ip);
+            webappLog.setIp(LogTraceHolder.getClientIp());
             webappLog.setUrl(uri);
             webappLog.setTraceId(LogTraceHolder.getTraceId());
             webappLog.setRequestParam(message.getRequestParam());

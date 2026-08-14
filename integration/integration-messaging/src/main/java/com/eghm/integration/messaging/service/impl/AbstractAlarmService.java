@@ -61,10 +61,11 @@ public abstract class AbstractAlarmService implements AlarmService {
      */
     protected String createMessageContent(String content) {
         String appName = SpringUtil.getApplicationName();
-        return "【服务名】：" + appName + "\n" +
-                "【报警时间】：" + DateUtil.format(LocalDateTime.now()) + "\n" +
+        return "【异常服务】：" + appName + "\n" +
+                "【发生时间】：" + DateUtil.format(LocalDateTime.now()) + "\n" +
                 "【traceId】：" + LogTraceHolder.getTraceId() + "\n" +
-                "【报警信息】：" + content;
+                "【clientIp】：" + LogTraceHolder.getClientIp() + "\n" +
+                "【错误信息】：" + content;
     }
 
     /**

@@ -43,7 +43,7 @@ public class RabbitConfig {
         SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
         factory.setAfterReceivePostProcessors(message -> {
             MessageProperties properties = message.getMessageProperties();
-            LogTraceHolder.putTraceId(properties.getHeader(CommonConstant.TRACE_ID));
+            LogTraceHolder.putAll(properties.getHeader(CommonConstant.TRACE_ID), properties.getHeader(CommonConstant.CLIENT_IP));
             return message;
         });
         factory.setTaskExecutor(TtlExecutors.getTtlExecutor(new SimpleAsyncTaskExecutor("@RabbitListener线程-")));

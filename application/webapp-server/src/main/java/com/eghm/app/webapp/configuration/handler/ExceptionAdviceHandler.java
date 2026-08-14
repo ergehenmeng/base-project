@@ -1,19 +1,17 @@
 package com.eghm.app.webapp.configuration.handler;
 
 import cn.hutool.core.exceptions.ExceptionUtil;
-import com.eghm.foundation.web.config.log.LogTraceHolder;
-import com.eghm.foundation.core.configuration.authentication.ApiHolder;
-import com.eghm.foundation.core.dto.ext.RequestMessage;
 import com.eghm.foundation.core.dto.ext.RespBody;
 import com.eghm.foundation.core.enums.ErrorCode;
-import com.eghm.foundation.core.enums.ExchangeQueue;
-import com.eghm.foundation.core.exception.*;
-import com.eghm.platform.audit.entity.WebappLog;
-import com.eghm.integration.messaging.service.MessageService;
-import com.eghm.foundation.web.utility.DataUtil;
-import com.eghm.foundation.web.utility.IpUtil;
+import com.eghm.foundation.core.exception.AliPayException;
+import com.eghm.foundation.core.exception.BusinessException;
+import com.eghm.foundation.core.exception.DataException;
+import com.eghm.foundation.core.exception.ParameterException;
+import com.eghm.foundation.core.exception.WeChatPayException;
+import com.eghm.foundation.core.service.AlarmService;
 import com.eghm.foundation.web.utility.WebUtil;
 import com.google.common.collect.Maps;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -26,8 +24,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
-import jakarta.servlet.http.HttpServletRequest;
-
 import java.util.Map;
 
 /**
@@ -38,8 +34,8 @@ import java.util.Map;
 @Slf4j
 @AllArgsConstructor
 public class ExceptionAdviceHandler {
-
-    private final MessageService messageService;
+    
+    private final AlarmService alarmService;
 
     private static final String FAIL = "FAIL";
 
@@ -90,15 +86,7 @@ public class ExceptionAdviceHandler {
     @ExceptionHandler(Exception.class)
     public RespBody<Void> exception(HttpServletRequest request, Exception e) {
         log.error("系统异常 [{}]", request.getRequestURI(), e);
-        RequestMessage message = ApiHolder.get();
-        WebappLog webappLog = DataUtil.copy(message, WebappLog.class);
-        webappLog.setUrl(request.getRequestURI());
-        webappLog.setIp(IpUtil.getIpAddress(request));
-        webappLog.setMemberId(ApiHolder.tryGetMemberId());
-        webappLog.setRequestParam(ApiHolder.getRequestParam());
-        webappLog.setTraceId(LogTraceHolder.getTraceId());
-        webappLog.setErrorMsg(ExceptionUtil.stacktraceToString(e));
-        messageService.send(ExchangeQueue.WEBAPP_LOG, webappLog);
+        alarmService.sendMsg(ExceptionUtil.stacktraceToString(e));
         return RespBody.error(ErrorCode.SYSTEM_ERROR);
     }
 
