@@ -18,17 +18,6 @@ spring:
             idle-timeout: 60000
             maximum-pool-size: 100
             minimum-idle: 5
-        postgres:
-          type: com.zaxxer.hikari.HikariDataSource
-          url: jdbc:p6spy:postgresql://127.0.0.1:5432/base_project?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&tinyInt1isBit=false&serverTimezone=Asia/Shanghai&useSSL=true
-          username: postgres
-          password: root
-          driver-class-name: com.p6spy.engine.spy.P6SpyDriver
-          hikari:
-            connection-test-query: select 'x'
-            idle-timeout: 60000
-            maximum-pool-size: 100
-            minimum-idle: 5
   mail:
     host: smtp.qq.com
     password: wahdqqmlznmhbcae
