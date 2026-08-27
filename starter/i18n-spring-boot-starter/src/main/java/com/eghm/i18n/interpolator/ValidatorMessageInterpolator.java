@@ -19,8 +19,11 @@ public class ValidatorMessageInterpolator implements MessageInterpolator {
     
     private final I18nMessageProvider messageProvider;
     
-    public ValidatorMessageInterpolator(I18nMessageProvider messageProvider) {
+    private final MessageInterpolator defaultMessageInterpolator;
+    
+    public ValidatorMessageInterpolator(I18nMessageProvider messageProvider, MessageInterpolator defaultMessageInterpolator) {
         this.messageProvider = messageProvider;
+        this.defaultMessageInterpolator = defaultMessageInterpolator;
     }
     
     @Override
@@ -30,8 +33,11 @@ public class ValidatorMessageInterpolator implements MessageInterpolator {
 
     @Override
     public String interpolate(String messageTemplate, Context context, Locale locale) {
-        if (messageTemplate == null || !this.isI18nKey(messageTemplate)) {
-            return messageTemplate;
+        if (messageProvider == null) {
+            return null;
+        }
+        if (!this.isI18nKey(messageTemplate)) {
+            return defaultMessageInterpolator.interpolate(messageTemplate, context, locale);
         }
         String messageKey = this.extractMessageKey(messageTemplate);
         String resolvedMessage = messageProvider.getMessage(messageKey, locale, I18nMessageProvider.VALIDATOR);
@@ -42,7 +48,7 @@ public class ValidatorMessageInterpolator implements MessageInterpolator {
     }
 
     private boolean isI18nKey(String message) {
-        return message.startsWith("{") && message.endsWith("}");
+        return message.startsWith("${") && message.endsWith("}");
     }
 
     private String extractMessageKey(String message) {

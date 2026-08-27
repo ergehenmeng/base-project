@@ -52,11 +52,12 @@ public class I18nAutoConfiguration implements WebMvcConfigurer {
     @ConditionalOnMissingBean
     public MessageInterpolator messageInterpolator(ObjectProvider<I18nMessageProvider> provider, MessageSource messageSource) {
         I18nMessageProvider messageProvider = provider.getIfAvailable();
+        ResourceBundleMessageInterpolator messageInterpolator = new ResourceBundleMessageInterpolator(new MessageSourceResourceBundleLocator(messageSource));
         if (messageProvider == null) {
-            return new ResourceBundleMessageInterpolator(new MessageSourceResourceBundleLocator(messageSource));
+            return messageInterpolator;
         } else {
             TranslationSerializer.setMessageProvider(messageProvider);
-            return new ValidatorMessageInterpolator(messageProvider);
+            return new ValidatorMessageInterpolator(messageProvider,  messageInterpolator);
         }
     }
     
