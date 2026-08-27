@@ -55,6 +55,7 @@ public class User {
 package com.eghm.dto.ext;
 
 import com.eghm.foundation.core.enums.ErrorCode;
+import com.eghm.i18n.annotation.FieldMapping;
 import com.eghm.i18n.annotation.I18nMapper;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -69,18 +70,18 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-@I18nMapper(success = 8848, value = "error_code")
+@FieldMapping(success = 8848)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RespBody<T> {
-
-  @Schema(description = "状态码,成功=200")
-  private Integer code = ErrorCode.SUCCESS.getCode();
-
-  @Schema(description = "成功或失败的信息")
-  private String msg = "success";
-
-  @Schema(description = "成功时可能包含的数据集")
-  private T data;
+    
+    @Schema(description = "状态码,成功=200")
+    private Integer code = ErrorCode.SUCCESS.getCode();
+    
+    @Schema(description = "成功或失败的信息")
+    private String msg = "success";
+    
+    @Schema(description = "成功时可能包含的数据集")
+    private T data;
 
 }
 

@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface I18nMapper {
+public @interface FieldMapping {
     
     /**
      * 错误码字段名，默认 "code"

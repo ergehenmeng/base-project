@@ -1,7 +1,7 @@
 package com.eghm.i18n.interceptor;
 
 import cn.hutool.core.util.NumberUtil;
-import com.eghm.i18n.annotation.I18nMapper;
+import com.eghm.i18n.annotation.FieldMapping;
 import com.eghm.i18n.context.LanguageContextHolder;
 import com.eghm.i18n.provider.I18nMessageProvider;
 import jakarta.annotation.Nonnull;
@@ -23,7 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 对返回前端的对象进行国际化翻译
- * 支持方式： 使用 @I18nMapper 注解
+ * 支持方式： 使用 @FieldMapping 注解指定错误码和错误信息字段名的映射关系
  *
  * @author wyb-eghm
  * @since 2026/6/25
@@ -42,7 +42,7 @@ public class RespBodyI18nAdviceHandler implements ResponseBodyAdvice<Object> {
             return false;
         }
         Class<?> parameterType = returnType.getParameterType();
-        return parameterType.isAnnotationPresent(I18nMapper.class);
+        return parameterType.isAnnotationPresent(FieldMapping.class);
     }
     
     @Nullable
@@ -54,8 +54,8 @@ public class RespBodyI18nAdviceHandler implements ResponseBodyAdvice<Object> {
             return null;
         }
         Class<?> clazz = body.getClass();
-        if (clazz.isAnnotationPresent(I18nMapper.class)) {
-            return this.translateResponse(body, clazz.getAnnotation(I18nMapper.class));
+        if (clazz.isAnnotationPresent(FieldMapping.class)) {
+            return this.translateResponse(body, clazz.getAnnotation(FieldMapping.class));
         }
         return body;
     }
@@ -67,14 +67,14 @@ public class RespBodyI18nAdviceHandler implements ResponseBodyAdvice<Object> {
      * @param annotation 注释
      * @return 响应对象
      */
-    private Object translateResponse(Object body, I18nMapper annotation) {
+    private Object translateResponse(Object body, FieldMapping annotation) {
         try {
             String codeName = annotation.code();
             String msgName = annotation.msg();
             int successCode = annotation.success();
             String key = annotation.key();
             Class<?> clazz = body.getClass();
-            Field[] fields = this.getMapperField(clazz, codeName, msgName);
+            Field[] fields = this.getFieldMapping(clazz, codeName, msgName);
             if (fields == null) {
                 return body;
             }
@@ -87,7 +87,7 @@ public class RespBodyI18nAdviceHandler implements ResponseBodyAdvice<Object> {
             String translatedMsg = messageProvider.getMessage(codeValue.toString(), locale, key);
             ReflectionUtils.setField(fields[1], body, translatedMsg);
         } catch (Exception e) {
-            log.error("I18nMapper-Field映射失败", e);
+            log.error("FieldMapping-Field映射失败", e);
         }
         return body;
     }
@@ -100,11 +100,12 @@ public class RespBodyI18nAdviceHandler implements ResponseBodyAdvice<Object> {
      * @param msgName name
      * @return filed
      */
-    private Field[] getMapperField(Class<?> clazz, String codeName, String msgName) {
+    private Field[] getFieldMapping(Class<?> clazz, String codeName, String msgName) {
         return fieldCache.computeIfAbsent(clazz, k -> {
             Field codeField = ReflectionUtils.findField(k, codeName);
             Field msgField = ReflectionUtils.findField(k, msgName);
             if (codeField == null || msgField == null) {
+                log.warn("FieldMapping映射失败, [{}]类中未找到 [{}] 或 [{}] 字段, 不做国际化翻译", clazz, codeName, msgName);
                 return null;
             }
             ReflectionUtils.makeAccessible(codeField);
