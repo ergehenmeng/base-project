@@ -60,8 +60,8 @@ public class WebappLogAspect {
             this.logRecord(message, uri, System.currentTimeMillis() - start, e);
             throw e;
         } finally {
-            log.info("请求地址:[{}], 请求ip:[{}], 会员ID:[{}], 请求参数:[{}], 耗时:[{}ms], 软件版本:[{}], 客户端:[{}], 系统版本:[{}], 设备厂商:[{}], 设备型号:[{}]",
-                    uri, LogTraceHolder.getClientIp(), message.getMemberId(), message.getRequestParam(), System.currentTimeMillis() - start, message.getVersion(),
+            log.info("请求地址:[{}], 会员ID:[{}], 请求参数:[{}], 耗时:[{}ms], 软件版本:[{}], 客户端:[{}], 系统版本:[{}], 设备厂商:[{}], 设备型号:[{}]",
+                    uri, message.getMemberId(), message.getRequestParam(), System.currentTimeMillis() - start, message.getVersion(),
                     message.getChannel(), message.getOsVersion(), message.getDeviceBrand(), message.getDeviceModel());
         }
     }

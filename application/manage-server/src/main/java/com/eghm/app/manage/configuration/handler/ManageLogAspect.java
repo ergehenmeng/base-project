@@ -65,7 +65,7 @@ public class ManageLogAspect {
             Object proceed = joinPoint.proceed();
             sy.setBusinessTime(System.currentTimeMillis() - start);
             if (HttpMethod.GET.name().equals(request.getMethod())) {
-                log.info("请求地址:[{}], 请求参数:[{}], 请求ip:[{}], 用户id:[{}], 耗时:[{}]ms", sy.getUrl(), sy.getRequest(), sy.getIp(), sy.getUserId(), sy.getBusinessTime());
+                log.info("请求地址:[{}], 请求参数:[{}], 用户id:[{}], 耗时:[{}]ms", sy.getUrl(), sy.getRequest(), sy.getUserId(), sy.getBusinessTime());
             } else {
                 this.logRecord(proceed, sy, request.getRequestURI());
             }
