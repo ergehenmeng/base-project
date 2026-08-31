@@ -108,6 +108,12 @@ public interface StorageService {
         }
         fileName = IdUtil.fastSimpleUUID() + fileName.substring(fileName.lastIndexOf("."));
         LocalDate now = LocalDate.now();
-        return CommonConstant.ROOT_FOLDER + folder + File.separator + now.getYear() + File.separator + now.getMonthValue() + File.separator + now.getDayOfMonth() + File.separator + fileName;
+        return File.separator + String.join(File.separator,
+                CommonConstant.ROOT_FOLDER,
+                folder,
+                String.format("%04d", now.getYear()),
+                String.format("%02d", now.getMonthValue()),
+                String.format("%02d", now.getDayOfMonth()),
+                fileName);
     }
 }

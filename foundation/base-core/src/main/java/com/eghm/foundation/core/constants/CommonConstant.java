@@ -4,7 +4,6 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.util.unit.DataSize;
 
-import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
@@ -34,11 +33,11 @@ public class CommonConstant {
      * 系统默认字符集
      */
     public static final Charset CHARSET = StandardCharsets.UTF_8;
-
+    
     /**
-     * 文件相对路径的顶级路径
+     * 文件相对路径的顶级文件件
      */
-    public static final String ROOT_FOLDER = File.separator + "resource" + File.separator;
+    public static final String ROOT_FOLDER = "resource";
 
     /**
      * 未知ip地址

@@ -48,12 +48,13 @@ spring:
           initial-interval: 10000
           enabled: true
           max-interval: 30000
+          multiplier: 2
 application:
   # 全局文件上传路径
   storage:
     type: local
     local:
-      absolute-path: D://file
+      absolute-path: D:/file
   # 管理后台配置
   manage:
     login-types:
