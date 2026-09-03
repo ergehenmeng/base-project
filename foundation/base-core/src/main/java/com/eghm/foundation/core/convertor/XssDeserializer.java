@@ -25,7 +25,7 @@ public class XssDeserializer extends StdScalarDeserializer<String> {
     public String deserialize(JsonParser p, DeserializationContext context) throws IOException {
         String text = p.getText();
         if (isNotBlank(text)) {
-            text = HtmlUtil.escape(text);
+            text = HtmlUtil.filter(text);
         }
         return text;
     }
