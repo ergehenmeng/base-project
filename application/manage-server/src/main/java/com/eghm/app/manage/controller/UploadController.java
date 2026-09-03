@@ -2,11 +2,9 @@ package com.eghm.app.manage.controller;
 
 
 import com.eghm.foundation.core.annotation.SkipLogger;
-import com.eghm.integration.storage.service.StorageService;
-import com.eghm.foundation.core.configuration.authentication.SecurityHolder;
-import com.eghm.foundation.core.constants.CommonConstant;
-import com.eghm.integration.storage.dto.FilePath;
 import com.eghm.foundation.core.dto.ext.RespBody;
+import com.eghm.integration.storage.dto.FilePath;
+import com.eghm.integration.storage.service.StorageService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -36,7 +34,7 @@ public class UploadController {
     @Operation(summary = "单文件上传")
     @SkipLogger
     public RespBody<FilePath> upload(@RequestParam("file") MultipartFile file) {
-        FilePath filePath = storageService.saveFile(CommonConstant.MANAGE + SecurityHolder.getUserId(), file);
+        FilePath filePath = storageService.saveFile(file);
         return RespBody.success(filePath);
     }
 }

@@ -5,14 +5,11 @@ import com.eghm.foundation.core.constants.CommonConstant;
 import com.eghm.foundation.core.enums.ErrorCode;
 import com.eghm.foundation.core.exception.BusinessException;
 import com.eghm.foundation.core.service.AlarmService;
-import com.eghm.foundation.web.utility.CacheUtil;
 import com.eghm.integration.storage.dto.FilePath;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.time.LocalDate;
-
-import static com.eghm.foundation.core.constants.CommonConstant.DAY_MAX_UPLOAD;
 
 /**
  * @author 二哥很猛
@@ -23,54 +20,43 @@ public interface StorageService {
     /**
      * 保存文件
      *
-     * @param key  用户key
      * @param file 文件
      * @return 文件保存的相对路径
      */
-    FilePath saveFile(String key, MultipartFile file);
+    FilePath saveFile(MultipartFile file);
 
     /**
      * 保存文件
      *
-     * @param key  key
      * @param file 文件
      * @param folder 文件保存的文件夹名称
      * @return 文件保存的相对路径
      */
-    FilePath saveFile(String key, MultipartFile file, String folder);
+    FilePath saveFile(MultipartFile file, String folder);
 
     /**
      * 保存文件
      *
-     * @param key     用户key
-     * @param file    文件
-     * @param folder  文件保存的文件夹名称 (主路径由全局定义,父级文件夹可在此处自定义)
+     * @param file 文件
+     * @param folder 文件保存的文件夹名称 (主路径由全局定义,父级文件夹可在此处自定义)
      * @param maxSize 文件最大限制 byte
      * @return 文件保存的相对路径
      */
-    FilePath saveFile(String key, MultipartFile file, String folder, long maxSize);
+    FilePath saveFile(MultipartFile file, String folder, long maxSize);
     
     /**
      * 校验用户累计上传文件大小并保存文件
      *
-     * @param key 用户key
      * @param file 文件
      * @param folder 文件保存的文件夹名称
      * @param maxSize 文件最大限制 byte - 只报警,不抛出异常
      * @param alarmService 报警服务
      * @return 文件保存的相对路径
      */
-    default FilePath checkAndSaveFile(String key, MultipartFile file, String folder, long maxSize, AlarmService alarmService) {
+    default FilePath checkAndSaveFile(MultipartFile file, String folder, long maxSize, AlarmService alarmService) {
         this.checkSize(file, maxSize);
-        Long present = CacheUtil.UPLOAD_LIMIT_CACHE.getIfPresent(key);
-        long size = file.getSize() + (present == null ? 0 : present);
-        if (size > DAY_MAX_UPLOAD.toBytes()) {
-            alarmService.sendMsg(String.format("单日上传文件超出限制,请注意监控, 用户:%s 今日累计上传:%s", key, (size / 1024 / 1024) + "M"));
-        }
         String path = this.generateRelativePath(file, folder);
-        FilePath filePath = this.doSaveFile(file, path);
-        CacheUtil.UPLOAD_LIMIT_CACHE.put(key, size);
-        return filePath;
+        return this.doSaveFile(file, path);
     }
     
     /**

@@ -1,12 +1,10 @@
 package com.eghm.app.webapp.controller;
 
-import com.eghm.foundation.core.annotation.SkipLogger;
-import com.eghm.integration.storage.service.StorageService;
-import com.eghm.foundation.core.constants.CommonConstant;
-import com.eghm.foundation.core.configuration.authentication.ApiHolder;
-import com.eghm.integration.storage.dto.FilePath;
-import com.eghm.foundation.core.dto.ext.RespBody;
 import com.eghm.app.webapp.annotation.AccessToken;
+import com.eghm.foundation.core.annotation.SkipLogger;
+import com.eghm.foundation.core.dto.ext.RespBody;
+import com.eghm.integration.storage.dto.FilePath;
+import com.eghm.integration.storage.service.StorageService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -42,7 +40,7 @@ public class UploadController {
     @SkipLogger
     @AccessToken
     public RespBody<FilePath> upload(@RequestParam("file") MultipartFile file) {
-        FilePath filePath = storageService.saveFile(CommonConstant.WEBAPP + ApiHolder.getMemberId(), file);
+        FilePath filePath = storageService.saveFile(file);
         return RespBody.success(filePath);
     }
 }

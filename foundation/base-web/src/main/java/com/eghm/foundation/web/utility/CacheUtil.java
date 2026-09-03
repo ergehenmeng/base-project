@@ -27,11 +27,6 @@ public class CacheUtil {
     public static final Cache<String, Boolean> INTERVAL_CACHE = Caffeine.newBuilder().expireAfterWrite(SUBMIT_INTERVAL, TimeUnit.MILLISECONDS).maximumSize(50000).build();
 
     /**
-     * 文件单日上传限制
-     */
-    public static final Cache<String, Long> UPLOAD_LIMIT_CACHE = Caffeine.newBuilder().expireAfterWrite(1, TimeUnit.DAYS).maximumSize(20000).build();
-
-    /**
      * 验证码验证次数上限限制
      */
     public static final Cache<String, Integer> SMS_VERIFY_CACHE = Caffeine.newBuilder().expireAfterWrite(SMS_CODE_EXPIRE, TimeUnit.SECONDS).maximumSize(20000).build();

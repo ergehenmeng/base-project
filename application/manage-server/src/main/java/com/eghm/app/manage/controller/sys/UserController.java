@@ -139,7 +139,7 @@ public class UserController {
     @SkipPerm
     public RespBody<FilePath> updateAvatar(@RequestParam("file") MultipartFile file) {
         FileUtil.checkFileType(file, "png", "jpg", "jpeg");
-        FilePath filePath = storageService.saveFile(CommonConstant.MANAGE + SecurityHolder.getUserId(), file, CommonConstant.AVATAR_FOLDER);
+        FilePath filePath = storageService.saveFile(file, CommonConstant.AVATAR_FOLDER);
         sysUserService.updateAvatar(SecurityHolder.getUserId(), filePath.host() + filePath.path());
         return RespBody.success(filePath);
     }

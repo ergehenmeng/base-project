@@ -34,18 +34,18 @@ public class MinioServiceImpl implements StorageService {
     private final ApplicationProperties applicationProperties;
     
     @Override
-    public FilePath saveFile(String key, MultipartFile file) {
-        return this.saveFile(key, file, applicationProperties.getStorage().getFolder(), sysConfigApi.getLong(ConfigConstant.SINGLE_MAX_FILE_SIZE));
+    public FilePath saveFile(MultipartFile file) {
+        return this.saveFile(file, applicationProperties.getStorage().getFolder(), sysConfigApi.getLong(ConfigConstant.SINGLE_MAX_FILE_SIZE));
     }
     
     @Override
-    public FilePath saveFile(String key, MultipartFile file, String folder) {
-        return this.saveFile(key, file, folder, sysConfigApi.getLong(ConfigConstant.SINGLE_MAX_FILE_SIZE));
+    public FilePath saveFile(MultipartFile file, String folder) {
+        return this.saveFile(file, folder, sysConfigApi.getLong(ConfigConstant.SINGLE_MAX_FILE_SIZE));
     }
     
     @Override
-    public FilePath saveFile(String key, MultipartFile file, String folder, long maxSize) {
-        return this.checkAndSaveFile(key, file, folder, maxSize, alarmService);
+    public FilePath saveFile(MultipartFile file, String folder, long maxSize) {
+        return this.checkAndSaveFile(file, folder, maxSize, alarmService);
     }
     
     @Override
