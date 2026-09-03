@@ -311,9 +311,9 @@ public enum ErrorCode {
     IP_LOGIN_LOCKED(2082, "当前IP登录异常,请稍后再试"),
     
     /**
-     * 检测到异地登录,请验证身份
+     * 检测到异地登录,请使用短信登录
      */
-    LOGIN_GEO_CHANGED(2083, "检测到异地登录,请验证身份"),
+    LOGIN_GEO_CHANGED(2083, "检测到异地登录,请使用短信登录"),
 
     /**
      * 系统参数已锁定
@@ -385,7 +385,6 @@ public enum ErrorCode {
      * 密码输入错误
      */
     PASSWORD_ERROR(2106, "密码输入错误"),
-
 
     /**
      * 用户不存在

@@ -449,7 +449,7 @@ public class SysUserServiceImpl implements SysUserService {
         LoginGeoService.GeoCheckResult geoResult = loginCacheManager.checkGeoChange(user.getId(), ip);
         if (geoResult.isGeoChanged()) {
             eventPublisher.publishEvent(LoginSecurityEvent.geoChanged(user.getId(), geoResult.getLastIp(), geoResult.getLastRegion(), geoResult.getCurrentIp(), geoResult.getCurrentRegion()));
-            throw new BusinessException(ErrorCode.NEW_DEVICE_LOGIN);
+            throw new BusinessException(ErrorCode.LOGIN_GEO_CHANGED);
         }
         return user;
     }

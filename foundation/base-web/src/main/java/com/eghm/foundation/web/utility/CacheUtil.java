@@ -22,11 +22,6 @@ import static com.eghm.foundation.core.constants.CommonConstant.SUBMIT_INTERVAL;
 public class CacheUtil {
 
     /**
-     * 登录失败次数过多锁定
-     */
-    public static final Cache<String, Integer> LOGIN_LOCK_CACHE = Caffeine.newBuilder().expireAfterWrite(10, TimeUnit.MINUTES).maximumSize(20000).build();
-
-    /**
      * post请求间隔限制
      */
     public static final Cache<String, Boolean> INTERVAL_CACHE = Caffeine.newBuilder().expireAfterWrite(SUBMIT_INTERVAL, TimeUnit.MILLISECONDS).maximumSize(50000).build();
