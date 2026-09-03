@@ -65,7 +65,7 @@ public class ManageMvcConfig extends WebMvcConfig {
      */
     @Bean
     public HandlerInterceptor submitIntervalInterceptor() {
-        return new SubmitIntervalInterceptor();
+        return new SubmitIntervalInterceptor(cacheService);
     }
 
     /**

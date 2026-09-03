@@ -1,20 +1,18 @@
 package com.eghm.integration.messaging.service.impl;
 
-import com.eghm.platform.config.service.SysConfigApi;
-
 import cn.hutool.core.util.IdUtil;
 import com.eghm.foundation.cache.service.CacheService;
-import com.eghm.integration.messaging.service.SendSmsService;
-import com.eghm.integration.messaging.service.SmsService;
 import com.eghm.foundation.core.constants.CacheConstant;
 import com.eghm.foundation.core.constants.ConfigConstant;
 import com.eghm.foundation.core.enums.ErrorCode;
 import com.eghm.foundation.core.enums.TemplateType;
 import com.eghm.foundation.core.exception.BusinessException;
-import com.eghm.integration.messaging.entity.SmsLog;
-import com.eghm.integration.messaging.service.SmsLogService;
-import com.eghm.foundation.web.utility.CacheUtil;
 import com.eghm.foundation.core.utils.StringUtil;
+import com.eghm.integration.messaging.entity.SmsLog;
+import com.eghm.integration.messaging.service.SendSmsService;
+import com.eghm.integration.messaging.service.SmsLogService;
+import com.eghm.integration.messaging.service.SmsService;
+import com.eghm.platform.config.service.SysConfigApi;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
@@ -54,17 +52,16 @@ public class SmsServiceImpl implements SmsService {
             throw new BusinessException(ErrorCode.LOGIN_SMS_CODE_EXPIRE);
         }
         String key = templateType.getValue() + mobile;
-        Integer present = CacheUtil.SMS_VERIFY_CACHE.getIfPresent(key);
-        if (present != null && present > MAX_ERROR_NUM) {
+        long present = cacheService.increment(key);
+        if (present > MAX_ERROR_NUM) {
             this.cleanSmsCode(templateType, mobile);
             throw new BusinessException(ErrorCode.SMS_CODE_VERIFY_ERROR);
         }
         if (!originalSmsCode.equalsIgnoreCase(smsCode)) {
-            CacheUtil.SMS_VERIFY_CACHE.asMap().merge(key,  1, Integer::sum);
             throw new BusinessException(ErrorCode.LOGIN_SMS_CODE_ERROR);
         }
         this.cleanSmsCode(templateType, mobile);
-        CacheUtil.SMS_VERIFY_CACHE.invalidate(key);
+        cacheService.delete(key);
         String uuid = IdUtil.fastSimpleUUID();
         cacheService.setValue(CacheConstant.VERIFY_PREFIX + uuid, true, SMS_CODE_EXPIRE);
         cacheService.setValue(CacheConstant.VERIFY_MOBILE_PREFIX + uuid, mobile, SMS_CODE_EXPIRE);

@@ -1,9 +1,10 @@
 package com.eghm.app.webapp.configuration.interceptor;
 
-import com.eghm.foundation.web.config.interceptor.InterceptorAdapter;
+import com.eghm.foundation.cache.service.CacheService;
 import com.eghm.foundation.core.configuration.authentication.ApiHolder;
 import com.eghm.foundation.core.constants.CacheConstant;
 import com.eghm.foundation.core.enums.ErrorCode;
+import com.eghm.foundation.web.config.interceptor.InterceptorAdapter;
 import com.eghm.foundation.web.utility.IpUtil;
 import com.eghm.foundation.web.utility.WebUtil;
 import jakarta.annotation.Nonnull;
@@ -12,10 +13,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpMethod;
 
-
 import java.io.IOException;
-
-import static com.eghm.foundation.web.utility.CacheUtil.INTERVAL_CACHE;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author 殿小二
@@ -23,6 +22,8 @@ import static com.eghm.foundation.web.utility.CacheUtil.INTERVAL_CACHE;
  */
 @AllArgsConstructor
 public class SubmitIntervalInterceptor implements InterceptorAdapter {
+    
+    private final CacheService cacheService;
 
     @Override
     public boolean beforeHandle(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response, @Nonnull Object handler) throws IOException {
@@ -39,7 +40,7 @@ public class SubmitIntervalInterceptor implements InterceptorAdapter {
         } else {
             key = String.format(CacheConstant.SUBMIT_LIMIT, memberId, uri);
         }
-        if (INTERVAL_CACHE.asMap().putIfAbsent(key, true) != null) {
+        if (!cacheService.putIfAbsent(key, CacheConstant.PLACE_HOLDER, 1000, TimeUnit.MILLISECONDS)) {
             WebUtil.printJson(response, ErrorCode.SUBMIT_FREQUENTLY);
             return false;
         }

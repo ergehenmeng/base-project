@@ -1,17 +1,18 @@
 package com.eghm.app.webapp.configuration;
 
-import com.eghm.platform.iam.service.AuthConfigCacheService;
-import com.eghm.member.account.service.MemberTokenService;
-import com.eghm.foundation.core.configuration.ApplicationProperties;
-import com.eghm.foundation.web.config.WebMvcConfig;
-import com.eghm.foundation.core.constants.CommonConstant;
-import com.eghm.platform.config.service.BlackRosterService;
 import com.eghm.app.webapp.configuration.filter.ByteHttpRequestFilter;
 import com.eghm.app.webapp.configuration.filter.IpBlackListFilter;
 import com.eghm.app.webapp.configuration.interceptor.ApiSignInterceptor;
 import com.eghm.app.webapp.configuration.interceptor.MessageInterceptor;
 import com.eghm.app.webapp.configuration.interceptor.SubmitIntervalInterceptor;
 import com.eghm.app.webapp.configuration.interceptor.TokenInterceptor;
+import com.eghm.foundation.cache.service.CacheService;
+import com.eghm.foundation.core.configuration.ApplicationProperties;
+import com.eghm.foundation.core.constants.CommonConstant;
+import com.eghm.foundation.web.config.WebMvcConfig;
+import com.eghm.member.account.service.MemberTokenService;
+import com.eghm.platform.config.service.BlackRosterService;
+import com.eghm.platform.iam.service.AuthConfigCacheService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.DispatcherType;
@@ -36,14 +37,17 @@ import static com.eghm.foundation.core.constants.CommonConstant.WEBAPP_PREFIX;
 @Configuration
 public class WebappMvcConfig extends WebMvcConfig {
     
-    private final AuthConfigCacheService authConfigCacheService;
+    private final CacheService cacheService;
     
     private final MemberTokenService memberTokenService;
     
-    public WebappMvcConfig(ObjectMapper objectMapper, ApplicationProperties applicationProperties, MemberTokenService memberTokenService, AuthConfigCacheService authConfigCacheService, @Qualifier("taskExecutor") TaskExecutor taskExecutor) {
+    private final AuthConfigCacheService authConfigCacheService;
+    
+    public WebappMvcConfig(ObjectMapper objectMapper, ApplicationProperties applicationProperties, MemberTokenService memberTokenService, AuthConfigCacheService authConfigCacheService, CacheService cacheService, @Qualifier("taskExecutor") TaskExecutor taskExecutor) {
         super(objectMapper, taskExecutor, applicationProperties);
         this.authConfigCacheService = authConfigCacheService;
         this.memberTokenService = memberTokenService;
+        this.cacheService = cacheService;
     }
     
     @Override
@@ -68,7 +72,7 @@ public class WebappMvcConfig extends WebMvcConfig {
      */
     @Bean
     public HandlerInterceptor submitIntervalInterceptor() {
-        return new SubmitIntervalInterceptor();
+        return new SubmitIntervalInterceptor(cacheService);
     }
     
     /**

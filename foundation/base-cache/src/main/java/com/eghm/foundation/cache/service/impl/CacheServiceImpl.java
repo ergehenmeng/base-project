@@ -290,4 +290,9 @@ public class CacheServiceImpl implements CacheService {
     public void expire(String key, long expire, TimeUnit unit) {
         redisTemplate.expire(key, expire, unit);
     }
+    
+    @Override
+    public boolean putIfAbsent(String key, String value, long expire, TimeUnit unit) {
+        return Boolean.TRUE.equals(redisTemplate.opsForValue().setIfAbsent(key, value, expire, unit));
+    }
 }

@@ -262,4 +262,15 @@ public interface CacheService {
      * @param unit 单位
      */
     void expire(String key, long expire, TimeUnit unit);
+    
+    /**
+    *  如果指定缓存key不存在则设置指定缓存key的值
+     *
+     * @param key key
+     * @param value value
+     * @param expire 过期时间
+     * @param unit 单位
+     * @return true: 设置成功 false: 设置失败
+     */
+    boolean putIfAbsent(String key, String value, long expire, TimeUnit unit);
 }
