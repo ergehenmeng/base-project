@@ -97,6 +97,8 @@
         <minio.version>8.5.13</minio.version>
         <!--动态数据源-->
         <dynamic-datasource.version>4.5.0</dynamic-datasource.version>
+        <!--ip2region-->
+        <ip2region.version>3.3.7</ip2region.version>
     </properties>
 
     <!--定义依赖包,需要子modules显式添加依赖,不需要版本即可-->
@@ -381,6 +383,11 @@
                         <groupId>org.mybatis</groupId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.lionsoul</groupId>
+                <artifactId>ip2region</artifactId>
+                <version>${ip2region.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

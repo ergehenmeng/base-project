@@ -91,9 +91,10 @@ public interface SysUserService {
      * @param userName 账号
      * @param password 密码
      * @param openId   openId
+     * @param ip       ip地址
      * @return token及权限
      */
-    TotpLoginResponse login(String userName, String password, String openId);
+    TotpLoginResponse login(String userName, String password, String openId, String ip);
 
     /**
      * 验证双因子并登录
@@ -145,9 +146,10 @@ public interface SysUserService {
      * 管理后台登陆
      *
      * @param user 用户信息
+     * @param ip   ip地址
      * @return 返回前端信息
      */
-    LoginResponse doLogin(SysUser user);
+    LoginResponse doLogin(SysUser user, String ip);
 
     /**
      * 获取当前登录人的菜单

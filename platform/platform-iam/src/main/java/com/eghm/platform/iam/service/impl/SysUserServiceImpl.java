@@ -36,6 +36,7 @@ import com.eghm.platform.iam.dto.UserProfileRequest;
 import com.eghm.platform.iam.dto.UserQueryRequest;
 import com.eghm.platform.iam.entity.SysDeptData;
 import com.eghm.platform.iam.entity.SysUser;
+import com.eghm.platform.iam.event.LoginSecurityEvent;
 import com.eghm.platform.iam.mapper.SysUserMapper;
 import com.eghm.platform.iam.service.SysDeptDataService;
 import com.eghm.platform.iam.service.SysMenuService;
@@ -51,12 +52,11 @@ import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
 import com.warrenstrange.googleauth.GoogleAuthenticatorQRGenerator;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
-import static com.eghm.foundation.core.constants.CommonConstant.MAX_ERROR_NUM;
 
 /**
  * @author 二哥很猛
@@ -86,6 +86,11 @@ public class SysUserServiceImpl implements SysUserService {
     private final LoginCacheManager loginCacheManager;
     
     private final SysDeptDataService sysDeptDataService;
+    
+    private final ApplicationEventPublisher eventPublisher;
+    
+    private final LoginSecurityService loginSecurityService;
+    
 
     @Override
     public Page<UserResponse> getByPage(UserQueryRequest request) {
@@ -181,8 +186,8 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public TotpLoginResponse login(String userName, String password, String openId) {
-        SysUser user = this.getAndCheckUser(userName, password);
+    public TotpLoginResponse login(String userName, String password, String openId, String ip) {
+        SysUser user = this.getAndCheckUser(userName, password, ip);
         this.tryBindingOpenId(user.getId(), openId);
         boolean openTotp = sysConfigApi.getBoolean(ConfigConstant.OPEN_TOTP);
         if (openTotp) {
@@ -195,7 +200,7 @@ public class SysUserServiceImpl implements SysUserService {
             }
             return TotpLoginResponse.needTotp(uuid);
         }
-        LoginResponse response = this.doLogin(user);
+        LoginResponse response = this.doLogin(user, ip);
         return TotpLoginResponse.success(response);
     }
 
@@ -205,7 +210,7 @@ public class SysUserServiceImpl implements SysUserService {
         if (TotpUtil.invalid(user.getTotpSecret(), request.getVerifyCode())) {
             throw new BusinessException(ErrorCode.TOTP_SN_ERROR);
         }
-        LoginResponse response = this.doLogin(user);
+        LoginResponse response = this.doLogin(user, null);
         loginCacheManager.clearTotpData(request.getUuid());
         return response;
     }
@@ -219,7 +224,7 @@ public class SysUserServiceImpl implements SysUserService {
         user.setTotpSecret(request.getSecretKey());
         sysUserMapper.updateById(user);
         loginCacheManager.clearTotpData(request.getUuid());
-        return this.doLogin(user);
+        return this.doLogin(user, null);
     }
 
     @Override
@@ -241,7 +246,7 @@ public class SysUserServiceImpl implements SysUserService {
         smsService.verifySmsCode(TemplateType.USER_LOGIN, request.getMobile(), request.getSmsCode());
         SysUser user = this.getAndCheckUser(request.getMobile());
         this.tryBindingOpenId(user.getId(), openId);
-        return this.doLogin(user);
+        return this.doLogin(user, null);
     }
 
     @Override
@@ -250,11 +255,12 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public LoginResponse doLogin(SysUser user) {
+    public LoginResponse doLogin(SysUser user, String ip) {
         List<String> customList = sysDeptDataService.getDeptList(user.getId());
         String token = userTokenService.createToken(user, customList);
         LoginResponse response = this.buildLoginResponse(user, token);
         loginCacheManager.clearAllLoginCache(user);
+        loginCacheManager.recordLoginGeo(user.getId(), ip);
         return response;
     }
 
@@ -429,18 +435,21 @@ public class SysUserServiceImpl implements SysUserService {
      * @param password password md5加密过
      * @return 用户信息
      */
-    private SysUser getAndCheckUser(String userName, String password) {
-        int present = loginCacheManager.getLoginErrorCount(userName);
-        if (present > MAX_ERROR_NUM) {
-            throw new BusinessException(ErrorCode.USER_ERROR_LOCK);
-        }
+    private SysUser getAndCheckUser(String userName, String password, String ip) {
+        loginSecurityService.checkAccountNotLocked(userName);
+        loginSecurityService.checkIpNotLocked(ip);
         SysUser user = this.getByAccount(userName);
         if (user == null || user.getState() == UserState.LOGOUT || !encoder.match(SecureUtil.sha256(password), user.getPwd())) {
-            loginCacheManager.incrementLoginError(userName);
+            loginCacheManager.incrementLoginError(userName, ip);
             throw new BusinessException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
         }
         if (user.getState() == UserState.LOCK) {
             throw new BusinessException(ErrorCode.USER_LOCKED_ERROR);
+        }
+        LoginGeoService.GeoCheckResult geoResult = loginCacheManager.checkGeoChange(user.getId(), ip);
+        if (geoResult.isGeoChanged()) {
+            eventPublisher.publishEvent(LoginSecurityEvent.geoChanged(user.getId(), geoResult.getLastIp(), geoResult.getLastRegion(), geoResult.getCurrentIp(), geoResult.getCurrentRegion()));
+            throw new BusinessException(ErrorCode.NEW_DEVICE_LOGIN);
         }
         return user;
     }

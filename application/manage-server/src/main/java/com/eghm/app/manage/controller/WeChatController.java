@@ -104,7 +104,7 @@ public class WeChatController {
             response.setState(0);
             return RespBody.success(response);
         }
-        LoginResponse doneLogin = sysUserService.doLogin(sysUser);
+        LoginResponse doneLogin = sysUserService.doLogin(sysUser, null);
         response.setData(doneLogin);
         response.setState(1);
         return RespBody.success(response);

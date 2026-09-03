@@ -238,4 +238,28 @@ public interface CacheService {
      * @return long 默认取32位
      */
     Long getBitmapOffset(String key, Long offset, int length);
+    
+    /**
+     * 查看指定缓存key是否存在
+     * @param key key
+     * @return true: 存在 false: 不存在
+     */
+    boolean hasKey(String key);
+    
+    /**
+    *  增加指定缓存key的值
+     *
+     * @param key key
+     * @return 增加后的值
+     */
+    long increment(String key);
+    
+    /**
+     * 设置指定缓存key的过期时间
+     *
+     * @param key key
+     * @param expire 过期时间
+     * @param unit 单位
+     */
+    void expire(String key, long expire, TimeUnit unit);
 }

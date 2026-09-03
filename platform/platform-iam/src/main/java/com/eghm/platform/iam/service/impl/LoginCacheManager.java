@@ -1,19 +1,22 @@
 package com.eghm.platform.iam.service.impl;
 
 import com.eghm.foundation.cache.service.CacheService;
+import com.eghm.foundation.core.configuration.ApplicationProperties;
 import com.eghm.foundation.core.constants.CacheConstant;
-import com.eghm.foundation.core.constants.CommonConstant;
+import com.eghm.foundation.web.utility.IpRegionUtil;
 import com.eghm.platform.iam.entity.SysUser;
+import com.eghm.platform.iam.event.LoginSecurityEvent;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
-import static com.eghm.foundation.web.utility.CacheUtil.LOGIN_LOCK_CACHE;
 import static com.eghm.foundation.web.utility.CacheUtil.TOTP_CACHE;
 
 /**
  * 登录缓存管理器
- * 统一管理登录相关的缓存操作，包括登录锁定、TOTP验证、锁屏状态等
+ * 统一管理登录相关的缓存操作, 委托LoginSecurityService实现账号/IP锁定,
+ * 委托LoginGeoService实现异地登录检测, 并负责发布登录安全事件
  *
  * @author 二哥很猛
  * @since 2025/1/28
@@ -25,77 +28,88 @@ public class LoginCacheManager {
     
     private final CacheService cacheService;
     
+    private final LoginGeoService loginGeoService;
+    
+    private final ApplicationEventPublisher eventPublisher;
+    
+    private final LoginSecurityService loginSecurityService;
+    
+    private final ApplicationProperties applicationProperties;
+    
     /**
-     * 检查用户是否被锁定
+     * 检查账号是否已被锁定
      *
-     * @param account 账号（用户名或手机号）
-     * @return 是否被锁定
+     * @param account 账号(用户名或手机号)
+     * @return true:已锁定 false:未锁定
      */
     public boolean isLocked(String account) {
-        Integer errorCount = LOGIN_LOCK_CACHE.getIfPresent(account);
-        boolean locked = errorCount != null && errorCount > CommonConstant.MAX_ERROR_NUM;
-        if (locked) {
-            log.warn("用户账号已被锁定 [{}] [错误次数:{}]", account, errorCount);
+        try {
+            loginSecurityService.checkAccountNotLocked(account);
+            return false;
+        } catch (Exception e) {
+            return true;
         }
-        return locked;
     }
     
     /**
-     * 增加登录错误次数
+     * 记录登录失败: 同时递增账号错误计数和IP错误计数
+     * 当达到阈值时发布账号锁定事件或IP锁定事件
      *
-     * @param account 账号（用户名或手机号）
+     * @param account 账号(用户名或手机号)
+     * @param ip      客户端IP地址
      */
-    public void incrementLoginError(String account) {
-        int errorCount = LOGIN_LOCK_CACHE.asMap().merge(account, 1, Integer::sum);
-        log.warn("用户登录错误次数增加 [{}] [当前错误次数:{}]", account, errorCount);
-        if (errorCount > CommonConstant.MAX_ERROR_NUM) {
-            log.warn("用户账号达到最大错误次数，已被锁定 [{}] [错误次数:{}]", account, errorCount);
+    public void incrementLoginError(String account, String ip) {
+        loginSecurityService.recordAccountError(account, ip);
+        loginSecurityService.recordIpError(ip);
+        
+        int errorCount = loginSecurityService.getAccountErrorCount(account);
+        ApplicationProperties.LoginSecurityProperties config = applicationProperties.getManage().getLoginSecurity();
+        if (errorCount >= config.getAccountMaxError()) {
+            eventPublisher.publishEvent(LoginSecurityEvent.accountLocked(null, account, ip));
+        }
+        
+        long ipErrorCount = loginSecurityService.getIpErrorCount(ip);
+        if (ipErrorCount >= config.getIpMaxError()) {
+            eventPublisher.publishEvent(LoginSecurityEvent.ipLocked(ip, ipErrorCount));
         }
     }
- 
+    
     /**
-     * 清除指定账号的登录锁定缓存
+     * 检查用户登录地域是否发生变化(异地登录检测)
      *
-     * @param userName 用户名
-     * @param mobile   手机号
+     * @param userId 用户ID
+     * @param ip     当前登录IP
+     * @return 地域检查结果
      */
+    public LoginGeoService.GeoCheckResult checkGeoChange(Long userId, String ip) {
+        return loginGeoService.checkGeoChange(userId, ip);
+    }
+    
+    /**
+     * 记录用户登录IP和地域(登录成功后调用)
+     *
+     * @param userId 用户ID
+     * @param ip     登录IP
+     */
+    public void recordLoginGeo(Long userId, String ip) {
+        String region = IpRegionUtil.getRegion(ip);
+        loginGeoService.recordLoginGeo(userId, ip, region);
+    }
+    
     public void clearLoginLockCache(String userName, String mobile) {
         if (userName != null) {
-            LOGIN_LOCK_CACHE.invalidate(userName);
+            loginSecurityService.clearAccountError(userName);
         }
         if (mobile != null) {
-            LOGIN_LOCK_CACHE.invalidate(mobile);
+            loginSecurityService.clearAccountError(mobile);
         }
     }
     
-    /**
-     * 获取用户登录错误次数
-     *
-     * @param account 账号（用户名或手机号）
-     * @return 错误次数，如果不存在返回0
-     */
-    public int getLoginErrorCount(String account) {
-        Integer errorCount = LOGIN_LOCK_CACHE.getIfPresent(account);
-        return errorCount != null ? errorCount : 0;
-    }
-    
-    /**
-     * 保存TOTP验证临时数据
-     *
-     * @param uuid    唯一标识
-     * @param userId  用户ID
-     */
     public void saveTotpData(String uuid, Long userId) {
         TOTP_CACHE.put(uuid, userId);
         log.info("保存TOTP验证数据 [UUID:{}] [用户ID:{}]", uuid, userId);
     }
     
-    /**
-     * 获取TOTP验证的用户ID
-     *
-     * @param uuid 唯一标识
-     * @return 用户ID，如果不存在或已过期返回null
-     */
     public Long getTotpUserId(String uuid) {
         Long userId = TOTP_CACHE.getIfPresent(uuid);
         if (userId == null) {
@@ -104,39 +118,19 @@ public class LoginCacheManager {
         return userId;
     }
     
-    /**
-     * 清除TOTP验证数据
-     *
-     * @param uuid 唯一标识
-     */
     public void clearTotpData(String uuid) {
         TOTP_CACHE.invalidate(uuid);
-        log.info("清除TOTP验证数据 [UUID:{}]", uuid);
     }
     
-    /**
-     * 清除用户锁屏状态
-     *
-     * @param userId 用户ID
-     */
     public void clearLockScreenStatus(Long userId) {
         String lockScreenKey = CacheConstant.LOCK_SCREEN + userId;
         cacheService.delete(lockScreenKey);
-        log.info("清除用户锁屏状态 [用户ID:{}]", userId);
     }
     
-    /**
-     * 清除用户所有登录相关缓存
-     * 包括：登录锁定缓存、锁屏状态缓存
-     *
-     * @param user 用户信息
-     */
     public void clearAllLoginCache(SysUser user) {
         if (user != null) {
             this.clearLoginLockCache(user.getUserName(), user.getMobile());
             this.clearLockScreenStatus(user.getId());
-            log.info("清除用户所有登录相关缓存 [用户ID:{}] [用户名:{}] [手机号:{}]", user.getId(), user.getUserName(), user.getMobile());
         }
     }
-    
 }

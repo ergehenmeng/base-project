@@ -219,7 +219,12 @@ public class ApplicationProperties {
          * 最终登录方式如下: 1、2、3(1+2)、4、5(1+4)、6(2+4)、7(1+2+4)
          */
         private List<LoginType> loginTypes = new ArrayList<>();
-
+        
+        /**
+         * 登录安全配置
+         */
+        private final LoginSecurityProperties loginSecurity = new LoginSecurityProperties();
+        
         @Data
         public static class Token {
 
@@ -243,6 +248,56 @@ public class ApplicationProperties {
              */
             private String jwtSecret;
         }
+        
+    }
+    
+    @Data
+    public static class LoginSecurityProperties {
+        
+        /**
+         * 是否启用登录安全策略
+         */
+        private boolean enabled = true;
+        
+        /**
+         * 账号最大登录错误次数, 超过该值则锁定账号
+         */
+        private int accountMaxError = 5;
+        
+        /**
+         * 账号锁定时长(分钟)
+         */
+        private long accountLockMinutes = 10;
+        
+        /**
+         * 同一IP最大登录错误次数, 超过该值则锁定IP
+         */
+        private int ipMaxError = 20;
+        
+        /**
+         * IP锁定时长(分钟)
+         */
+        private long ipLockMinutes = 30;
+        
+        /**
+         * 是否启用IP级别锁定(防止分布式撞库攻击)
+         */
+        private boolean ipLockEnabled = true;
+        
+        /**
+         * 是否启用异地登录检测(基于IP地域变化)
+         */
+        private boolean geoCheckEnabled = true;
+        
+        /**
+         * 账号/IP锁定时是否发送告警通知
+         */
+        private boolean notifyOnLock = true;
+        
+        /**
+         * 异地登录时是否发送告警通知
+         */
+        private boolean notifyOnGeoChange = true;
     }
 
     @Data

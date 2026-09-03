@@ -274,4 +274,20 @@ public class CacheServiceImpl implements CacheService {
         }
         return resultMap;
     }
+    
+    @Override
+    public boolean hasKey(String key) {
+        return redisTemplate.hasKey(key);
+    }
+    
+    @Override
+    public long increment(String key) {
+        Long increment = redisTemplate.opsForValue().increment(key);
+        return increment != null ? increment : 0L;
+    }
+    
+    @Override
+    public void expire(String key, long expire, TimeUnit unit) {
+        redisTemplate.expire(key, expire, unit);
+    }
 }

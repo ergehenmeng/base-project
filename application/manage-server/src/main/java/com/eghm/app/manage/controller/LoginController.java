@@ -70,7 +70,7 @@ public class LoginController {
         }
         this.checkLoginType(LoginType.PASSWORD, ErrorCode.PWD_NOT_SUPPORTED);
         String openId = (String) servletRequest.getSession().getAttribute(CommonConstant.OPEN_ID);
-        TotpLoginResponse response = sysUserService.login(request.getUserName(), request.getPwd(), openId);
+        TotpLoginResponse response = sysUserService.login(request.getUserName(), request.getPwd(), openId, IpUtil.getIpAddress(servletRequest));
         return RespBody.success(response);
     }
 

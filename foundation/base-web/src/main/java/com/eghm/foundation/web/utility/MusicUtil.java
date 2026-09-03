@@ -20,10 +20,6 @@ public class MusicUtil {
 
     private static final Map<Integer, String> NUMBER_MAP = Map.of(1, "do", 2, "re", 3, "mi", 4, "fa", 5, "so", 6, "la", 7, "xi");
 
-    public static void main(String[] args) {
-        start();
-    }
-
     public static void start() {
         log.info("请输入小节简谱长度:");
         Scanner sc = new Scanner(System.in);
