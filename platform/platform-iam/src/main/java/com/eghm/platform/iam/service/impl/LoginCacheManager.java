@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
-import static com.eghm.foundation.web.utility.CacheUtil.TOTP_CACHE;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 登录缓存管理器
@@ -106,20 +106,21 @@ public class LoginCacheManager {
     }
     
     public void saveTotpData(String uuid, Long userId) {
-        TOTP_CACHE.put(uuid, userId);
+        cacheService.setValue(uuid, userId, 5, TimeUnit.MINUTES);
         log.info("保存TOTP验证数据 [UUID:{}] [用户ID:{}]", uuid, userId);
     }
     
     public Long getTotpUserId(String uuid) {
-        Long userId = TOTP_CACHE.getIfPresent(uuid);
-        if (userId == null) {
+        String value = cacheService.getValue(uuid);
+        if (value == null) {
             log.warn("TOTP验证数据不存在或已过期 [UUID:{}]", uuid);
+            return null;
         }
-        return userId;
+        return Long.parseLong(value);
     }
     
     public void clearTotpData(String uuid) {
-        TOTP_CACHE.invalidate(uuid);
+        cacheService.delete(uuid);
     }
     
     public void clearLockScreenStatus(Long userId) {
