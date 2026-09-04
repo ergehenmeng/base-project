@@ -205,18 +205,18 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public LoginResponse checkTotp(TotpCheckRequest request) {
+    public LoginResponse checkTotp(TotpCheckRequest request, String ip) {
         SysUser user = this.getByUuid(request.getUuid());
         if (TotpUtil.invalid(user.getTotpSecret(), request.getVerifyCode())) {
             throw new BusinessException(ErrorCode.TOTP_SN_ERROR);
         }
-        LoginResponse response = this.doLogin(user, null);
+        LoginResponse response = this.doLogin(user, ip);
         loginCacheManager.clearTotpData(request.getUuid());
         return response;
     }
 
     @Override
-    public LoginResponse bindTotp(TotpBindRequest request) {
+    public LoginResponse bindTotp(TotpBindRequest request, String ip) {
         if (TotpUtil.invalid(request.getSecretKey(), request.getVerifyCode())) {
             throw new BusinessException(ErrorCode.TOTP_SN_ERROR);
         }
@@ -224,7 +224,7 @@ public class SysUserServiceImpl implements SysUserService {
         user.setTotpSecret(request.getSecretKey());
         sysUserMapper.updateById(user);
         loginCacheManager.clearTotpData(request.getUuid());
-        return this.doLogin(user, null);
+        return this.doLogin(user, ip);
     }
 
     @Override
@@ -242,11 +242,11 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public LoginResponse smsLogin(SmsLoginRequest request, String openId) {
+    public LoginResponse smsLogin(SmsLoginRequest request, String ip, String openId) {
         smsService.verifySmsCode(TemplateType.USER_LOGIN, request.getMobile(), request.getSmsCode());
         SysUser user = this.getAndCheckUser(request.getMobile());
         this.tryBindingOpenId(user.getId(), openId);
-        return this.doLogin(user, null);
+        return this.doLogin(user, ip);
     }
 
     @Override

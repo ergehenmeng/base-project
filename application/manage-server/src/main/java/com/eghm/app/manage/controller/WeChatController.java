@@ -5,29 +5,36 @@ import cn.hutool.core.util.IdUtil;
 import com.eghm.foundation.core.configuration.ApplicationProperties;
 import com.eghm.foundation.core.constants.CommonConstant;
 import com.eghm.foundation.core.dto.ext.RespBody;
-import com.eghm.integration.wechat.dto.LinkUrlRequest;
-import com.eghm.integration.wechat.dto.QrCodeRequest;
-import com.eghm.integration.wechat.dto.ShortUrlRequest;
 import com.eghm.foundation.core.enums.ErrorCode;
 import com.eghm.foundation.core.enums.LoginType;
 import com.eghm.foundation.core.exception.BusinessException;
+import com.eghm.foundation.web.utility.IpUtil;
+import com.eghm.integration.wechat.dto.LinkUrlRequest;
+import com.eghm.integration.wechat.dto.QrCodeRequest;
+import com.eghm.integration.wechat.dto.ShortUrlRequest;
+import com.eghm.integration.wechat.service.WeChatMiniService;
+import com.eghm.integration.wechat.service.WeChatMpService;
 import com.eghm.platform.iam.entity.SysUser;
 import com.eghm.platform.iam.service.SysUserService;
 import com.eghm.platform.iam.vo.LoginResponse;
 import com.eghm.platform.iam.vo.QrcodeLoginResponse;
-import com.eghm.integration.wechat.service.WeChatMiniService;
-import com.eghm.integration.wechat.service.WeChatMpService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.bean.oauth2.WxOAuth2AccessToken;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -87,7 +94,7 @@ public class WeChatController {
     @Operation(summary = "扫码成功回调")
     @Parameter(name = "state", description = "本地唯一state", required = true, in = ParameterIn.QUERY)
     @Parameter(name = "code", description = "微信返回code", required = true, in = ParameterIn.QUERY)
-    public RespBody<QrcodeLoginResponse> callback(@RequestParam("state") String state, @RequestParam("code") String code, HttpSession session) {
+    public RespBody<QrcodeLoginResponse> callback(@RequestParam("state") String state, @RequestParam("code") String code, HttpSession session, HttpServletRequest request) {
         Object stateValue = session.getAttribute("state");
         QrcodeLoginResponse response = new QrcodeLoginResponse();
         if (stateValue == null || !stateValue.equals(state)) {
@@ -104,7 +111,7 @@ public class WeChatController {
             response.setState(0);
             return RespBody.success(response);
         }
-        LoginResponse doneLogin = sysUserService.doLogin(sysUser, null);
+        LoginResponse doneLogin = sysUserService.doLogin(sysUser, IpUtil.getIpAddress(request));
         response.setData(doneLogin);
         response.setState(1);
         return RespBody.success(response);

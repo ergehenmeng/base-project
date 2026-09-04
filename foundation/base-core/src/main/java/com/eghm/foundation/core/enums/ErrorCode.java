@@ -231,9 +231,9 @@ public enum ErrorCode {
     TOTP_SN_EXPIRE(2045, "登录信息已过期,请输入账号密码"),
 
     /**
-     * 校验码无效
+     * 动态口令错误
      */
-    TOTP_SN_ERROR(2046, "校验码无效"),
+    TOTP_SN_ERROR(2046, "动态口令错误"),
 
     /**
      * ip格式错误

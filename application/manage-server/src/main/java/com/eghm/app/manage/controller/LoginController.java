@@ -28,7 +28,6 @@ import com.eghm.platform.iam.vo.TotpLoginResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -76,15 +75,15 @@ public class LoginController {
 
     @PostMapping(value = "/checkTotp", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "校验双因子❷")
-    public RespBody<LoginResponse> checkTotp(@Validated @RequestBody TotpCheckRequest request) {
-        LoginResponse response = sysUserService.checkTotp(request);
+    public RespBody<LoginResponse> checkTotp(@Validated @RequestBody TotpCheckRequest request, HttpServletRequest servletRequest) {
+        LoginResponse response = sysUserService.checkTotp(request, IpUtil.getIpAddress(servletRequest));
         return RespBody.success(response);
     }
 
     @PostMapping(value = "/bindTotp", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "绑定双因子验证❷")
-    public RespBody<LoginResponse> bindTotp(@Validated @RequestBody TotpBindRequest request) {
-        LoginResponse response = sysUserService.bindTotp(request);
+    public RespBody<LoginResponse> bindTotp(@Validated @RequestBody TotpBindRequest request, HttpServletRequest servletRequest) {
+        LoginResponse response = sysUserService.bindTotp(request, IpUtil.getIpAddress(servletRequest));
         return RespBody.success(response);
     }
 
@@ -131,10 +130,10 @@ public class LoginController {
 
     @PostMapping(value = "/smsLogin", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "验证码登录②")
-    public RespBody<LoginResponse> smsLogin(@Validated @RequestBody SmsLoginRequest request, HttpSession session) {
+    public RespBody<LoginResponse> smsLogin(@Validated @RequestBody SmsLoginRequest request, HttpServletRequest servletRequest) {
         this.checkLoginType(LoginType.SMS, ErrorCode.SMS_NOT_SUPPORTED);
-        String openId = (String) session.getAttribute(CommonConstant.OPEN_ID);
-        LoginResponse response = sysUserService.smsLogin(request, openId);
+        String openId = (String) servletRequest.getSession().getAttribute(CommonConstant.OPEN_ID);
+        LoginResponse response = sysUserService.smsLogin(request, IpUtil.getIpAddress(servletRequest), openId);
         return RespBody.success(response);
     }
 

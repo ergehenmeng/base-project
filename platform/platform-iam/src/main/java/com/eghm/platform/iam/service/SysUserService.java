@@ -100,17 +100,19 @@ public interface SysUserService {
      * 验证双因子并登录
      *
      * @param request 验证码
+     * @param ip      ip地址
      * @return 登录信息
      */
-    LoginResponse checkTotp(TotpCheckRequest request);
+    LoginResponse checkTotp(TotpCheckRequest request, String ip);
 
     /**
-     * 绑定双因子
+     * 绑定双因子并登录
      *
      * @param request 绑定信息
+     * @param ip      ip地址
      * @return 登录信息
      */
-    LoginResponse bindTotp(TotpBindRequest request);
+    LoginResponse bindTotp(TotpBindRequest request, String ip);
 
     /**
      * 解绑微信
@@ -129,10 +131,11 @@ public interface SysUserService {
      * 短信登陆管理后台
      *
      * @param request 请求信息
+     * @param ip      ip地址
      * @param openId  openId
      * @return 响应信息
      */
-    LoginResponse smsLogin(SmsLoginRequest request, String openId);
+    LoginResponse smsLogin(SmsLoginRequest request, String ip, String openId);
 
     /**
      * 根据openId获取用户信息
